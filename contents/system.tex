@@ -1,0 +1,616 @@
+\chapter{基于车载信息物理融合的超视距碰撞预警原型系统设计与实现}
+本章将针对基于车载信息物理融合的超视距碰撞预警原型系统设计与实现进行研究。
+内容安排如下：\ref{section 6-1} 节是本章的引言，介绍车联网碰撞预警系统研究现状和目前研究的不足以及本章的主要贡献。
+接着，\ref{section 6-2} 节阐述本章的系统场景与架构设计。
+在此基础上，\ref{section 6-3} 节设计了基于视图修正的碰撞预警算法。
+进一步，\ref{section 6-4} 节在基于真实车辆轨迹的仿真场景中对所提算法进行了性能验证。
+更进一步，\ref{section 6-5} 节搭建了硬件在环与基于无人小车的测试平台并对所提算法进行了有效性验证。
+最后，\ref{section 6-6} 节总结本章的研究工作。
+
+\section{引言}\label{section 6-1}
+
+车联网作为实现智慧交通系统的基础技术，已得到学术界与工业界的广泛关注。
+专用短程通信（DSRC）\cite{kenney2011dedicated}是发展较好的车联网通信标准之一。
+同时，另一个主流的车联网通信标准是基于蜂窝网络\cite{agiwal2016next}开发的，具体地，长期演进-车辆（LTE-V）标准已经被开发出来以实现V2X通信，它正在向基于5G的C-V2X通信演进\cite{araniti2013lte}。
+装有车载单元（OBU）的车辆可以分别通过车对车（V2V）和车对基础设施（V2I）通信与车辆和路侧单元（RSU）进行通信。
+一些研究\cite{ucar2015multihop, dai2018bandwidth, ahmed2018cooperative}对异构车辆通信环境的信息服务进行了研究。
+鉴于不断增长的数据和计算需求\cite{zhai2018optimization}、高度动态的交通状况和网络拓扑结构\cite{zhai2019fast}，以及不同ITS应用的各种服务质量（QoS）要求\cite{babbar2022lbsmt}，研究人员在设计数据调度算法\cite{liu2016cooperative, dai2016adaptive, wang2017dynamic}、资源调度机制 \cite{peng2017resource, ahmed2018secure}和新兴的ITS应用 \cite{liu2013improving, dai2016quality}付出了巨大努力。
+此外，许多研究一直在关注车联网中软件定义网络\cite{liu2016cooperative, wang2019delay, liu2018coding}和边缘计算\cite{hou2016vehicular, wang2018offloading}的新服务范式的发展，它们被认为是一种有前途的解决方案，通过解耦控制和数据平面来提高系统的可扩展性和灵活性，并通过卸载计算、网络、存储、通信和数据资源来实现低时延和高可靠的信息服务。
+在此基础上，一些研究针对车联网中的任务卸载\cite{wang2019delay}、分布式服务调度\cite{sun2018cooperative}和协作资源分配\cite{zhou2019computation}提出了不同解决方案。
+然而，由于对通信和计算有严格的实时性要求，在车联网中实现安全关键型应用仍非易事。
+
+研究人员针对DSRC的性能表现进行了深入研究。
+Yao等人\cite{yao2013delay}提出了一个分析模型来评估IEEE 802.11p下的广播性能，即MAC接入时延的平均值、偏差和概率分布，数值分析表明，IEEE 802.11p可以为高优先级的信息提供相对较好的性能。
+Zheng等人\cite{zheng2015performance}从传输概率、归一化吞吐量和平均接入时延等方面分析了IEEE 802.11p的增强型分布式信道接入机制，仿真结果验证了得出的性能模型的有效性。
+Peng等人\cite{peng2016performance}提出了基于IEEE 802.11p的多排队通信的一般概率性能，仿真结果表明多排队通信可以满足排队控制和道路安全的时延要求。
+另一方面，研究人员针对基于蜂窝的车联网通信（如LTE-V2X、NR-V2X）进行了性能分析。
+Anwar等人\cite{anwar2019physical}考虑两个目标应用，即超可靠低时延通信（Ultra Reliable Low Latency Communications，简称 URLLC）和增强型移动宽带（enhanced Mobile Broadband，简称 eMBB）并根据对URLLC和eMBB应用的最大可实现数据率和传输时延的理论计算来比较5G NR-V2X、LTE-V2X、IEEE 802.11bd和IEEE 802.11p技术。
+Moradi-Pari等人\cite{moradi-pari2023dsrc}针对DSRC和LTE-V2X在物理层与MAC进行了全面的比较，并进行了大量的现场测试，旨在考察在不同视距（Line-Of-Sight，简称LOS）和非视距（Non-Line-Of-Sight，简称NLOS）信道情况下的性能。
+尽管许多研究对通过不同车联网通信标准进行了性能分析，但绝大多数只关注物理层或MAC层的性能。
+
+车载边缘计算是车联网的一个新兴范式，可以更好地支持低时延、高可靠性和大规模的ITS应用。
+Hou等人\cite{hou2016vehicular}首先提出了一个观点，即车辆被认为是提供服务的边缘节点。
+提出的架构可以更好地支持实时服务，更好地利用单个车辆的计算和通信能力。
+Huang等人\cite{huang2017vehicular}提出了车辆边缘计算架构，它包括三个层次，即数据生成层、边缘层和云层。
+一个边缘辅助交通控制系统说明了VFC的好处，并讨论了取证挑战和潜在的解决方案。
+Wang等人\cite{wang2018offloading}提出了一个边缘辅助的实时交通管理系统，旨在最小化车辆报告的事件的平均响应时间。
+基于真实世界的出租车轨迹数据集的性能评估证明了所设计方法的有效性。
+另一方面，大多数现有的车辆碰撞预警系统都是基于超声波雷达或激光雷达等测距传感器的\cite{song2018real, wu2019series}，然而，这些方案都存在非视距的问题。
+随着近年来计算机视觉的发展，一些研究集中在基于摄像头实时视频流的碰撞检测上 \cite{wang2016vision, song2018lane}。
+然而，基于计算机视觉的方法可能需要密集的计算和大量的数据传输，这使得系统的性能无法得到实时响应。 
+另一方面，一些研究考虑了通过车辆通信进行碰撞预警。
+Hafner等人\cite{hafner2013cooperative}利用V2V通信技术实现了计算效率高的分散算法，用于交叉口的两车合作防撞，并对所提方法进行了实验验证。
+Gelbar等人\cite{gelbal2017elastic}提出了一个基于V2X通信的车辆行人碰撞预警和避免系统，并使用硬件在环模拟证明了所提方法的有效性。
+此外，无线通信中传输时延和数据包丢失等内在特征是不可避免的，而且对于车辆碰撞预警系统来说也是不可忽视的，这使得在车联网中实现实时和可靠的安全关键型服务变得更加困难。
+
+基于以上分析，本章致力于研究真实复杂车联网环境中原型系统实现问题，并以超视距碰撞预警原型系统为例进行设计与实现。
+本章的主要贡献总结如下。
+第一，提出了基于视图修正的碰撞预警（View Calibration Based Collision Warning，简称 VCCW）算法，通过结合通信时延估计和丢包检测来校准车辆轨迹，从而提高碰撞预警系统的及时性和准确性。
+具体地，基于真实车联网环境开展了现场测试并得到了V2I通信在应用层的时延视距，在此基础上，推导出基于稳定分布的传输时延拟合模型来估计车联网中应用层V2I传输时延。
+另一方面，根据历史信息，包括数据传输频率和车辆的位置，设计了一个丢包检测机制。
+第二，基于真实车辆轨迹建立了仿真实验模型，具体地，在德国科隆市选取具有不同特征（如交通密度、车辆速度、车辆加速度）的交叉口导入真实世界的车辆轨迹，并将所提算法与两种传统算法进行比较，其中包括基于云的碰撞预警（Cloud-Based Collision Warning，简称 CCW）和基于边缘的碰撞预警（Edge-Based Collision Warning，简称 ECW）且均未考虑对视图进行修正。
+仿真结果表明，所提算法与传统的方法相比，在碰撞预警的查全率和查准率方面都有优势。
+第三，基于真实车联网OBU和RUS设备，搭建了硬件在环试验平台，并分析了不同数据包大小对C-V2X端到端传输时延的影响。
+进一步，基于无人小车实现了超视距碰撞预警原型系统，在真实车联网环境中验证了所提算法的有效性。
+
+
+\section{超视距碰撞预警场景}\label{section 6-2}
+
+
+\begin{figure}[h] % use float package if you want it here
+	\centering
+	\includegraphics[width=0.9\columnwidth]{Fig6-1-example.pdf}
+	\bicaption{基于逻辑视图的碰撞预警系统}{Collision warning system based on the logical view}
+	\label{fig 6-1}
+\end{figure}
+
+首先，碰撞预警系统作为智慧交通系统中典型安全应用，对于预防交通事故具有重要意义。
+如图 \ref{fig 6-1} 所示，具有短无线电覆盖范围的通信基础设施（如RSU、5G小基站）可被作为边缘节点，因为它们在物理位置上更接近车辆并具有一定的计算能力。
+另一方面，具有广泛覆盖范围的通信基础设施（如 5G 蜂窝网络基站）可被视为云节点。
+车辆可通过 V2C 和 V2I 通信分别与云节点和沿路安装的边缘节点进行通信。
+其中，云节点被认为具有无限的计算能力，但如果其覆盖范围内的所有车辆都在并发地传输数据，它可能会遭受严重的带宽竞争。 
+与传统的基于云的服务相比，基于车载边缘计算的服务不仅减少了无线通信时延，而且通过将计算任务卸载到分布式的边缘节点上，提高了系统的可扩展性和响应性。
+考虑到两辆汽车（即图中 $v_1$ 和 $v_2$ ）正在接近一个没有交通信号灯的十字路口，那么很可能会发生碰撞，特别是在互相看不见对方的情况下。
+在该系统中，车辆定期通过 V2I 通信将实时状态上传至边缘节点，包括全球定位系统（Global Positioning System，简称 GPS）坐标、速度、加速度、方向等。
+边缘节点处理车辆的传感数据，并构建出实时反映车辆状态的逻辑视图以支持基于车辆轨迹预测的碰撞预警服务。
+然而，不可避免的是传感数据是不准确的，例如，由于卫星时钟偏差、大气时延和广播星历错误等原因，获得的 GPS 坐标是不准确的 \cite{liu2013improving}。
+此外，无线通信中的数据包丢失使得边缘节点估计移动车辆的实时位置变得更加困难。
+
+如上分析，尽管边缘计算新范式比传统的集中式云计算减少了通信时延，但由于不可避免及不可忽视的诸如传感器错误、传输时延和数据包丢失等问题，碰撞预警系统仍然会受到车辆信息不准确的影响。
+图 \ref{fig 6-1} 中的放大部分显示了在边缘节点构建的逻辑视图与真实交通视图相比，车辆位置不准确的例子。
+具体来说，假设车辆$v_1$在时间$t_1$的位置为以$p_1$并以$s_1 =$ 40 km/h 的速度接近十字路口。
+同时，车辆$v_2$在时间$t_1$位于$p_3$并以$s_2=$ 25 km/h的速度接近同一路口。
+车辆$v_1$和$v_2$在时间$t_1$同时向边缘节点发送它们的状态，然而，包含车辆$v_2$状态的数据包在V2I通信中丢失。
+边缘节点在时间$t_2$接收车辆状态信息，并形成一个关于每个车辆位置的逻辑视图，如图\ref{fig 1-1}顶部所示。
+假设数据大小为 500 kB，这对于典型的ITS应用来说是足够的\cite{liu2013improving}。
+典型的车联网通信技术DSRC支持3$\sim$27 Mb/s的数据速率，其中3 Mb/s 被推荐用于传输安全关键信息\cite{kenney2011dedicated}。
+因此，上传车辆状态的时间约为500 * 8 kb / 3 $\approx$ 1.3 s，即${t_2} - {t_1} \approx 1.3$ s。
+车辆$v_1$在时间$t_2$位于$p_1$，而$v_2$在边缘节点的逻辑视图中不存在。
+然而如现实交通视图所示，车辆$v_1$和$v_2$的现实位置分别为$p_2$和$p_4$。
+边缘节点的逻辑车辆视图和现实交通视图之间的车辆$v_1$位置的距离误差约为40 * 1000 / 3600 m/s * 1.3 $\approx$ 14 m，换言之，$d \approx$ 14 m。
+通过上述例子，显然，如何在车联网中实现信息物理融合即构建一个实时准确的视图以支持不同的智慧交通系统应用是当前迫切需要且极具挑战的问题。
+
+\section{基于视图修正的碰撞预警算法}\label{section 6-3}
+
+在本章节中，提出了基于视图修正的碰撞预警算法，通过传输时延估计和丢包检测来修正边缘节点构建的逻辑视图，以提高碰撞预警的服务质量。
+首先，基于真实车联网环境现场测试数据对应用层V2I时延拟合，得到基于稳定分布的应用层V2I时延模型。
+其次，基于数据传输频率和车辆位置在内的历史信息，设计了丢包检测机制。
+最后，给出了基于视图修正的碰撞预警算法的详细工作流程。
+
+\subsection{应用层V2I时延拟合模型}
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig6-2-delay.pdf}
+  \bicaption[不同系统架构下的传输时延]{不同系统架构下的传输时延，云计算和边缘计算中数据包传输的平均时延分别为120${ms}$和77${ms}$}[Transmission delay under different system architectures]{Transmission delay under different system architectures where average delay of packets transmission in cloud and fog computing is 120 ms and 77 ms, respectively}
+  \label{fig 6-2}
+\end{figure}
+
+本章根据真实车联网环境的现场测试数据分析了V2I通信的应用层传输时延。
+在现场测试中，两辆装有OBU的车辆能够通过V2I通信与RSU进行建立连接。
+RSU被安装在十字路口，移动式电脑与之相连作为边缘节点的计算单元。
+车辆正在接近十字路口，并通过V2I通信定期发送车辆状态，包括GPS坐标、速度、加速度、方向和时间戳。
+边缘节点接收来自车辆的数据包并获得V2I通信的应用层传输时延。
+
+以下，本章对真实车联网通信环境中的V2I传输时延进行建模。
+根据对实际现场测试得到的传输时延的观察，发现基于为非高斯过程提供成熟模型的稳定分布进行拟合传输时延是合适（本章节末尾的拟合结果表明，使用稳定分布来拟合时延是令人信服的）。
+因此，本章利用稳定分布来拟合观察到的V2I通信时延，其可以用如下的特征函数\cite{samoradnitsky2017stable}来描述
+\begin{numcases}{E \exp (i t X)=}
+\exp \left\{-\sigma^{\alpha}|t|^{\alpha}[1-i \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)]+i \mu t\right\}, &$\alpha \neq 1$ \notag \\
+\exp \{-\sigma|t[1+i \beta(2 / \pi) \operatorname{sgn}(t) \ln (|t|)]+i \mu t\},  &$\alpha=1$
+\end{numcases}
+\noindent
+其中 $X$ 是一个随机变量并服从稳定分布 $X \sim {S(\alpha, \beta, \mu, \sigma)}$, 且
+\begin{numcases}{}
+	\alpha \in \left( 0, 2\right] \notag \\
+	\beta \in \left[ -1, 1 \right] \notag \\
+	\mu \in \mathbb{R} \notag \\
+	\sigma \in \mathbb{R}^{+}
+\end{numcases}
+其中$\alpha$是稳定性指数，当$\alpha=2$时，相关稳定分布是高斯分布。
+$\beta$是一个偏度参数，当$\beta=0$时，相关的稳定分布是围绕中心$\mu$对称的。
+如果$\alpha \neq 1$，$\beta > 0$和$\beta < 0$的情况分别对应于左偏度和右偏度。
+$\sigma$是一个尺度参数，其类似于方差。
+特征函数$\phi(t)=E \exp (i t X)$完全决定了随机变量$X$的概率分布的行为和特性，其中$t$为实数，$i$为虚数单位，$E$为期望值。
+$\operatorname{sgn}(t)$ 是一个符号函数，其定义为
+\begin{numcases}{\operatorname{sgn}(t)=}
+		1, &$t>0$ \notag \\
+		0, &$t=0$ \notag \\
+		-1, &$t<0$ 
+\end{numcases}
+
+本章采用回归模型来估计稳定分布的四个参数。
+首先，给定观察数据为大小为$n$的随机样本，记为$x_1, x_2, \ldots, x_n$，那么简单的特征函数$\hat{\phi}(t)$可定义为
+\begin{align}
+	\hat{\phi}(t)&\!=\!\frac{1}{n} \sum_{j=1}^{n} \exp \left(i t x_{j}\right) \notag \\
+	&\!=\!\frac{1}{n} \sum_{j=1}^{n}\left[\cos \left(t x_{j}\right)+\sin \left(t x_{j}\right) i\right] \notag \\
+	&\!=\!\frac{1}{n} \sum_{j=1}^{n} \cos \left(t x_{j}\right)+i \frac{1}{n} \sum_{j=1}^{n} \sin \left(t x_{j}\right)
+\end{align}
+当 $\alpha \neq 1$, 可以得到
+\begin{align}
+	\phi(t) 
+	&\!=\!E \exp (i t X) \notag \\ 
+	&\!=\!\exp \left\{-\sigma^{\alpha}|t|^{\alpha}[1\!-\!i \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)]+i \mu t\right\} \notag \\ 
+	&\!=\!\exp \left\{-\sigma^{\alpha}|t|^{\alpha}\!+\!\left[\mu t\!+\!\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right] i\right\} \notag \\  
+	&\!=\!\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \exp \left[\left(\mu t\!+\!\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right] i\right\} \notag \\ 
+	&\!=\!\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \cos \left[\mu t\!+\!\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right] \notag \\ 
+	&\!+\!\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \sin \left[\mu t\!+\!\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right] i 
+\label{equ 6-5}
+\end{align}
+假设分布是围绕中心$0$对称的（即$\beta = 0, \mu = 0$），那么容易得到
+\begin{equation}
+	-\ln |\phi(t)|^{2}=2 \sigma^{\alpha}|t|^{\alpha}
+\end{equation}
+进一步可得
+\begin{align} 
+	\ln \left(-\ln | \phi(t)^{2}\right)
+	&= \ln \left(2 \sigma^{\alpha}|t|^{\alpha}\right) \notag \\ 
+	&=\ln \left(2 \sigma^{\alpha}\right)+\alpha \ln (|t|) 
+\end{align}
+
+
+通过回归$y_{k}=\alpha \omega_{k}+b$来估计$\alpha$和$\sigma$，其中${b=\ln \left(2 \sigma^{\alpha}\right)}$和${\omega_{k}=\ln \left(\left|t_{k}\right|\right)}$。
+记$f\left(t_{k}\right)=\ln \left(-\ln \left|\phi\left(t_{k}\right)\right|^{2}\right)$并使用线性回归使均方误差最小来解决估计问题。
+\begin{align}
+\left(\alpha^{*}, b^{*}\right) &=\underset{(\alpha, b)}{\arg \min } \sum_{k=1}^{K}\left(f\left(t_{k}\right)-y_{k}\right)^{2} \notag \\ &=\underset{(\alpha, b)}{\arg \min } \sum_{k=1}^{K}\left[\ln \left(-\ln \left|\phi\left(t_{k}\right)\right|^{2}\right)-\left(\alpha \omega_{k}+b\right)\right]^{2}  
+\end{align}
+然后，用最小平方法得到估计值$\hat{\alpha}$和$\hat{\sigma}$，即记
+$E_{(\alpha, b)}=\sum_{k=1}^{K}\left(f\left(t_{k}\right)-y_{k}\right)^{2}$，且其中估计参数可通过解决以下方程得到。
+\begin{numcases}{}
+	\frac{\partial E_{(\alpha, b)}}{\partial \alpha} =2 \left(\alpha \sum_{k=1}^{K} \omega_{k}^{2}-\sum_{k=1}^{K}\left(f\left(t_{k}\right)-b\right) \omega_{k}\right) =0 \notag \\
+	\frac{\partial E_{(\alpha, b)}}{\partial b} =2\left(K b-\sum_{k=1}^{K}\left(f\left(t_{k}\right)-\alpha \omega_{k}\right)\right) =0 
+\end{numcases}
+因此，估计值 $\hat{\alpha}$ 和 $\hat{\sigma}$ 可以表示为
+\begin{numcases}{}
+	\hat{\alpha}={ \sum_{k=1}^{K} f\left(t_{k}\right)\left(\omega_{k}-\bar{\omega}\right)}/{\sum_{k=1}^{K} \omega_{k}^{2}-\frac{1}{K}\left(\sum_{k=1}^{K} \omega_{k}\right)^{2}} \notag \\
+	\hat{\sigma}=\sqrt[\hat{\alpha}]{ (\exp \hat{b}) / 2}
+\label{equ 6-10}
+\end{numcases}
+其中
+${\hat{b}=\frac{1}{K} \sum_{k=1}^{K}\left(f\left(t_{k}\right)-\hat{\alpha} \omega_{k}\right)}$
+和 $\bar{\omega}=\frac{1}{K} \sum_{k=1}^{K} \omega_{k}$。
+
+
+容易看出，$\phi(t)$的实部和虚部，即$\operatorname{Re} \phi(t)$和$\operatorname{Im} \phi(t)$，均可由公式\ref{equ 6-5}得到。
+\begin{equation}
+	\operatorname{Re} \phi(t)=\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \cos \left[\mu t+\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right]
+\end{equation}
+\begin{equation}
+	\operatorname{Im} \phi(t)=\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \sin \left[\mu t+\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right]
+\end{equation}
+进一步，可得
+\begin{equation}
+	\arctan \left(\frac{\operatorname{Im} \phi(t)}{\operatorname{Re} \phi(t)}\right)=\mu t+\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)
+\end{equation}
+
+由于估计量 $\hat{\alpha}$ 和 $\hat{\sigma}$ 是根据公式 \ref{equ 6-10}得到的, 通过回归$q_{l}=\mu+c d_{l}$并使 $\varphi\left(t_{l}\right)$与$q_{l}$之间的均方误差最小化来估计另外2个参数 $\beta$ 和 $\mu$, 其中 ${d_{l}=\operatorname{sgn}\left(t_{l}\right)\left|t_{l}\right|^{\alpha-1}}$，${c=\sigma^{\alpha} \beta \tan (\alpha \pi / 2)}$ 和$\varphi\left(t_{l}\right)=\frac{1}{t_{l}} \arctan \left(\frac{\operatorname{Im} \phi\left(t_{l}\right)}{\operatorname{Re} \phi\left(t_{l}\right)}\right)$。
+\begin{align}
+\left(c^{*}, \mu^{*}\right) 
+&=\underset{(c, \mu)}{\arg \min } \sum_{l=1}^{L}\left(\varphi\left(t_{l}\right)-q_{l}\right)^{2} \notag \\ 
+&=\underset{(c, \mu)}{\arg \min } \sum_{l=1}^{L}\left(\frac{1}{t_{l}} \arctan \left(\frac{\operatorname{Im} \phi\left(t_{l}\right)}{\operatorname{Re} \phi\left(t_{l}\right)}\right)-\mu-c d_{l}\right)^{2}  
+\end{align}
+记$E_{(c, \mu)}=\sum_{l=1}^{L}\left(\varphi\left(t_{l}\right)-q_{l}\right)^{2}$, 并且可以通过解决以下问题得到解决方案。
+\begin{numcases}{}
+	\frac{\partial E_{(e, \mu)}}{\partial c}=2\left(c \sum_{l=1}^{L} d_{l}^{2}-\sum_{l=1}^{L}\left(\varphi\left(t_{l}\right)-\mu\right) d_{l}\right)&$=0$ \notag \\
+	 \frac{\partial E_{(c, \mu)}}{\partial \mu}=2\left(L \mu-\sum_{l=1}^{L}\left(\varphi\left(t_{l}\right)-c d_{l}\right)\right)&$=0$
+\end{numcases}
+因此，估计量 $\hat{\beta}$ 和 $\hat{\mu}$ 可表示如下
+\begin{numcases}{}
+	\hat{\beta}= \frac{\hat{c}}{\hat{\sigma}^{\hat{\alpha}} \tan (\hat{\alpha} \pi / 2)} \notag \\
+	\hat{\mu}= \frac{1}{L} \sum_{l=1}^{L}\left(\varphi\left(t_{l}\right)-\hat{c} d_{l}\right)
+\label{equ 6-16}
+\end{numcases}
+其中 
+\begin{equation}
+\hat{c}=\frac{\sum_{l=1}^{L} \varphi\left(t_{l}\right)\left(d_{l}-\bar{d}\right)}{\sum_{l=1}^{L} d_{l}^{2}-\frac{1}{L}\left(\sum_{l=1}^{L} d_{l}\right)^{2}}
+\end{equation}
+和 $\bar{d}=\frac{1}{L} \sum_{l=1}^{L} d_{l}$。
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig6-3-delay-fitting.pdf}
+  \bicaption{DSRC的应用层传输时延的概率密度函数（PDF）}{Probability density function (PDF) of application-layer transmission delay of DSRC}
+  \label{fig 6-3}
+\end{figure}
+
+通过公式 \ref{equ 6-10} 和公式\ref{equ 6-16}，并给定观测数据集$X^{(0)}$，可以得到稳定分布的四个估计参数。
+首先，给定的观察数据集为$X^{(0)}=(x_1^{(0)}, x_2^{(0)}, \ldots, x_n^{(0)})$。
+在$p$-th迭代中，可以通过以下方式对数据进行标准化。
+\begin{equation}
+x_{j}^{(p)}=\left(x_{j}^{(p-1)}-\mu_{p-1}\right) / \sigma_{p-1}, p = 1,2,\ldots
+\end{equation}
+其中${\sigma_{0}=\left(x_{.72}-x_{.28}\right) / 1.654}$和$\mu_{0}=25 \%$截断原点数据的平均值，$x_{f}$是$f$样本四分位数 \cite{fama1971parameter}。
+我们选择最佳的$t_{k}=\pi k / 25, k=1,2,\ldots,K^{(p)}$\cite{koutrouvelis1980regression}来估计公式\ref{equ 6-10}中的$\hat{\alpha}^{(p)}$和$\hat{\sigma}^{(p)}$。
+\begin{equation}
+	{\hat{\alpha}^{(p)}=\frac{ \sum_{k=1}^{K^{(p)}} f\left(t_{k}\right)\left(\omega_{k}-\bar{\omega}\right)}{\sum_{k=1}^{K^{(p)}} \omega_{k}^{2}-\frac{1}{K}\left(\sum_{k=1}^{K^{(p)}} \omega_{k}\right)^{2}} } 
+\end{equation}
+\begin{equation}
+	{\hat{\sigma}^{(p)}=\sqrt[\hat{\alpha}^{(p)}]{ (\exp \hat{b}^{(p)}) / 2}}
+\end{equation}
+其中 $f\left(t_{k}\right) = \ln \left(-\ln \left|\frac{1}{n} \sum_{j=1}^{n} \exp \left(i t_{k} x_{j}^{(p)}\right)\right|^{2}\right)$。
+
+而这些估计参数又可以得到公式\ref{equ 6-16}中另两个估计参数$\hat{\beta}^{(p)}$和$\hat{\mu}^{(p)}$，其最佳$L^{p}$点为$t_{l}=\pi l / 25, l=1,2,\ldots,L^{(p)}$ \cite{koutrouvelis1980regression}。
+\begin{equation}
+\hat{\beta}^{(p)}= \frac{\hat{c}^{(p)}}{\bar{\sigma}^{\bar{\alpha}} \tan (\bar{\alpha} \pi / 2)}
+\end{equation}
+\begin{equation}
+\hat{\mu}^{(p)}= \frac{1}{L^{(p)}} \sum_{l=1}^{L^{(p)}}\left(\varphi\left(t_{l}\right)-\hat{c}^{(p)} d_{l}\right)
+\end{equation}
+其中 $\bar{\alpha} =  {\hat{\alpha}^{(p)}}$ , $\bar{\sigma} =  {\hat{\sigma}^{(p)}}$ 和 
+\begin{equation}
+\varphi\left(t_{l}\right) = \frac{1}{t_{l}} \arctan \left(\frac{ \sum_{j=1}^{n} \sin \left(t_l x_{j}^{(p)}\right)}{\sum_{j=1}^{n} \cos \left(t_l x_{j}^{(p)}\right)}\right)
+\end{equation}
+
+经过有限的迭代，得到了满足要求的四个估计参数。
+并用实际现场测试得到的1804个数据包的传输时延来估计稳定分布模型。
+图\ref{fig 6-3}显示了应用层时延的概率密度函数（Probability Density Function，简称PDF）。
+应用层时延的分布几乎是对称的（$\alpha = 1.77395$），围绕平均值（$\mu = 72.7343$）。
+我们有95\%的信心，真正的平均值位于$71.9384$和$73.5301$的区间内。
+可以看出，所得到的分布具有左偏度（$\beta = 1$）和与平均值相差不小的平方的平均值（$\sigma = 13.3685$）。
+
+\subsection{数据包丢失检测机制}
+
+本章提出了一种基于历史信息的数据包丢失检测机制，其中历史信息包括数据传输频率和车辆位置。
+边缘节点获取应报告其状态的车辆的ID集合，其可根据车辆的上传频率确定。
+如果边缘节点没有收到预期的数据包，则有两种可能情况。
+首先，车辆不在V2I通信范围内，因此数据包无法成功传递。
+其次，车辆在V2I通信范围内，但数据包在传输过程中丢失。
+对于这些数据包，边缘节点会根据历史位置判断车辆是否在通信范围内，如果在通信范围内却未收到相应数据包，则边缘节点认为该数据包已丢失。
+
+不失一般性，本章考虑碰撞预警系统由单个边缘节点和若干辆车组成。
+值得注意的是，该设置可直接扩展到多个边缘节点的情况。
+在此场景中，本章使用集合$\mathbf{T}=\{1, \ldots, t, \ldots, T\}$来表示离散时间片。
+使用集合$\mathbf{V}=\{1, \ldots, v, \ldots, V\}$表示车辆，其中 $V$ 是车辆数量。
+在时间 $t$，车辆 $v$ 的位置、速度、加速度分别用 $l_{v}^{t}$、$s_{v}^{t}$，以及$a_{v}^{t}$ 表示。
+边缘节点用$e$表示，其位置用 ${l}_{e}$ 表示，且V2I通信范围用 $g_e$ 表示。
+在时间 $t$, 车辆 $v$ 与边缘节点$e$之间的距离用 $\operatorname{dis}_{v, e}^{t}$ 表示。
+如果 $\operatorname{dis}_{v, e}^{t} \leq g_e$，则车辆 ${v}$ 可以与边缘节点进行V2I通信。
+在时间 $t$，边缘节点接收到若干个数据包，该数据包集合用 $\mathbf{M}_{t}=\{1, \ldots, m, \ldots, {M}_t\}$ 表示，其中${M}_t$ 表示集合中的数据包数量, $m =(l_{v}^{t}, s_{v}^{t}, a_{v}^{t})$，$m \in \mathbf{M}_{t}$。
+同时，边缘节点记录每个时间片接收到的数据包，即使用集合 ${\mathbf{H}_{t}} = \{\mathbf{M}_{t-{H}_{t}}, \ldots, \mathbf{M}_{t-2}, \mathbf{M}_{t-1}\}$ 来表示在时间 $t$的 历史记录，其中${H}_{t}$为历史记录信息的长度。
+最后，本章节所提的基于历史信息的数据包丢失检测机制具体可分为以下两个步骤。
+
+\textbf{1）记录：}
+边缘节点维护一个车辆ID集合$\mathbf{ID}_{t}$以记录时间 $t$ 时V2I 通信覆盖范围内所有车辆的ID。
+$\mathbf{ID}_{t}$ 可通过上一时刻的值$\mathbf{ID}_{t-1}$进行初始化。 
+当边缘节点在时间 $t$ 收到若干个数据包 $\mathbf{M}_{t}$ 时，对于 $m=(l_{v}^{t}, s_{v}^{t}, a_{v}^{t}, d_{v}^{t})$，${m} \in M_{t}$，如果边缘节点第一次收到车辆 $v$ 的数据包，即${v} \notin \mathbf{ID}_{t}$，则将 $v$ 加入 $\mathbf{ID}_{t}$，即$\mathbf{ID}_{t} = \mathbf{ID}_{t} \cup \{v\}$。
+边缘节点搜索 $\mathbf{M}_{t}$ 并将所有车辆ID添加到集合 $\mathbf{ID}_{\mathbf{M}_{t}}$。
+
+\textbf{2）检测：}
+对于车辆 ${v} \in \mathbf{ID}_{t} \cup \mathbf{ID}_{\mathbf{M}_{t}}$，存在两种可能性：
+（a）${v} \in \mathbf{ID}_{t} \setminus \mathbf{ID}_{\mathbf{M}_{t}}$，即车辆 $v$ 可以与边缘节点通信，但是边缘节点未收到它的数据包；
+（b）${v} \in \mathbf{ID}_{t} \cap \mathbf{ID}_{\mathbf{M}_{t}}$，即车辆 $v$ 可以与边缘节点通信，并且边缘节点收到了它的数据包。
+因此，对于（a），边缘节点搜索 ${\mathbf{H}_{t}}$ 获取车辆的最新位置 $l_v^t$。
+边缘节点使用距离阈值 $\tau$ 和时间阈值 $\gamma$ 来检测车辆是否超出通信范围。
+如果车辆在通信范围内，边缘节点检测数据包是否在传输中丢失。
+如果车辆 $v$ 与边缘节点$e$之间的距离 $\operatorname{dis}_{v, e}^{t} \geq g_e - \tau$，那么表示车辆 $v$ 正在离开通信范围。
+因此，边缘节点将 $v$ 从 $\mathbf{ID}_{t}$ 中移除，即$\mathbf{ID}_{t}=\mathbf{ID}_{t} \setminus \{v\}$。
+如果 $\operatorname{dis}_{v, e}^{t} < g_e - \tau$，那么表示车辆 $v$ 可以与边缘节点通信，但是边缘节点未收到它的数据包。
+预估的数据包接收时间为 $t_r$。如果 $t - t_r > \gamma$，则边缘节点认为数据包已丢失。
+否则，车辆 $v$ 尚未发送数据包，或由于无线通信时延而导致数据包暂未收到。
+
+\subsection{工作流程}
+
+本章节介绍基于视图修正的碰撞预警算法的具体流程，在时间$t$，算法输入为车辆ID集合$\mathbf{ID}_{t}$、收到的数据包$\mathbf{M}_{t}$，以及历史记录${\mathbf{H}_{t}}$，算法输出为预警消息集合$\mathbf{W}_{t}$，具体算法流程可见算法6.1。
+首先，估计每个数据包的传输时延，并根据车辆速度和加速度更新其实时状态。
+其次，检测丢失的数据包，并使用边缘节点中的历史记录更新它们的状态。
+再次，使用模拟的传输时延来校准车辆轨迹以获得更加准确实时的逻辑视图。
+进一步，基于修正的视图预测所有车辆未来的轨迹。
+最后，通过计算每对车辆的车头间距并使用车头时距阈值来预测潜在的碰撞。
+
+\SetKwInOut{KwIn}{输入}
+\SetKwInOut{KwOut}{输出}
+
+\begin{algorithm}[h]
+\renewcommand{\algorithmcfname}{算法}
+	\caption{基于视图修正的碰撞预警（View Calibration Based Collision Warning，简称 VCCW）}
+	初始化ID集合，$\mathbf{ID}_{t} = \mathbf{ID}_{t-1}$, $\mathbf{ID}_{\mathbf{M}_{t}} = \emptyset $ \\
+	\For{$m \in \mathbf{M}_{t}$}{
+		$\mathbf{ID}_{\mathbf{M}_{t}} =\mathbf{ID}_{\mathbf{M}_{t}} \cup \{v\}$\\
+		\If{$v \notin \mathbf{ID}_{t}$}{
+			$\mathbf{ID}_{t} = \mathbf{ID}_{t} \cup \{v\}$\\
+		}
+	}
+	\For{$v \in \mathbf{ID}_{t} \cup \mathbf{ID}_{\mathbf{M}_{t}}$}{
+		\If{$v \in \mathbf{ID}_{t} \setminus \mathbf{ID}_{\mathbf{M}_{t}}$}{
+			搜索历史信息 ${\mathbf{H}_{t}}$ 并得到车辆最新数据包 $m$\\
+			\If{$\operatorname{dis}_{v, e}^{t} \geq g_e - \tau$}{
+				$\mathbf{ID}_{t} = \mathbf{ID}_{t} \setminus \{v\}$\\
+			}
+			\If{$\operatorname{dis}_{v, e}^{t} < g_e - \tau$ 且 $t - t_r > \gamma$}{
+				$\mathbf{M}_{t} = \mathbf{M}_{t} \cup \{ m \}$\\
+			}
+		}
+	}
+	\For{$m \in \mathbf{M}_{t}$}{
+		${t_{\operatorname{int}}} = t - {t_{r}} + t_{f}^v$，并通过公式\ref{equ 6-24}更新车辆位置\\
+		\While{${t_{\operatorname{int}}} > t + t_{\operatorname{pre}}$}{
+			$t = t + \frac{1}{\xi}$，并根据公式\ref{equ 6-24} 计算车辆位置 $l_v^{t}$ \\
+			$\mathbf{Tra}_{v} = \mathbf{Tra}_{v} \cup \{ l_v^t \}$\\
+		}
+		$\mathbf{Tra} = \mathbf{Tra} \cup \{\mathbf{Tra}_{v}\}$
+	}
+	\For{$\mathbf{Tra}_{v} \in \mathbf{Tra}$ 且 $\mathbf{Tra}_{v^{\prime}} \in \mathbf{Tra} \setminus \{ \mathbf{Tra}_{v}\}$}{
+		\For{$l_v^t \in \mathbf{Tra}_{v}$ 且 $l_{v^{\prime}}^{t^{\prime}} \in \mathbf{Tra}_{v^{\prime}}$}{
+			\If{$\operatorname{dis}_{v, v^{\prime}}^{t, t^{\prime}} < \operatorname{dis}_{\operatorname{col}}$}{
+				${h}_{v, v^{\prime}} = |t - t^{\prime}|$\\
+				\If{${h}_{v, v^{\prime}} < \imath$}{
+					$w_{v}^{t} = w_{v^{\prime}}^{t^{\prime}} = 1$\\
+				}
+			}
+		}
+	}
+\end{algorithm}
+
+\textbf{1）车辆ID集合更新：}
+在时间 $t$ 初始化车辆ID集合 $\mathbf{ID}_{t}$ 和收到的数据包 $\mathbf{M}_{t}$ 的 ID集合 $\mathbf{ID}_{\mathbf{M}_{t}}$。
+其中$\mathbf{ID}_{\mathbf{M}_{t}}$ 包含了接收数据包中的所有车辆ID，并且如果车辆ID没有包含在 $\mathbf{ID}_{t}$ 中，则边缘节点将该车辆ID添加到 $\mathbf{ID}_{t}$ 中。
+车辆ID集合更新的详细过程显示在算法6.1的1-5行。
+
+\textbf{2）数据包丢失检测：}
+边缘节点通过数据包丢失检测机制得到数据包丢失的车辆集合，对于数据包丢失的车辆，边缘节点将在数据包历史记录${\mathbf{H}_{t}}$中搜索最新的车辆状态信息，并将其添加到$\mathbf{M}_{t}$中。
+数据包丢失检测的详细过程显示在算法6.1的6-12行。
+
+\textbf{3）基于车辆轨迹校准的视图修正：}
+对于数据包$m \in \mathbf{M}_{t}$，边缘节点基于稳定分布生成符合V2I传输时延拟合模型的随机数来估计数据包的传输时延$t_{f}^v$。
+边缘节点估计数据包的发送时间${\hat t_{c}} = {t_{r}} - t_{f}^v$。
+时间$t$和数据包发送时间${\hat t_{c}}$之间的时间间隔为${t_{\operatorname{int}}} = t - {t_{r}} + t_{f}^v$。
+边缘节点按照以下方式更新车辆$v$的位置信息
+\begin{numcases}{}
+	{l_x}_v^t = {l_x}_v^{{\hat t_{c}}} + {t_{\operatorname{int}}} {s_x}_v^{{\hat t_{c}}} + \frac{{t_{\operatorname{int}}}^2 {a_x}_v^{{\hat t_{c}}}}{2} \notag \\
+	{l_y}_v^t = {l_y}_v^{{\hat t_{c}}} + {t_{\operatorname{int}}} {s_y}_v^{{\hat t_{c}}} + \frac{{t_{\operatorname{int}}}^2 {a_y}_v^{{\hat t_{c}}}}{2}
+\label{equ 6-24}
+\end{numcases}
+其中，${l_x}_v^{{\hat t_{c}}}$、${l_y}_v^{{\hat t_{c}}}$、${s_x}_v^{{\hat t_{c}}}$、${s_y}_v^{{\hat t_{c}}}$、${a_x}_v^{{\hat t_{c}}}$，以及${a_y}_v^{{\hat t_{c}}}$分别表示车辆$v$在X和Y坐标系中的位置、速度和加速度。
+算法6.1的14行显示了基于车辆轨迹校准的视图修正的详细过程。
+
+\textbf{4）车辆未来轨迹预测：}
+对于车辆$v$，边缘节点在时间段$(t, t + t_{\operatorname{pre}})$内预测其未来轨迹，其中$t_{\operatorname{pre}}$是车辆轨迹预测时间。
+边缘节点每隔$\frac{1}{\xi}$秒计算一次车辆位置，其中$\xi$为车辆位置更新周期，并将计算得到的新位置添加到车辆$v$的轨迹集合$\mathbf{Tra}_{v}$中。
+车辆未来轨迹预测的详细过程在算法6.1的15-18行中给出。
+
+\textbf{5）潜在碰撞检测：}
+碰撞预警预警信息集合用 $\mathbf{W}_t = \{ 1, \ldots, w_{v}^{t}, \ldots, W_t\}$ 表示，其中 $w_{v}^{t}$ 是一个0-1变量，表示车辆$v$是否有潜在碰撞风险。
+对于位置信息满足$l_v^t \in \mathbf{Tra}_{v}$ 且 $l_{v^{\prime}}^{t^{\prime}} \in \mathbf{Tra}_{v^{\prime}}$ 的车辆对，边缘节点计算两辆车的距离$\operatorname{dis}_{v, v^{\prime}}^{t, t^{\prime}}$。
+如果$\operatorname{dis}_{v, v^{\prime}}^{t, t^{\prime}} < \operatorname{dis}_{\operatorname{col}}$，其中$\operatorname{dis}_{\operatorname{col}}$为碰撞预警距离阈值, 则假定车辆$v$和$v^{\prime}$经过同一点。
+领先车辆的车头通过道路上的某一点和后续车辆的车头通过同一点之间的时间被定义为时距\cite{vogel2003comparison}。
+因此，边缘节点计算两车间的时距 ${h}_{v, v^{\prime}} = |t - t^{\prime}|$，如果${h}_{v, v^{\prime}} < \imath$，其中$\imath$是时距阈值，碰撞预警信息将被触发，即$w_{v}^{t} = w_{v^{\prime}}^{t^{\prime}} = 1$。
+潜在碰撞检测的详细过程在算法6.1的第19-24行中给出。
+
+\section{仿真实验验证}\label{section 6-4}
+
+\subsection{实验设置}
+
+首先，本章在仿真实验中使用了收集自德国科隆市约400平方公里的区域真实出租车轨迹的数据集\cite{uppoor2013generation}。
+该数据集包含超过120万辆车的轨迹，其中包含了35亿个车辆位置点覆盖整个城市范围。
+本章选取了5个具有不同交通特征的路口来实现系统，不同场景的具体交通特征列于表\ref{table 6-1}中。
+在场景1、2和3中，边缘节点位于图\ref{fig 6-3}所示路口，图中X和Y坐标表示车辆的二维位置，单位为米。
+场景1、2和3中边缘节点具体位置为$(10422.0, 12465.3)$，实验开始时间分别设置为晚上10点、早上8点和晚上7点。
+在场景4和5中，边缘节点位于图\ref{fig 6-3}的中心，即$(6097.1, 14870.0)$处，且实验开始时间设置为下午4点和6点。
+边缘节点安装在前三个场景的$(10422.0, 12465.3)$和最后两个场景的$(6097.1, 14870.0)$处。
+每个实验的持续时间为100s，V2I通信范围设置为500m。
+
+\begin{table}[h]
+\centering
+\bicaption{不同场景的交通特征}{Traffic characteristics of different scenarios}
+\setlength{\tabcolsep}{7.5mm}{
+\begin{tabular}{cccc}
+\toprule
+场景&车辆数量&平均速度 (km/h)&平均加速度 (m/s$^2$)\\
+\midrule
+1& 54& 50.44& 0.203\\
+2& 81& 46.58& 0.007\\
+3& 106& 38.1& 0.075\\
+4& 85& 69.19& 0.165\\
+5& 114& 69.05& 0.060\\
+\bottomrule
+\end{tabular}}
+\label{table 6-1}
+\end{table}
+
+
+\begin{figure}[h]
+     \centering
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-4a-map.pdf}}
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-4b-map.pdf}}
+     \bicaption[交叉路口车辆轨迹]{交叉路口车辆轨迹。其中交叉路口均无交通信号灯（a）下午7点车辆轨迹且边缘节点位于$(10422.0, 12465.3)$（b）下午6点车辆轨迹且边缘节点位于$(6097.1, 14870.0)$}[Vehicular trajectory in two road intersections without traffic lights in 7 PM and 6 PM, respectively]{Vehicular trajectory in two road intersections without traffic lights in 7 PM and 6 PM, respectively. (a) Edge node located in $(10422.0, 12465.3)$ (b) Edge node located in $(6097.1, 14870.0)$}
+     \label{fig 6-4}
+\end{figure}
+
+为了比较分布式车载边缘计算架构的优越性，在云计算和边缘计算架构下分别实现了本系统。
+同时，为了进一步比较所提算法的性能，本章实现了两种具有对比性的碰撞检测算法。
+\begin{itemize}
+	\item \textbf{基于云的碰撞预警}（Cloud-Based Collision Warning，简称 CCW）：该碰撞预警系统是在集中式的云计算架构中实现的，具体而言，车辆将其状态信息上传到距离车辆较远的云服务器。在仿真实验中，使用现场测试实验获得的V2C传输时延来模拟车辆和云节点之间的通信时延。云服务器在没有视图修正的情况下基于车辆状态预测潜在的碰撞预警。
+	\item \textbf{基于边缘的碰撞预警}（Edge-Based Collision Warning，简称 ECW）：该碰撞预警系统实现在车载边缘计算架构中，具体地说。车辆将其状态上传到附近的边缘节点，并使用在真实世界场地测试中获得的V2I传输时延作为每个数据包的传输时延。同时，边缘节点在没有视图修正的情况下预测可能的碰撞。
+\end{itemize}
+
+为了进一步评估所提算法的性能，本章首先得到以下指标。
+预测的碰撞预警消息集合用$\mathbf{W}_{p}$表示，期望的碰撞预警集合用$\mathbf{W}_{d}$表示。
+期望预警消息的数量$\left| \mathbf{W}_{d} \right|$是实验设置的预期碰撞数量，而预测的碰撞预警消息数量$\left| \mathbf{W}_{p} \right|$是碰撞预警系统预测的潜在碰撞数量。
+此外，$\left| \mathbf{W}_{d} \cap \mathbf{W}_{p} \right|$表示预期的碰撞预警中实际成功预测的数量。
+$\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰撞预警系统成功预测的预期预警数量，换句话说，它是$\mathbf{W}_{p}$中的预测失败的数量。
+同样，$\left| {\mathbf{W}_{p} - \mathbf{W}_{d}} \right|$是错误预测的数量，即是碰撞预警系统预测的潜在碰撞，但不是预期的碰撞预警。
+因此，定义查准率（Precision）和查全率（Recall）如下
+\begin{equation}
+	\operatorname{Precision} = \frac{{\left| {\mathbf{W}_{d} \cap \mathbf{W}_{p}} \right|}}{{\left| {\mathbf{W}_{d} \cap \mathbf{W}_{p}} \right| + \left| {\mathbf{W}_{p} - \mathbf{W}_{d}} \right|}}
+\end{equation}
+\begin{equation}
+	\operatorname{Recall} = \frac{{\left| {\mathbf{W}_{d} \cap \mathbf{W}_{p}} \right|}}{{\left| {\mathbf{W}_{d} \cap \mathbf{W}_{p}} \right| + \left| {\mathbf{W}_{d} - \mathbf{W}_{p}} \right|}}
+\end{equation}
+
+
+
+\subsection{实验结果与分析}
+
+\textbf{1) 不同交通场景的影响:}
+图 \ref{fig 6-5} 比较了三种算法在不同交通场景下的性能，其中选取了五个具有不同交通特征的场景。
+图 \ref{fig 6-5}(a)比较了三种算法的查准率。
+显然，VCCW 在所有场景下都取得了最高的查准率。
+主要原因是得益于VCCW 中对于边缘视图的修正，车辆状态更接近实时状态，换句话说，基于修正视图的碰撞预警可以提供更加准确的服务。
+以上也可在图\ref{fig 6-5}(b)中得以证明，其比较了三种算法的查全率。
+显然，在所有交通场景下，基于修正视图的碰撞预警都可以提高查准率和查全率。
+
+
+\begin{figure}[h]
+     \centering
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-5a-different-scenarios.pdf}}
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-5b-different-scenarios.pdf}}
+     \bicaption[不同交通场景下的性能对比]{不同交通场景下的性能对比，其中不场景的交通特征列于表\ref{table 6-1}中。（a）查准率（b）查全率}[Performance comparison under different scenarios]{Performance comparison under different scenarios, the traffic characteristics of which are listed in Table. \ref{table 6-1}. (a) Precision (b) Recall}
+     \label{fig 6-5}
+\end{figure}
+
+\textbf{2) 不同时距阈值的影响:}
+图\ref{fig 6-6} 比较了三种算法在不同时距阈值下的性能，其中时距阈值从1s 增加至 5s。
+时距是两辆车通过一个点之间的时间间隔，因此，通过时距阈值来评估两车发生潜在碰撞的风险。
+显然，如果时距阈值小，预测的碰撞预警消息数量也会随之减少。
+可以观察到，随着时距阈值的增加，查准率随之升高，这是因为当时距阈值增加时，预测的碰撞预警消息数量也随之增加。
+因此，预测成功在整体预测数量中的占比也随之增加，即查准率的提升。
+同理，随着时距阈值的增加，查全率随之下降。
+图\ref{fig 6-6}(a)比较了三种算法的查准率。
+可以看到，VCCW 在不同时距阈值下都取得了最高的查准率。
+图\ref{fig 6-6}(b)比较了三种算法的查全率。
+值得注意的是，ECW的性能明显高于CCW，这是因为基于边缘的碰撞预警可以利用分布式车载边缘计算架构带来的更低的数据包传输时延，使得边缘构建的视图与云端构建的视图相比更加实时。
+
+\begin{figure}[h]
+     \centering
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-6a-different-headways.pdf}}
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-6b-different-headways.pdf}}
+     \bicaption[不同时距阈值下的性能对比]{不同时距阈值下的性能对比，其中时距阈值从1s 增加至 5s。（a）查准率（b）查全率}[Performance comparison under different headways]{Performance comparison under different headways, which increases from 1 to 5 s. (a) Precision (b) Recall}
+     \label{fig 6-6}
+\end{figure}
+
+\textbf{3) 不同丢包率的影响:}
+图\ref{fig 6-7} 比较了三种算法在不同丢包率下的性能，其中丢包率从 0\% 增加至 6\%。
+值得注意的是，随着丢包率的增加，所有算法的查全率都随之下降。
+主要原因是，随着丢包率的增加，边缘节点或云端通过无线传输接收到的车辆状态信息不完整，因此，碰撞预警系统将更难成功预测所有潜在碰撞风险。
+图\ref{fig 6-7}(a)和图\ref{fig 6-7}(b)分别比较了三种算法的查准率和查全率。
+可以看到，CCW 和 ECW的性能明显比VCCW更差，这是因为该两种算法均为实现对于视图的修正，因此，无线传输中的丢包对于该两种算法带来的影响更大。
+
+\begin{figure}[h]
+     \centering
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-7a-different-packet-loss-rate.pdf}}
+     \subfloat[][]{\includegraphics[width=0.5\columnwidth]{Fig6-7b-different-packet-loss-rate.pdf}}
+     \bicaption[不同丢包率下的性能对比]{不同丢包率下的性能对比，其中丢包率从1\%增加至6\%。（a）查准率（b）查全率}[Performance comparison under different packet loss rate]{Performance comparison under different packet loss rate, which increases from 0\% to 6\%. (a) Precision (b) Recall}
+     \label{fig 6-7}
+\end{figure}
+
+\section{原型系统实现与验证}\label{section 6-5}
+
+本章节基于C-V2X OBU和RSU 通信设备搭建原型系统，并进一步基于无人小车在真实车联网环境中验证了所提基于车载信息物理融合的超视距碰撞预警系统效果。
+首先，在室内场景，利用C-V2X OBU 和 RSU 搭建了硬件在环试验平台，并采集了C-V2X 端到端传输时延。
+在此基础上，进一步对C-V2X 端到端传输时延和丢包率等通信特征进行统计与分析。
+最后，在室外场景，搭建了基于无人小车的验证平台，并在其中部署了基于视图修正的碰撞预警算法，进一步，在真实复杂车联网通信环境下，验证了所提原型系统的有效性。
+
+\subsection{硬件在环试验平台}
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig6-8-hardware-in-the-loop-architecture.pdf}
+  \bicaption[硬件在环平台框架]{硬件在环平台框架}[Hardware-in-the-loop platform framework]{Hardware-in-the-loop platform framework}
+  \label{fig 6-8}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig6-9-C-V2X-hardware-in-loop.pdf}
+  \bicaption[基于 C-V2X 的硬件在环试验平台]{基于 C-V2X 设备的硬件在环试验平台}[Hardware-in-the-loop platform based on C-V2X]{Hardware-in-the-loop platform based on C-V2X}
+  \label{fig 6-9}
+\end{figure}
+
+本章节搭建硬件在环试验平台框架如图 \ref{fig 6-8} 所示，本系统中考虑具有两辆配备OBU的车辆以及配备RSU的边缘节点。
+同时，具有一定计算能力的PC通过以太网与RSU相连作为计算单元以提供服务。
+OBU 具有Wi-Fi 接口可与车载平板电脑建立通信连接，因而平板电脑可作为车机界面进行展示。
+具体地，本平台采用的OBU和RSU均具备LTE-V2X PC5和 5G UU双模通信能力，符合3GPP R15 LTE-V2X协议规范，并具有GNSS天线，可接收GPS卫星信号。
+基于C-V2X的硬件在环试验平台如图 \ref{fig 6-9} 所示，在室内场景，由于建筑物遮挡等原因，OBU和RSU 往往很难接收到GNSS信号，而GNSS数据报文中时间戳数据对于不同设备间的时间同步是至关重要的。
+因此，在室外天桥上部署了GNSS接收天线，通过有线方式连接GNSS信号转发系统，并通过室内发射天线将GNSS 信号进行转发，解决了室内GNSS信息弱甚至缺失问题。
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig6-10-delays.pdf}
+  \bicaption[不同数据包大小下的C-V2X端到端时延比较]{不同数据包大小下的C-V2X端到端时延比较}[C-V2X end-to-end delay comparison under different packet data size]{C-V2X end-to-end delay comparison under different packet data sizes}
+  \label{fig 6-10}
+\end{figure}
+
+基于硬件在环试验平台，本章采集了不同数据包大小下C-V2X 端到端传输时延数据，即OBU到RSU的C-V2X 设备间的传输时延。
+具体地，本章使用模拟测试用数据包分别进行填充，使得单个数据包大小从100 Bytes 增加至 7000 Bytes，以 10 Hz 的频率分别发送 1000 个数据包并采集传输时延。
+图 \ref{fig 6-10} 比较了在不同数据包大小下 C-V2X 端到端时延，可以看到，虽然传输时延具有一定的波动性，但是最小的数据包（100 Bytes）和最大的数据包（7000 Bytes）的平均传输时延仍然为最小和最大的。
+另外，值得注意的是，3000 Bytes 及以下大小的数据包传输时延以及 4000 Bytes 及以上的数据包传输时延出现了明显的分隔。
+这是由于4000 Bytes 及以上大小的数据包进行了重新分包操作，因此导致了传输时延的增加。
+
+\begin{table}[h]
+\centering
+\bicaption{不同数据包大小下C-V2X通信特征}{Different characteristics of C-V2X communications under different packet sizes}
+\setlength{\tabcolsep}{4.5mm}{
+\begin{tabular}{ccccccc}
+\toprule
+\begin{tabular}[c]{@{}c@{}}数据包大小\\（Bytes）\end{tabular}&\begin{tabular}[c]{@{}c@{}}平均时延\\（ms）\end{tabular}&\begin{tabular}[c]{@{}c@{}}最大时延\\（ms）\end{tabular}&\begin{tabular}[c]{@{}c@{}}最小时延\\（ms）\end{tabular}&\begin{tabular}[c]{@{}c@{}}时延\\方差\end{tabular}&\begin{tabular}[c]{@{}c@{}}丢包率\\（\%）\end{tabular}\\
+\midrule
+100& 6.271 & 8.975 & 5.396  & 0.292 & 0.0 \\
+500& 6.411 & 15.889 & 5.133 & 0.375 & 0.0 \\
+1000& 6.508 & 8.185 & 5.202 & 0.313 & 0.0 \\
+2000& 6.796 & 16.286 & 5.561 & 0.415 & 0.1 \\
+3000& 7.014 & 9.916 & 5.667 & 0.328 & 0.0 \\
+4000& 8.708 & 10.607 & 7.620 & 0.322 & 6.7 \\
+5000& 8.879 & 10.662 & 7.916 & 0.324 & 11.4 \\
+6000& 8.944 & 19.654 & 7.547 & 0.455 & 8.5 \\
+7000& 9.570 & 14.456 & 8.258 & 0.367 & 11.0 \\
+\bottomrule
+\end{tabular}}
+\label{table 6-2}
+\end{table}
+
+进一步，本章针对不同数据包大小下采集的C-V2X端到端传输时延进行分析，具体地，本章统计了以下指标：平均时延、最大时延、最小时延、时延方差，以及丢包率。
+其中，平均时延、最大时延，以及最小时延的单位为 ms，这三个指标体现了不同数据包大小下取得的时延特征，而时延方差表示了传输时延数据的离散程度。
+丢包率表示丢包数量占整体数据包数量的比例。
+不同数据包大小下的C-V2X通信特征显示在表 \ref{table 6-2} 中，特别地，可以看到随着数据包大小的增加，平均传输时延从 6.271 ms 增加至 9.570 ms。
+这是由于数据包传输时延与数据包大小具有线性关系，从表 \ref{table 6-2} 中最小时延数据也能体现。
+可以观察到，随着数据包大小的增加，最小时延从5.396 ms 增加至 8.258 ms。
+另一方面，可以得到不同数据包大小的时延方差均值为0.355，且其方差为0.0028。
+显然，不同数据包大小对于传输时延离散程度的影响是一致的。
+值得注意的是，当数据包大小增加至4000 Bytes及以上时，丢包率具有显著增长，从100$\sim$3000 Bytes 大小数据包平均丢包率 0.02 \% 增长至 9.4 \%（4000$\sim$7000 Bytes）。
+这是因为当数据包较大时（超过3000 Bytes），已超过单个数据包的传输大小限制，因此进行了划分数据包分开传输，导致了传输开销的增加，进而导致数据包传在输过程中丢失。
+
+\subsection{无人小车验证平台}
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig6-11-unmanned-vehicle-platform.pdf}
+  \bicaption[基于无人小车的试验平台]{基于无人小车的试验平台}[Experimental platform based on unmanned vehicles]{Experimental platform based on unmanned vehicles}
+  \label{fig 6-11}
+\end{figure}
+
+本章节基于无人小车搭建验证平台如图 \ref{fig 6-11} 所示，其中部署了基于视图修正的碰撞预警算法，并在真实复杂车联网环境中实现了超视距碰撞预警原型系统。
+具体地，无人小车搭载了OBU，可以通过V2I通信将自身车辆状态信息上传至位于路侧的边缘节点。
+在十字路口的基础设施上部署了RSU，其与PC 相连被视为边缘节点。
+边缘节点接收无人小车上传的状态信息并进行通过基于视图修正的碰撞预警算法进行评估是否存在潜在碰撞风险，如果存在，则通过V2I 通信将碰撞预警消息发送至无人小车并在车机界面中展示。
+进一步，为了部署VCCW算法，本章分别在基于安卓的平板电脑和基于Qt-5的PC上开发了车端应用以及边缘端软件。
+
+
+\section{本章小结}\label{section 6-6}
+
+本章首先提出了一个基于逻辑视图的超视距碰撞预警场景，以支持安全关键的ITS应用。
+在此场景中，车辆周期性上传自身状态信息，边缘节点基于车辆信息构建逻辑视图以反映车辆实时状态，并在此基础上，为车辆提供碰撞预警服务。
+其次，本章提出了一种基于视图修正的碰撞预警算法，该算法通过结合传输延迟估计和数据包丢失检测来校准视图，使得边缘节点能够构建更加实时准确的视图。
+具体地，通过推导一个基于稳定分布的应用层数据包传输延迟拟合模型来估计传输延迟，其中的拟合数据是通过现场测试获得。
+另一方面，根据历史信息，包括数据传输频率和车辆的位置，检测数据包丢失。
+再次，建立了基于真实车辆轨迹的仿真模型，仿真结果表明所提VCCW算法与基于云和基于边缘的碰撞预警算法相比，在碰撞预警的查准率和查全率方面都有优势。
+最后，本章搭建了基于C-V2X的硬件在环试验平台，对C-V2X端到端传输性能进行了分析。进一步，搭建了基于无人小车的验证平台，其中部署了基于视图修正的碰撞预警算法，并在真实复杂车联网环境中实现了超视距碰撞预警原型系统，验证了所提算法与系统的有效性。

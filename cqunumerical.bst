@@ -334,14 +334,14 @@ FUNCTION {is.in.chinese}
 
 FUNCTION {format.et.al}
 { is.in.chinese
-    { "等"}
+    { "ç­"}
     { "et~al." }
   if$
 }
 
 FUNCTION {format.anonymous}
 { is.in.chinese
-    { "佚名" }
+    { "ä½å" }
     { "Anon" }
   if$
 }
@@ -443,8 +443,8 @@ FUNCTION {format.translators}
     { translator format.names
       is.in.chinese
         { translator num.names$ #3 >
-            { "译" * }
-            { ", 译" * }
+            { "è¯" * }
+            { ", è¯" * }
           if$
         }
         'skip$
@@ -783,7 +783,7 @@ FUNCTION {format.volume}
     { "" }
     { volume is.number
         { is.in.chinese
-            { "第" volume * "卷" * }
+            { "ç¬¬" volume * "å·" * }
             { "volume" volume tie.or.space.connect }
           if$
         }
@@ -798,7 +798,7 @@ FUNCTION {format.number}
     { "" }
     { number is.number
         { is.in.chinese
-            { "第" number * "册" * }
+            { "ç¬¬" number * "å" * }
             { "number" number tie.or.space.connect }
           if$
         }
@@ -876,7 +876,7 @@ FUNCTION {format.edition}
     { "" }
     { edition is.number
         { is.in.chinese
-            { edition "版" * }
+            { edition "ç" * }
             { edition num.to.ordinal " ed." * }
           if$
         }
@@ -897,7 +897,7 @@ FUNCTION {format.edition}
 
 FUNCTION {format.sine.loco}
 { is.in.chinese
-    { "[出版地不详]" }
+    { "[åºçå°ä¸è¯¦]" }
     { "[S.l.]" }
   if$
 }
@@ -907,7 +907,7 @@ FUNCTION {format.address}
 
 FUNCTION {format.sine.nomine}
 { is.in.chinese
-    { "[出版地不详]" }
+    { "[åºçå°ä¸è¯¦]" }
     { "[s.n.]" }
   if$
 }
@@ -933,7 +933,7 @@ FUNCTION {format.publisher}
 
 FUNCTION {format.sine.loco.sine.nomine}
 { is.in.chinese
-    { "[出版地不详: 出版者不详]" }
+    { "[åºçå°ä¸è¯¦: åºçèä¸è¯¦]" }
     { "[S.l.: s.n.]" }
   if$
 }

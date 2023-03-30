@@ -1,6 +1,18 @@
 \ProvidesPackage{cquthesis}[2016/06/09 The place for your beloved packages and customization.]
 
 %=====你可以在这里使用\RequirePackage[包选项]{包名称}导入想用的Package=======
+\usepackage[linesnumbered,ruled,vlined,resetcount,algochapter]{algorithm2e}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{subeqnarray}
+\usepackage{cases}
+
 %=====以及定义你自己的功能和常量=======
 \newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}} 
 
@@ -17,8 +29,7 @@
 %\RequirePackage{physics}
 %
 % 计算机算法宏包：
-%\RequirePackage{algorithm2e}
-%\RequirePackage{algorithmic}
+\RequirePackage{algorithmic}
 %
 % 绘图宏包：
 %\RequirePackage{tikz}

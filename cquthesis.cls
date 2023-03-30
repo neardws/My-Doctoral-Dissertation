@@ -727,6 +727,23 @@ itemindent = 0mm,
 \zihao{-4}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
 }{
 \end{cqu@denotation}}%\denotation
+\newlist{cqu@abbreviate}{description}{1}
+\setlist[cqu@abbreviate]{%
+nosep,
+font = \normalfont,
+align = left,
+leftmargin = !,
+labelindent = 0mm,
+labelwidth = 25mm,
+labelsep* = 5mm,
+itemindent = 0mm,
+}%\setlist
+\NewDocumentEnvironment{abbreviate}{O{20mm} O{30mm}}{%
+\chapter*{\cqu@abbreviate@name}
+\chaptermark{\cqu@abbreviate@name}\cqu@fixhead
+\zihao{-4}\begin{cqu@abbreviate}[labelindent = #1,labelwidth=#2,]
+}{
+\end{cqu@abbreviate}}%\denotation
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
 \setlength{\cftbeforechapskip}{1mm}

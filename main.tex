@@ -3,7 +3,8 @@
 %%% 使用前请先阅读使用文档和用户协议，内有详细介绍。Happy Texing! :)
 %% =======================================================
 \documentclass%
-	[type=doctor, bilinguallist=apart, printmode=twoside]{cquthesis}%
+	[type=doctor, bilinguallist=apart, 
+	blindtrail, printmode=oneside]{cquthesis}%
 % 可用选项：
 % type=[bachelor|master|doctor],      % 必选，毕业论文类型，以下项目不填时为默认
 % liberalformat,                      % 可选，仅适用本科生，使用文学类论文标题格式，默认未打开
@@ -44,16 +45,18 @@
 %% 目录，注意需要多次编译才能更新
 \tableofcontents
 %% 插图索引，可选，如不用可注释掉
-%\listoffigures
+\listoffigures
 %\listoffiguresEN
 %% 表格索引，可选
-%\listoftables
+\listoftables
 %\listoftablesEN
 %% 公式索引，可选
 %\listofequations
 %\listofequationsEN
 %% 符号对照表，可选
-%\input{contents/denotation}
+\input{contents/denotation}
+%% 缩略语对照表，可选
+\input{contents/abbreviate}
 
 
 \mainmatter %%% 主体部分(绪论开始，结论为止)
@@ -61,8 +64,11 @@
 
 
 \include{contents/introduction}
-\include{contents/experiment}
-\include{contents/analysis}
+\include{contents/architecture}
+\include{contents/metric}
+\include{contents/resource}
+\include{contents/qos}
+\include{contents/system}
 \include{contents/conclusion}
 %\include{contents/yourFreeChoise}
 
@@ -84,7 +90,7 @@
 
 %% 原创声明和授权说明书，可选：用扫描页替换
 %\cquauthpage[contents/authscan.pdf]
-\cquauthpage
+%\cquauthpage
 
 %% 致谢
 \include{contents/ack}

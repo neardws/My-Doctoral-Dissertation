@@ -7,37 +7,37 @@
 % ===================
 %	论文的中英文题目
 % ===================
-  ctitle = {面向车载边缘计算的信息物理融合系统\\关键技术研究},
-  etitle = {Research on Key Techniques for Cyber-Physical System in Vehicular Edge Computing},
+  ctitle = {面向异构车联网的车载信息物理融合系统\\关键技术研究},
+  etitle = {Research on Key Techniques for Vehicular Cyber-Physical Systems in Heterogeneous Vehicular Networks},
 % ===================
 % 作者部分的信息
 % \secretize{}为盲审标记点，在打开盲审开关时内容会自动被替换为***输出，盲审开关默认关闭
 % ===================
   cauthor = \secretize{许新操},	% 你的姓名，以下每项都以英文逗号结束
   eauthor = \secretize{Xincao~Xu},	% 姓名拼音，~代表不会断行的空格
-  studentid = \secretize{20128888},	% 仅本科生，学号
+  studentid = \secretize{},	% 仅本科生，学号
   csupervisor = \secretize{刘~~~~凯~~~~教授},	% 导师的姓名
   esupervisor = \secretize{{Prof.~Kai Liu}},	% 导师的姓名拼音
   cassistsupervisor = \secretize{}, % 本科生可选，助理指导教师姓名，不用时请留空为{}
   cextrasupervisor = \secretize{}, % 本科生可选，校外指导教师姓名，不用时请留空为{}
   eassistsupervisor = \secretize{}, % 本科生可选，助理指导教师或/和校外指导教师姓名拼音，不用时请留空为{}
-  cpsupervisor = \secretize{丁小明~~工程师}, % 仅专硕，兼职导师姓名
-  epsupervisor = \secretize{Eng.~Xiaoming~Ding},	% 仅专硕，兼职导师姓名拼音
+  cpsupervisor = \secretize{}, % 仅专硕，兼职导师姓名
+  epsupervisor = \secretize{},	% 仅专硕，兼职导师姓名拼音
   cclass = \rmfamily{2023}年\rmfamily{6}月,	% 博士生和学硕填学科门类，学硕填学科类型
   research_direction = \zihao{3}{车联网},
-  edgree = {Degree of Master of Enginnering},	% 专硕填Professional Degree，其他按实情填写
+  edgree = {},	% 专硕填Professional Degree，其他按实情填写
 % 提示：如果内容太长，可以用\zihao{}命令控制字号，作用范围：{}内
   cmajor = 工~~~~学,	% 专硕不需填，填写专业名称
-  emajor = Material Science and Engineering, % % 专硕不需填，填写专业英文名称
+  emajor = , % % 专硕不需填，填写专业英文名称
   cmajora = \zihao{3}{计算机科学与技术},
   cmajorb = \zihao{3}{车联网},
-  cmajorc = \secretize{雒江涛~~~~教授},
+  cmajorc = \secretize{******~~~~教授},
 %  cmajord = 2023年6月,
 % ===================
 % 底部的学院名称和日期
 % ===================
-  cdepartment = 材料科学与工程学院,	%学院名称
-  edepartment = College of Material Science and Engineering,	%学院英文名称
+  cdepartment = ,	%学院名称
+  edepartment = ,	%学院英文名称
 % ===================
 % 封面的日期可以自动生成（注释掉时），也可以解除注释手动指定，例如：二〇一六年五月
 % ===================
@@ -50,28 +50,119 @@
 %
 % ===================
 \begin{cabstract}	% 中文摘要
-现实世界中的众多领域时常会面临各种复杂场景的决策问题，因此实现相关决策的最优化一直是科学研究的热点。然而，随着科学技术的快速发展，大量最优化问题的规模呈爆炸式增长。大规模的优化问题如空中交通流优化、QoS-aware服务优化、大规模交通网络中的车辆路径优化等，通常具有成千上万，甚至达到十万、百万个决策变量，决策变量数量的快速增加，则会导致搜索空间的大小呈现指数增长，这造成启发式搜索算法性能快速恶化，进而造成“维数灾难”。此外，大规模优化问题多具有多峰性、高非线性、不可导性等特性，这同样易引起多峰函数的局部最优解的个数呈指数增长；而当计算资源有限时，算法易陷入局部最优而难以获得优化问题的全局最优解，这将给确定性优化算法带来极大的求解难度。为解决上述问题，已有部分研究通过采用简化搜索空间的方法来求解大规模优化问题，如基于分解的方法和基于降维的方法。尽管这类方法在解决大规模优化问题上已取得了相对优越的性能，但其仍存在显著的不足。其中，基于分解的方法，由于其严重依赖于决策变量之间交互的准确性检测，当其面临复杂的或不可分解的大规模优化问题时，易出现无法有效地分解大规模搜索空间而求解失败的问题；而基于降维的方法，在简化空间中则难以保证全局最优解和高质量解的存在。基于上述求解方法的缺点，本文以求解大规模优化问题中简化搜索空间的方法作为切入点，展开多空间进化搜索算法的设计与研究，主要研究内容包含以下几方面：
 
-\circled{1} 针对大规模连续优化问题，现有简化搜索空间的求解方法，常需考虑决策变量之间关系的假设和要求，因而无法保证全局最优解或高质量解的存在的问题。基于此，设计了一种面向大规模连续优化问题的多空间进化搜索算法。在该算法中，给定一个原问题，除原始问题空间外，构建给定问题的多个简化问题空间，继而学习空间之间的映射。通过映射实现两个空间之间的知识迁移，将在简化问题空间发现的有用的信息迁移给原始问题空间，加速原始问题空间的搜索；同时，将在原始问题空间发现的高质量的解迁移给简化问题空间并引导简化问题空间的搜索方向朝向理想区域演化。此外，为探索不同辅助任务的有效性，对简化问题空间进行阶段性的重构。在CEC2013大规模连续基准测试集的15个问题上对该算法的有效性能进行验证，结果显示，该研究提出的多空间进化搜索（MSES）算法在解决大规模优化问题上，相较于基于协同进化算法DG2、RDG、RDG3，分别在13、13、12个问题上获得了较好的平均目标值；与基于非分解的优化算法DLLSO和MeMAO算法相比，分别在9、13个问题上获得了较好的平均目标值。
+近年来，经济与社会不断发展，汽车的数量急剧增长，从而对人类社会与自然环境带来了诸多挑战。
+随着感知技术、通讯方式与计算模式的发展，传统汽车正朝着智能化、网联化、协同化方向高速发展，以智能网联汽车为抓手，车联网驱动的智慧交通系统将有望于实现更加安全、高效、可持续发展的交通运输。
+车联网中车载信息物理融合系统是实现智慧交通系统多样应用的基础和关键。
+然而，车联网的固有特性和多元化的智能交通应用需求均给实现车载信息物理融合系统带来了巨大的挑战。
+首先，面向高动态异构车联网，融合不同的计算范式与服务架构是实现车载信息物理融合的基础。
+其次，面向分布式时变物理环境，有效的数据获取与建模评估是驱动车载信息物理融合的核心。
+再次，面对动态异构节点资源，高效的任务调度与资源分配是进一步提升智慧交通系统服务质量的关键。
+另外，面向多元智慧交通系统应用需求，满足差异性的系统质量与系统开销需求是驱动车载信息物理融合的另一关键。
+最后，面向复杂的真实车联网环境，基于车载信息物理融合系统进行有效设计并实现具体系统原型是具有挑战的。
 
-\circled{2} 针对大规模离散优化问题，该研究以经典的且具有代表性的车辆路径规划问题为实例，针对难以确定哪种形式对求解车辆路径问题是最有效的形式的问题，设计了多空间模因搜索算法。该算法构建了给定车辆路径问题的不同的简化形式，将简化形式的车辆路径问题作为原始车辆路径问题的辅助任务。在不同形式的车辆路径问题上同时执行模因搜索，并将简化形式的车辆路径问题搜索到的好的解迁移给原始的车辆路径问题，以加速其收敛。该算法在大规模车辆路径问题的基准测试集的65个实例上的实验结果表明，与所用的基线算法和随机算法相比，该研究提出的多空间模因搜索算法在65个实例上均获得了较好的平均开销。
+综上所述，本文从服务架构、评估指标设计、异构资源协同优化、质量-开销均衡和原型系统实现等五个方面对面向异构车联网的车载信息物理融合系统展开了研究。主要研究成果如下：
 
-\circled{3} 针对多空间进化搜索算法中资源分配不合理的问题，提出了基于动态资源分配策略的多空间进化搜索算法。该算法设计了一种资源分配合理性检测机制，该机制用于检测不同空间之间资源分配的合理性；同时，构建了一种基于显式贡献和隐式贡献的在线资源统计方法，其中，在不同空间上执行独立进化搜索并优化出最优解的适应度值的提升量定义为显式贡献，而问题空间中迁移解的个体的存活率定义为隐式贡献。并采用参数自适应方法来协调空间的显式贡献和隐式贡献，以进行资源的合理分配，进而提升多空间进化搜索算法的性能。在CEC2013大规模连续基准测试集的15个问题上对该算法的有效性进行验证，结果显示，该研究提出的基于动态资源分配策略的多空间进化搜索（MSES-DRA）算法在解决大规模优化问题上，相较于在分别采用不同优化器DLLSO、SHADE、SaNSDE时的多空间进化搜索（MSES）算法，分别在10、9、9个问题上获得较好的平均目标值；与FCRACC和CCFR2方法相比，分别在10、10个问题上获得较好的平均目标值。
+\circled{1} 基于软件定义网络和边缘计算的异构车联网架构研究。
+首先，提出了面向下一代车联网的分层服务架构，旨在将软件定义网络和边缘计算范式在车联网中进行有机融合，并最大化其在信息服务方面的协同效应。
+具体地，设计了一个四层架构，包括应用层、控制层、虚拟层和数据层，其目标是通过控制平面和数据平面的分离实现逻辑上的集中控制，基于网络功能虚拟化和网络切片促进自适应资源分配和面向服务的QoS，通过利用边缘计算服务的网络、计算、通信和存储能力来增强系统的可扩展性、响应性和可靠性。
+其次，进一步分析了面临的新兴挑战，并通过提出跨层协议栈讨论了未来的研究方向。
+最后，为了证明概念的可行性，在实际车联网环境中进行了两个案例研究。
+现场测试结果不仅证明了所提服务架构的巨大潜力，还为未来智能交通系统的发展提供了启示。
+
+\circled{2} 面向车载边缘计算的VCPS评估指标（Age of View）设计与优化策略研究。
+首先，提出了面向车载边缘计算的协同感知和异质信息融合架构，其中边缘节点融合车辆协同感知的异构信息并构建逻辑视图。
+其次，基于多类M/G/1优先队列建立了感知信息排队模型，并基于异质信息的时效性、完整性和一致性对车载信息物理融合质量进行建模。
+具体地，设计了一个新颖的评估指标Age of View来定量衡量车载信息物理融合系统（VCPS）的质量。
+再次，提出了一个基于差分奖励多智能体深度强化学习（MDR）解决方案。
+特别地，系统状态包括车辆感知信息、边缘节点缓存信息和视图要求。
+车辆动作空间包括信息感知频率和上传优先级。
+边缘节点根据预测的车辆轨迹和视图需求分配V2I带宽给车辆。
+最后，构建了仿真模型并进行了全面的性能评估，证明了MDR算法的优越性。
+
+\circled{3} 面向NOMA车载边缘计算的异构资源协同优化策略研究。
+首先，提出了基于NOMA的车载边缘计算架构，其通过异构边缘节点协同进行实时任务处理。
+其次，通过考虑考虑了域内和域间的干扰建立了V2I传输模型，并形式化定义了通过联合任务卸载和资源分配的协同资源优化问题，旨在最大化服务率。
+再次，将协同资源优化分解为两个子问题，即任务卸载和资源分配。
+特别地，将任务卸载子问题建模为严格势博弈，并提出了多智能体分布式深度确定性策略梯度（MAD4PG）算法来实现纳什均衡。
+资源分配子问题被分为两个独立的凸优化问题，并使用基于梯度的迭代方法和KKT条件提出了最优解。
+最后，基于真实车辆轨迹构建了仿真模型，并进行了全面的性能评估，证明了MAD4PG算法的优越性。
+
+\circled{4} 面向车载信息物理融合系统的质量-开销均衡优化策略研究。
+首先，提出了车载信息物理融合架构，其中异质信息可以由车辆感知并通过V2I通信上传到边缘节点。
+基于感知信息进行建模得到车联网中物理实体的数字孪生，并进一步构建逻辑视图以反映物理车联网环境的实时状态。
+其次，建立了协同感知模型和V2I上传模型，并考虑数字孪生的时效性、一致性与冗余度，以及感知开销和传输开销，定义了VCPS质量和开销模型。
+在此基础上，形式化定义了双目标问题，以最大化VCPS质量和最小化成本。
+再次，提出了基于多智能体多目标深度强化学习（MAMO）的解决方案，其中提出了决斗评论家网络，基于状态价值和动作优势来评估智能体动作。
+最后，进行了全面的性能评估，证明了MAMO算法的优越性。
+
+\circled{5} 基于车载信息物理融合的超视距碰撞预警原型系统设计与实现。
+首先，提出了超视距碰撞预警场景，其中车辆由于视线遮挡而具有潜在碰撞风险，而传统基于视距（LoS）的碰撞预警（例如，激光雷达、摄像头等）已不适用，因而进一步提出基于V2X通信的碰撞预警系统。
+其次，提出了基于无线传输时延拟合模型与丢包检测机制的轨迹修正碰撞预警算法，通过丢包检测与时延补偿获得更加准确的车辆位置信息以构建更加精准的逻辑视图，以向超视距碰撞预警系统提供服务。
+再次，建立了基于真实车辆轨迹的仿真实验模型并进行了全面性能评估，证明了所提碰撞预警算法的优越性。
+最后，基于V2X的OBU和RSU设备，搭建了硬件在环与基于无人小车的试验平台，并在真实的车联网环境中，验证了所提算法的有效性。
+
 \end{cabstract}
 % 中文关键词，请使用英文逗号分隔：
-\ckeywords{重庆大学,\LaTeX,\LaTeXe,论文,模板}
+\ckeywords{车载信息物理融合系统,异构车联网,评估指标设计,优化策略,深度强化学习}
 
 \begin{eabstract}	% 英文摘要
-Decision problems in complex scenarios widely exist in many fields in real world. The optimization of relevant decisions has drawn much attentation in scientific research. In recent years, with the development of the science and technology, the scale of these optimization problems sharply increases. Generally, large-scale optimization problems have thousands of decision variables, particular examples include optimization of air traffic flow, QoS-aware service, vehicle route optimization in large-scale transportation network, etc. In such scenario, the fast-growing number of decision variables may lead to the exponential growth of search space, which results in deteriorating rapidly on the performance of heuristic search algorithm and “curse of dimension”. Furthermore, the large-scale optimization problems typically involve the characteristics of multimodality, nonlinearity and nondifferentiability, which leads to the soaring number of local optimal solutions of multimodal function increasing exponentially. As a result, it is difficult to find the optimal solution within the limited computing resources, and the algorithm may fall into the local optimization, which has great difficulty and challenge for deterministic optimization algorithm. To address these issues, many approaches to simplify the search space are proposed, which can be categorized into two groups: decomposition-based methods and dimension-reduction-based methods. However, it is worth noting that decomposition-based approaches mostly rely on the accurate detection of the relationships between decision variables, which may fail in solving large-scale optimization problems that possess complex variable interactions, or even nondecomposable. On the other hand, dimension-reduction-methods may lose important optimization information, and it is difficult to guarantees the global optimum or high-quality solutions in reduced solution space. Keeping this in mind, in this thesis, we focus on simplifying the search space of large-scale optimization problem to develop multi-space evolutionary search paradigm. Specifically, main contributions of this thesis can be summarized as follows:
+Recently, with the continuous development of economy and society, the number of automobiles has increased dramatically, bringing many challenges to human society and the natural environment, such as traffic accidents, road congestion, and environmental pollution. 
+With the development of sensing technology, communication methods, and computing paradigms, traditional vehicles are rapidly evolving towards intelligence, connected, and collaboration. 
+Intelligent connected vehicles are driving the development of intelligent transportation systems (ITSs), which are expected to achieve safer, more efficient, and sustainable transportation.
+In the vehicle-to-everything (V2X) communication network, the vehicular cyber-physical systems (VCPSs) is the foundation and key to realizing diverse ITS applications. 
+However, the inherent characteristics of V2X and the diverse demands of ITS applications pose significant challenges to the implementation of such systems.
+First, it is essential to combine different computing paradigms and service architectures for high-dynamic heterogeneous V2X to achieve VCPS. 
+Second, effective data acquisition and modeling evaluation for distributed time-varying physical environments are the driving forces for VCPS. 
+Third, efficient task scheduling and resource allocation are crucial for further improving the service quality of ITS in the face of dynamic heterogeneous resources. 
+Fourth, to meet the diverse needs of ITS applications, satisfying the differentiated requirements of system quality and system overhead is another key factor driving VCPS. 
+Finally, facing the complex real-world V2X environment, it is challenging to effectively design and implement specific system prototypes based on VCPS. 
 
-\circled{1} Existing simplifying search space methods for solving large-scale continuous optimization problem often need to consider the problem characterstics. There are assumptions and requirements on the relationships between decision variables of the given optimization problem, and it cannot guarantee the existence of global optimum or high-quality solutions in the search space. To tackle such problem, a new evolutionary search paradigm, namely the multi-space evolutionary search, for solving large-scale continuous optimization problem is proposed. Specifically, given a large-scale optimization problem, besides the original problem space, multiple simplified solution spaces are derived. Moreover, the mapping between these problem spaces is learned, which will be used for knowledge transfer across spaces during the evolutionary search process. In this way, the useful traits found in the simplified problem space can be leveraged to facilitate the search in the original space, while the high-quality solutions found in the original problem space may also guide the search direction in the simplified problem space toward promising areas. Furthermore, to explore the usefulness of diverse auxiliary tasks, the simplified problem space will be re-constructed periodically using the solutions found during the evolutionary search process. The experimental results on 15 functions of CEC2013 large-scale benchmark suite show that the proposed MSES achieved significantly better averaged objective values on 13, 13 and 12 problems in contrast to DG2, RDG, RDG3. Compared with the DLLSO and MeMAO, the proposed MSES obtained significantly better averaged objective values on 9 and 13 problems.
+This thesis conducts research on vehicular cyber-physical systems in heterogeneous vehicular networks from five aspects: service architecture, evaluation metric design, heterogeneous resource cooperative optimization, quality-cost tradeoff, and prototype system implementation. 
+The main research contributions are as follows:
 
-\circled{2} For solving large-scale discrete optimization problems, the multi-space memetic search algorithm is presented by taking the classical vehicle routing problem as an example. Specifically, multiple simplified vehicle routing problems are firstly constructed and acted as the auxiliary tasks of the original vehicle routing problem. The memetic evolutionary search is thus simultaneously performed on simplified vehicle routing problems and original vehicle routing problem. In this way, the useful traits found in the simplified vehicle routing problems can be transferred to original vehicle routing problem to enhance the evolutionary search. The experimental results on 65 instances of commonly used CVRP benchmark suit demonstrate that the proposed method can obtain superior results than the baseline algorithm and random method.
+\circled{1} Research on the architecture of heterogeneous vehicular networks based on software-defined network and edge computing.
+First, a hierarchical service architecture for the next generation of V2X is proposed to organically integrate software-defined networks and edge computing paradigms in vehicular networks, and maximize their synergistic effects on information services. 
+Specifically, a four-layer architecture is designed, including the application layer, control layer, virtualization layer, and data layer. 
+The goal is to achieve centralized control logically through the separation of the control plane and the data plane, promote adaptive resource allocation and service-oriented quality of service (QoS) based on network function virtualization and network slicing, and enhance the scalability, responsiveness, and reliability of the system by utilizing the network, computing, communication, and storage capabilities of edge computing services. 
+Second, emerging challenges are further analyzed, and future research directions are discussed by proposing a cross-layer protocol stack. 
+Finally, two case studies are conducted in actual V2X environments to demonstrate the feasibility of the proposed service architecture, providing insights for the development of future ITS.
 
-\circled{3} To handle the unreasonable resource allocation problem in multi-space evolutionary search, the multi-space evolutionary search with dynamic resource allocation strategy (MSES-DRA) is proposed, which is designed based on explicit-implicit contributions of spaces according to the interaction between optimal individual and population. In particular, a detection mechanism is presented to measure the reasonableness of assignment in terms of computation resource of spaces. Meanwhile, an online resource statistics based on implicit and explicit contribution is proposed. Specifically, the explicit contributions can be defined by the fitness improvements of the best solutions found by independent evolutionary search performed on different spaces. The implicit contributions can be defined by the survivals of individuals that are transferred solutions across problem spaces. Further, an adaptive technology based on feedback is conducted to balance the assignment in terms of computational resource based on explicit contribution and implicit contribution. The experimental results on 15 problems of CEC2013 large-scale benchmark suite demonstrate that the proposed MSES-DRA method achieved significantly better averaged objective values on 10, 9 and 9 problems in contrast to the MSES method using DLLSO, SHADE and SaNSDE as the optimizers, respectively. Compared with the FCRACC and CCFR2, the proposed MSES-DRA method obtained significantly better averaged objective values on 10 and 10 problems, respectively.  
+\circled{2} Research on the evaluation metric (Age of view) design and optimization for VCPS in vehicular edge computing.
+First, a cooperative sensing and heterogeneous information fusion architecture based on vehicular edge computing (VEC) is proposed, where edge nodes construct a logical view by fusing heterogeneous information sensed by vehicles collaboratively. 
+Second, an information queuing model is established based on multi-class M/G/1 priority queues, and the quality of VCPS is modeled based on the timeliness, completeness, and consistency of heterogeneous information. 
+A novel evaluation metric, Age of View, is designed to quantitatively measure the quality of VCPS. 
+Third, a multi-agent difference-reward-based deep reinforcement learning (MDR) solution is proposed, where a difference reward (DR) based credit assignment scheme is designed to evaluate the contributions of individual vehicles on view construction; the edge node allocates V2I bandwidth to vehicles based on predicted vehicle trajectories and view requirements. 
+Finally, a simulation model is constructed, and comprehensive performance evaluations are conducted, demonstrating the superiority of the proposed MDR algorithm.
+
+\circled{3} Research on the cooperative optimization for heterogeneous resources in NOMA-based vehicular edge computing.
+First, a non-orthogonal multiple access (NOMA) based architecture is proposed in VEC, where heterogeneous edge nodes are cooperated for real-time task processing. 
+Second, a vehicle-to-infrastructure (V2I) transmission model is derived by considering both intra-edge and inter-edge interferences, and a cooperative resource optimization (CRO) problem is formulated by jointly optimizing the task offloading and resource allocation, aiming at maximizing the service ratio.
+Third, the CRO is decomposed into two subproblems, namely, task offloading and resource allocation.
+In particular, the task offloading subproblem is modeled as an exact potential game (EPG), and a multi-agent distributed distributional deep deterministic policy gradient (MAD4PG) is proposed to achieve the Nash equilibrium. 
+The resource allocation subproblem is divided into two independent convex optimization problems, and an optimal solution is proposed by using a gradient-based iterative method and KKT condition. 
+Finally, the simulation model is built based on real-world vehicular trajectories, and a comprehensive performance evaluation is given, which conclusively demonstrates the superiority of the proposed MAD4PG algorithm.
+ 
+\circled{4} Research on quality-cost tradeoff optimization for VCPS.
+First, a vehicular cyber-physical system architecture is proposed, in which heterogeneous information can be sensed by vehicles and uploaded to edge nodes via V2I communications. 
+Based on the sensed information, digital twins of physical entities in the vehicular networks are modeled and further constructed into logical views to reflect the real-time state of the physical vehicular environment.
+Second, a cooperative sensing model and V2I uploading model are established.
+In particular, the VCPS quality and cost models are defined by considering the timeliness and consistency of digital twins, and the redundancy, sensing cost, and transmission cost，respectively. 
+On this basis, a bi-objective problem is formulated to maximize the VCPS quality and minimize the VCPS cost.
+Third, a solution based on multi-agent multi-objective deep reinforcement learning (MAMO) is proposed, in which a dueling critic network is proposed to evaluate agent actions based on the state value and action advantage.
+Finally, a comprehensive performance evaluation is conducted, demonstrating the superiority of the proposed MAMO algorithm.
+
+\circled{5} Design and implementation of a beyond-line-of-sight collision warning prototype system based on VCPS.
+First, a beyond-line-of-sight collision warning scenario is proposed, in which vehicles have potential collision risks due to line-of-sight obstructions, and traditional line-of-sight (LoS) collision warning methods (such as LiDAR, cameras, etc.) are no longer applicable. 
+Therefore, a collision warning system based on V2X communication is further proposed.
+Second, a trajectory calibration collision warning algorithm based on a wireless transmission delay fitting model and packet loss detection mechanism is proposed. 
+By using packet loss detection and delay compensation, more accurate vehicle position information is obtained to construct a more precise logical view to provide services for the beyond-line-of-sight collision warning system.
+Third, a simulation experiment model based on real vehicle trajectories is established, and a comprehensive performance evaluation is given, demonstrating the superiority of the proposed collision warning algorithm.
+Finally, based on V2X OBU and RSU devices, a hardware-in-the-loop and unmanned small vehicle-based test platform is set up, and the effectiveness of the proposed algorithm is verified in a real vehicular environment.
+ 
 \end{eabstract}
 % 英文关键词，请使用英文逗号分隔，关键词内可以空格：
-\ekeywords{Large-scale optimization, Evolutionary multitasking, Knowledge transfer, Dynamic resource allocation, Vehicle routing problem
+\ekeywords{Vehicular cyber-physical systems, Heterogeneous vehicular networks, Metric design, Optimization method, Deep reinforcement learning
 }
 
 % 封面和摘要配置完成
