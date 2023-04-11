@@ -52,33 +52,33 @@
 \begin{cabstract}	% 中文摘要
 
 近年来，经济与社会不断发展，汽车的数量急剧增长，从而对人类社会与自然环境带来了诸多挑战。
-随着感知技术、通讯方式与计算模式的发展，传统汽车正朝着智能化、网联化、协同化方向高速发展，以智能网联汽车为抓手，车联网驱动的智慧交通系统将有望于实现更加安全、高效、可持续发展的交通运输。
-车联网中车载信息物理融合系统是实现智慧交通系统多样应用的基础和关键。
+随着感知技术、通讯方式与计算模式的发展，传统汽车正朝着智能化、网联化、协同化方向高速发展，以智能网联汽车为抓手，车联网驱动的智能交通系统将有望于实现更加安全、高效、可持续发展的交通运输。
+车联网中车载信息物理融合系统是实现智能交通系统多样应用的基础和关键。
 然而，车联网的固有特性和多元化的智能交通应用需求均给实现车载信息物理融合系统带来了巨大的挑战。
 首先，面向高动态异构车联网，融合不同的计算范式与服务架构是实现车载信息物理融合的基础。
 其次，面向分布式时变物理环境，有效的数据获取与建模评估是驱动车载信息物理融合的核心。
-再次，面对动态异构节点资源，高效的任务调度与资源分配是进一步提升智慧交通系统服务质量的关键。
-另外，面向多元智慧交通系统应用需求，满足差异性的系统质量与系统开销需求是驱动车载信息物理融合的另一关键。
+再次，面对动态异构节点资源，高效的任务调度与资源分配是进一步提升智能交通系统服务质量的关键。
+另外，面向多元智能交通系统应用需求，满足差异性的系统质量与系统开销需求是驱动车载信息物理融合的另一关键。
 最后，面向复杂的真实车联网环境，基于车载信息物理融合系统进行有效设计并实现具体系统原型是具有挑战的。
 
-综上所述，本文从服务架构、评估指标设计、异构资源协同优化、质量-开销均衡和原型系统实现等五个方面对面向异构车联网的车载信息物理融合系统展开了研究。主要研究成果如下：
+本文从服务架构融合、评估指标设计、协同资源优化、质量-开销均衡以及原型系统实现五个方面对面向异构车联网的车载信息物理融合系统展开了研究。主要研究成果如下：
 
 \circled{1} 基于软件定义网络和边缘计算的异构车联网架构研究。
 首先，提出了面向下一代车联网的分层服务架构，旨在将软件定义网络和边缘计算范式在车联网中进行有机融合，并最大化其在信息服务方面的协同效应。
 具体地，设计了一个四层架构，包括应用层、控制层、虚拟层和数据层，其目标是通过控制平面和数据平面的分离实现逻辑上的集中控制，基于网络功能虚拟化和网络切片促进自适应资源分配和面向服务的QoS，通过利用边缘计算服务的网络、计算、通信和存储能力来增强系统的可扩展性、响应性和可靠性。
 其次，进一步分析了面临的新兴挑战，并通过提出跨层协议栈讨论了未来的研究方向。
-最后，为了证明概念的可行性，在实际车联网环境中进行了两个案例研究。
+最后，为了证明概念的可行性，在真实车联网环境中进行了两个案例研究。
 现场测试结果不仅证明了所提服务架构的巨大潜力，还为未来智能交通系统的发展提供了启示。
 
 \circled{2} 面向车载边缘计算的VCPS评估指标（Age of View）设计与优化策略研究。
 首先，提出了面向车载边缘计算的协同感知和异质信息融合架构，其中边缘节点融合车辆协同感知的异构信息并构建逻辑视图。
 其次，基于多类M/G/1优先队列建立了感知信息排队模型，并基于异质信息的时效性、完整性和一致性对车载信息物理融合质量进行建模。
 具体地，设计了一个新颖的评估指标Age of View来定量衡量车载信息物理融合系统（VCPS）的质量。
-再次，提出了一个基于差分奖励多智能体深度强化学习（MDR）解决方案。
+再次，提出了一个基于差分奖励多智能体深度强化学习（MADR）解决方案。
 特别地，系统状态包括车辆感知信息、边缘节点缓存信息和视图要求。
 车辆动作空间包括信息感知频率和上传优先级。
 边缘节点根据预测的车辆轨迹和视图需求分配V2I带宽给车辆。
-最后，构建了仿真模型并进行了全面的性能评估，证明了MDR算法的优越性。
+最后，构建了仿真模型并进行了全面的性能评估，证明了MADR算法的优越性。
 
 \circled{3} 面向NOMA车载边缘计算的异构资源协同优化策略研究。
 首先，提出了基于NOMA的车载边缘计算架构，其通过异构边缘节点协同进行实时任务处理。
@@ -88,19 +88,19 @@
 资源分配子问题被分为两个独立的凸优化问题，并使用基于梯度的迭代方法和KKT条件提出了最优解。
 最后，基于真实车辆轨迹构建了仿真模型，并进行了全面的性能评估，证明了MAD4PG算法的优越性。
 
-\circled{4} 面向车载信息物理融合系统的质量-开销均衡优化策略研究。
+\circled{4} 面向车载信息物理融合的质量-开销均衡优化策略研究。
 首先，提出了车载信息物理融合架构，其中异质信息可以由车辆感知并通过V2I通信上传到边缘节点。
 基于感知信息进行建模得到车联网中物理实体的数字孪生，并进一步构建逻辑视图以反映物理车联网环境的实时状态。
-其次，建立了协同感知模型和V2I上传模型，并考虑数字孪生的时效性、一致性与冗余度，以及感知开销和传输开销，定义了VCPS质量和开销模型。
+其次，建立了协同感知模型和V2I上传模型，并考虑数字孪生的及时性、一致性与冗余度，以及感知开销和传输开销，定义了VCPS质量和开销模型。
 在此基础上，形式化定义了双目标问题，以最大化VCPS质量和最小化成本。
 再次，提出了基于多智能体多目标深度强化学习（MAMO）的解决方案，其中提出了决斗评论家网络，基于状态价值和动作优势来评估智能体动作。
 最后，进行了全面的性能评估，证明了MAMO算法的优越性。
 
 \circled{5} 基于车载信息物理融合的超视距碰撞预警原型系统设计与实现。
 首先，提出了超视距碰撞预警场景，其中车辆由于视线遮挡而具有潜在碰撞风险，而传统基于视距（LoS）的碰撞预警（例如，激光雷达、摄像头等）已不适用，因而进一步提出基于V2X通信的碰撞预警系统。
-其次，提出了基于无线传输时延拟合模型与丢包检测机制的轨迹修正碰撞预警算法，通过丢包检测与时延补偿获得更加准确的车辆位置信息以构建更加精准的逻辑视图，以向超视距碰撞预警系统提供服务。
+其次，提出了基于V2I应用层时延拟合模型与丢包检测机制的视图修正碰撞预警算法，通过丢包检测与时延补偿获得更加准确的车辆位置信息以构建更加精准的逻辑视图，以向超视距碰撞预警系统提供更高质量服务。
 再次，建立了基于真实车辆轨迹的仿真实验模型并进行了全面性能评估，证明了所提碰撞预警算法的优越性。
-最后，基于V2X的OBU和RSU设备，搭建了硬件在环与基于无人小车的试验平台，并在真实的车联网环境中，验证了所提算法的有效性。
+最后，基于C-V2X的OBU和RSU设备，搭建了硬件在环与基于无人小车的试验验证平台，并在真实的车联网环境中，验证了所提算法和系统的有效性。
 
 \end{cabstract}
 % 中文关键词，请使用英文逗号分隔：
@@ -118,7 +118,7 @@ Third, efficient task scheduling and resource allocation are crucial for further
 Fourth, to meet the diverse needs of ITS applications, satisfying the differentiated requirements of system quality and system overhead is another key factor driving VCPS. 
 Finally, facing the complex real-world V2X environment, it is challenging to effectively design and implement specific system prototypes based on VCPS. 
 
-This thesis conducts research on vehicular cyber-physical systems in heterogeneous vehicular networks from five aspects: service architecture, evaluation metric design, heterogeneous resource cooperative optimization, quality-cost tradeoff, and prototype system implementation. 
+This thesis conducts research on vehicular cyber-physical systems in heterogeneous vehicular networks from five aspects: service architecture integration, evaluation metric design, cooperative resource optimization, quality-cost tradeoff, and prototype system implementation. 
 The main research contributions are as follows:
 
 \circled{1} Research on the architecture of heterogeneous vehicular networks based on software-defined network and edge computing.
@@ -132,8 +132,8 @@ Finally, two case studies are conducted in actual V2X environments to demonstrat
 First, a cooperative sensing and heterogeneous information fusion architecture based on vehicular edge computing (VEC) is proposed, where edge nodes construct a logical view by fusing heterogeneous information sensed by vehicles collaboratively. 
 Second, an information queuing model is established based on multi-class M/G/1 priority queues, and the quality of VCPS is modeled based on the timeliness, completeness, and consistency of heterogeneous information. 
 A novel evaluation metric, Age of View, is designed to quantitatively measure the quality of VCPS. 
-Third, a multi-agent difference-reward-based deep reinforcement learning (MDR) solution is proposed, where a difference reward (DR) based credit assignment scheme is designed to evaluate the contributions of individual vehicles on view construction; the edge node allocates V2I bandwidth to vehicles based on predicted vehicle trajectories and view requirements. 
-Finally, a simulation model is constructed, and comprehensive performance evaluations are conducted, demonstrating the superiority of the proposed MDR algorithm.
+Third, a multi-agent difference-reward-based deep reinforcement learning (MADR) solution is proposed, where a difference reward (DR) based credit assignment scheme is designed to evaluate the contributions of individual vehicles on view construction; the edge node allocates V2I bandwidth to vehicles based on predicted vehicle trajectories and view requirements. 
+Finally, a simulation model is constructed, and comprehensive performance evaluations are conducted, demonstrating the superiority of the proposed MADR algorithm.
 
 \circled{3} Research on the cooperative optimization for heterogeneous resources in NOMA-based vehicular edge computing.
 First, a non-orthogonal multiple access (NOMA) based architecture is proposed in VEC, where heterogeneous edge nodes are cooperated for real-time task processing. 
@@ -149,16 +149,16 @@ Based on the sensed information, digital twins of physical entities in the vehic
 Second, a cooperative sensing model and V2I uploading model are established.
 In particular, the VCPS quality and cost models are defined by considering the timeliness and consistency of digital twins, and the redundancy, sensing cost, and transmission cost，respectively. 
 On this basis, a bi-objective problem is formulated to maximize the VCPS quality and minimize the VCPS cost.
-Third, a solution based on multi-agent multi-objective deep reinforcement learning (MAMO) is proposed, in which a dueling critic network is proposed to evaluate agent actions based on the state value and action advantage.
+Third, a solution based on multi-agent multi-objective deep reinforcement learning (MAMO) is proposed, in which a dueling critic network is proposed to evaluate agent actions based on the state-value and action-advantage.
 Finally, a comprehensive performance evaluation is conducted, demonstrating the superiority of the proposed MAMO algorithm.
 
 \circled{5} Design and implementation of a beyond-line-of-sight collision warning prototype system based on VCPS.
 First, a beyond-line-of-sight collision warning scenario is proposed, in which vehicles have potential collision risks due to line-of-sight obstructions, and traditional line-of-sight (LoS) collision warning methods (such as LiDAR, cameras, etc.) are no longer applicable. 
-Therefore, a collision warning system based on V2X communication is further proposed.
+Therefore, a collision warning system based on C-V2X devices is further proposed.
 Second, a trajectory calibration collision warning algorithm based on a wireless transmission delay fitting model and packet loss detection mechanism is proposed. 
-By using packet loss detection and delay compensation, more accurate vehicle position information is obtained to construct a more precise logical view to provide services for the beyond-line-of-sight collision warning system.
+By using packet loss detection and delay compensation, more accurate vehicle position information is obtained to construct a more precise logical view to provide high-quality services for the none-line-of-sight collision warning system.
 Third, a simulation experiment model based on real vehicle trajectories is established, and a comprehensive performance evaluation is given, demonstrating the superiority of the proposed collision warning algorithm.
-Finally, based on V2X OBU and RSU devices, a hardware-in-the-loop and unmanned small vehicle-based test platform is set up, and the effectiveness of the proposed algorithm is verified in a real vehicular environment.
+Finally, based on V2X OBU and RSU devices, a hardware-in-the-loop and unmanned small vehicle-based test platform is set up, and the effectiveness of the proposed algorithm and system are verified in a real vehicular environment.
  
 \end{eabstract}
 % 英文关键词，请使用英文逗号分隔，关键词内可以空格：

@@ -205,9 +205,33 @@ FUNCTION {new.sentence}
 FUNCTION {new.slash}
 { output.state before.all =
     'skip$
-    { after.slash 'output.state := }
+    { component.part.label "slash" =
+        { after.slash 'output.state := }
+        { new.block
+          component.part.label "in" =
+            { entry.lang lang.en =
+                { "In: " output
+                  write$
+                  ""
+                  before.all 'output.state :=
+                }
+                'skip$
+              if$
+            }
+            'skip$
+          if$
+        }
+      if$
+    }
   if$
 }
+
+%FUNCTION {new.slash}
+%{ output.state before.all =
+%    'skip$
+%    { after.slash 'output.state := }
+%  if$
+%}
 
 FUNCTION {not}
 {   { #0 }
@@ -334,21 +358,19 @@ FUNCTION {is.in.chinese}
 
 FUNCTION {format.et.al}
 { is.in.chinese
-    { "ç­"}
+    { "等­"}
     { "et~al." }
   if$
 }
 
 FUNCTION {format.anonymous}
 { is.in.chinese
-    { "ä½å" }
+    { "佚名" }
     { "Anon" }
   if$
 }
 
 INTEGERS { nameptr namesleft numnames name.lang}
-
-
 
 FUNCTION {format.names}
 { 's :=
@@ -443,8 +465,8 @@ FUNCTION {format.translators}
     { translator format.names
       is.in.chinese
         { translator num.names$ #3 >
-            { "è¯" * }
-            { ", è¯" * }
+            { "译" * }
+            { ", 译" * }
           if$
         }
         'skip$
@@ -783,7 +805,7 @@ FUNCTION {format.volume}
     { "" }
     { volume is.number
         { is.in.chinese
-            { "ç¬¬" volume * "å·" * }
+            { "第" volume * "卷" * }
             { "volume" volume tie.or.space.connect }
           if$
         }
@@ -798,7 +820,7 @@ FUNCTION {format.number}
     { "" }
     { number is.number
         { is.in.chinese
-            { "ç¬¬" number * "å" * }
+            { "第" number * "册" * }
             { "number" number tie.or.space.connect }
           if$
         }
@@ -933,7 +955,7 @@ FUNCTION {format.publisher}
 
 FUNCTION {format.sine.loco.sine.nomine}
 { is.in.chinese
-    { "[åºçå°ä¸è¯¦: åºçèä¸è¯¦]" }
+    { "[出版地不详: 出版者不详]" }
     { "[S.l.: s.n.]" }
   if$
 }
