@@ -13,6 +13,35 @@
 \usepackage{subeqnarray}
 \usepackage{cases}
 
+\usepackage{lastpage} % 导入lastpage宏包
+
+% 目录格式设置
+\usepackage{tocloft}
+% 设置二级标题的字体样式
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecindent}{8bp}
+% 设置三级标题的字体样式和缩进
+\renewcommand{\cftsubsecindent}{18bp}
+% 设置章标题的编号宽度
+\setlength{\cftchapnumwidth}{0em} 
+% 设置章标题的编号和标题之间的间距
+\renewcommand{\cftchapaftersnum}{\hspace{1em}} 
+% 设置二级标题的编号宽度
+\setlength{\cftsecnumwidth}{0em} 
+% 设置二级标题的编号和标题之间的间距
+\renewcommand{\cftsecaftersnum}{\hspace{1em}} 
+% 设置三级标题的编号宽度
+\setlength{\cftsubsecnumwidth}{0em} 
+% 设置三级标题的编号和标题之间的间距
+\renewcommand{\cftsubsecaftersnum}{\hspace{1em}} 
+% 设置页码字体
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+
+
+
+
 %=====以及定义你自己的功能和常量=======
 \newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}} 
 % 晶向指数支持，如果需要请取消下面两行注释：

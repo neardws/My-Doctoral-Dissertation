@@ -455,6 +455,7 @@ MAD4PG的程序显示在算法4.1中。
 			}
 		}
 	}
+\label{algorithm 4-1}
 \end{algorithm}
 
 另一方面，$J$个分布式行动者通过与环境同时交互而产生重放经验。
@@ -485,6 +486,7 @@ MAD4PG的程序显示在算法4.1中。
 			存储 $\left(\boldsymbol{o}^{t}, \boldsymbol{a}^{t}, \boldsymbol{r}^{t}, \boldsymbol{o}^{t+1}\right)$ 到经验回放缓存 $\mathcal{B}$;
 		}
 	}
+\label{algorithm 4-2}
 \end{algorithm}
 
 从经验回放缓存$\mathcal{B}$中抽取长度为$N$的$M$样本的小批量，以训练学习器的策略和评论家网络。
