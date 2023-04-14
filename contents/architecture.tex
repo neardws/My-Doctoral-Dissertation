@@ -1,19 +1,57 @@
-\chapter{基于软件定义网络和边缘计算的异构车联网架构研究}
-本章将针对基于软件定义网络和边缘计算的异构车联网架构进行研究。
-本章内容安排如下：\ref{section 2-1} 节是本章的引言，介绍车联网服务架构研究现状和目前研究的不足以及本章的主要贡献。
-\ref{section 2-2} 节阐述本章的异构车联网架构设计。
-\ref{section 2-3} 节介绍异构车联网中面临的挑战与机遇。
-\ref{section 2-4} 节通过两个实例研究分析了不同架构下ITS典型应用的性能并给出相应启示。
-\ref{section 2-5} 节总结本章的研究工作。
+\chapter[基于分层车联网架构的车载信息物理融合质量指标设计与优化]{基于分层车联网架构的车载信息物理融合质量指标\\设计与优化}
+本章将研究基于分层车联网架构的车载信息物理融合系统质量指标设计与优化。
+本章内容安排如下：
+\ref{section 2-1} 节是本章的引言，介绍车载信息物理融合系统质量指标研究现状、目前研究的不足，以及本章的主要贡献。
+\ref{section 2-2} 节阐述分层车联网架构设计。
+\ref{section 2-3} 节介绍协同感知与异质信息融合场景。
+\ref{section 2-4} 节设计车载信息物理融合质量指标并形式化定义VCPS质量优化问题。
+\ref{section 2-5} 节提出基于差分奖励的多智能体强化学习算法用以优化VCPS质量。
+\ref{section 2-6} 节总结本章的研究工作。
 
 \section{引言}\label{section 2-1}
-随着无线通信、传感、计算和控制等技术的蓬勃发展，车联网正逐步发展成为实现智能网联汽车、自动驾驶和智能交通系统等尖端技术应用的范式。
-基于蜂窝的V2X通信、大数据分析和人工智能的发展将进一步推动这一趋势，预示着汽车行业的下一场革命即将到来。
+
+随着无线通信技术的蓬勃发展，车联网正逐步发展成为支持下一代智能交通系统的关键技术。
+同时，随着 C-V2X 通信、大数据和人工智能的发展，汽车行业的下一场革命即将到来。
 回顾过去十余年手机的发展历程，可以看到手机已经从传统的通话和信息传递工具转变为具有社交、导航、多媒体娱乐等诸多功能的智能设备。
-同样，在不久的将来，汽车也将发生类似的趋势。
-汽车不再仅是简单的运输工具，而且将朝着智能化、网联化、协同化方向演进，并成为支撑各种智能交通系统应用的关键。
-因此，当前亟需为未来的车联网开发新的范例。
-本章致力于提出一种新颖的异构车联网系统架构，通过综合软件定义网络和边缘计算的范式特征，最大化端边云的协同效应，提供实时、可靠和大规模的车联网信息服务。
+同样，在不久的将来，汽车也将发生类似的趋势，即汽车不再仅是单纯的运输工具，而且将朝着智能化、网联化、协同化方向演进，并成为支撑各种智能交通系统应用的关键。
+软件定义网络\cite{li2021zhi}和边缘计算\cite{liu2022fedcpf}新兴范式的涌现为车联网提供了支持高密度车辆通信、海量数据传输、自适应计算卸载，以及逻辑集中控制等功能的解决方案。
+另一方面，传感技术和车联网的最新进展也推动了车载信息物理融合系统\cite{jia2015survey}的发展，并进一步推动下一代智能交通系统的实现。
+在VCPS中，交通灯信号、车辆位置、点云数据和监控视频等异质信息可以被车辆协同地感知并上传至边缘节点。
+边缘节点基于车辆感知信息进行融合，构建反映车联网中各元素的物理状态，例如车辆的位置、速度和方向，以及交通灯的状态等的逻辑映射，其被称为逻辑视图，而构建逻辑视图所需特定元素由具体的ITS应用决定。
+因此，本章致力于提出一种新颖的分层车联网服务架构，以最大化软件定义网络和边缘计算范式的协同效应，并支撑实时、可靠的车载信息物理融合系统，并进一步考虑车载协同感知与异质信息融合场景，设计车载信息物理融合质量指标与相应的调度算法以最大化车载信息物理融合质量。
+
+研究人员围绕车联网中的服务架构展开了深入研究。
+自Liu等人 \cite{liu2016cooperative} 于 2016年首次将 SDN 应用于车联网中，大量研究人员围绕软件定义车联网展开了研究 \cite{dai2018cooperative, luo2018sdnmac, liu2018coding, zhang2022ac-sdvn, zhao2022elite, lin2023alps, ahmed2023deep}。
+然而，现有大部分工作仅仅是在软件定义车联网架构的基础上从数据分发、路由缓存、数据安全等方面展开了研究，并没有对整体架构进行深入分析。
+另一方面，越来越多的研究在车联网环境中考虑将边缘计算范式以提高系统实时性、可靠性、安全性\cite{liu2017a, lang2022cooperative, liu2021fog, dai2021edge, zhang2022digital, liu2020adaptive, liao2021learning, liu2023mobility, liu2023asynchronous}。
+然而，上述研究并没有综合考虑异构车联网中最大化不同服务架构的协同效应。
+研究人员围绕车联网中的数据传播 \cite{liu2021fog, singh2020intent}、信息缓存 \cite{zhang2022digital, dai2020deep, su2018an} 和任务卸载 \cite{shang2021deep, liao2021learning} 方面展开了深入研究。
+然而，现有研究工作都没有考虑协同感知和异质信息融合的协同效应。
+部分研究人员对VCPS中的预测 \cite{zhang2019a, zhang2020data}、调度 \cite{li2020cyber, lian2021cyber} 和控制 \cite{dai2016a, hu2017cyber, lv2018driving} 技术进行了大量的研究，并促进了各种ITS应用的实现。
+尽管如此，上述研究都是基于由边缘/云节点收集足够和可靠的信息的假定。
+部分研究聚焦于VCPS中的信息质量评估 \cite{liu2014temporal, dai2019temporal, liu2014scheduling, rager2017scalability, yoon2021performance}。
+然而，大部分研究工作只评估了数据项层面的质量，而忽略了对异质信息融合的质量评估。
+部分研究专注于车联网中使用深度强化学习的车辆传感和信息融合，但并不适用于多车场景。
+少数研究将多智能体DRL应用于车联网中 \cite{kumar2022multi, he2021efficient}。
+然而，上述解决方案都不能直接应用于车载信息物理融合系统中的协同感知和异质信息融合。
+
+基于以上分析，本章针对分层架构和质量指标进行了协同研究，旨在分层车联网架构基础上通过协同感知和异质信息融合来提高车载信息物理融合质量。
+本章节主要的贡献概述如下。
+第一，提出了融合 SDN 和边缘计算范式的车联网分层服务架构，其中包含应用层、控制层、虚拟层和数据层。
+具体地，通过分离车联网中控制和数据平面实现了逻辑集中控制，并通过基于边缘的网络、计算、存储资源卸载实现了基于边缘计算的分布式服务。
+第二，通过整合异质信息的感知、上传、建模和评估，研究了面向车载边缘计算的车载信息物理融合系统质量评估问题。
+特别地，在多类M/G/1优先级队列和香农理论的基础上，建立了一个协同感知模型。
+在此基础上，设计了一个名为Age of View的车载信息物理融合质量评估指标，用于评估VCPS中异质信息的时效性、完整性和一致性。
+第三，提出了一个基于差分奖励的多智能体深度强化学习（Multi-Agent Difference-Reward-based Deep Reinforcement Learning, MADR）算法。
+具体地说，车辆作为独立的智能体，具有感知频率和上传优先权的动作空间。
+然后，设计了一个基于差分奖励（Difference Reward, DR）的信用分配方案来评估各个车辆对视图构建的贡献，从而提高每个智能体的行动的评估精度。
+此外，与传统的DRL算法相比，该方案能够实现每个智能体的较小动作空间，并加快收敛速度。
+同时，根据车辆轨迹和视图需求，在边缘节点设计了一个V2I带宽分配（V2I Bandwidth Allocation, VBA）方案。
+第四，基于现实世界的车辆轨迹，构建了仿真实验模型，并进行了全面的性能评估。
+实现了所提 MADR 算法和 4 种比较算法，其中包括随机分配（Random Allocation, RA）、集中式深度确定性策略梯度（Centralized Deep Deterministic Policy Gradient，C-DDPG）\cite{mlika2022deep}、多智能体行动者-评论家（Multi-Agent Actor-Critic，MAAC）\cite{he2021efficient}和采用VBA策略的MAAC（MAAC-VBA）。
+仿真结果表明，所提 MADR 算法在提高VCPS质量方面比RA、C-DDPG、MAAC和MAAC-VBA分别高出约61.8\%、23.8\%、22.0\%和8.0\%，收敛速度与C-DDPG、MAAC和MAAC-VBA相比分别加快了约6.8倍、1.4倍和1.3倍。
+
+\section{分层车联网架构设计}\label{section 2-2}
 
 为了改造和革新传统的网络架构，研究人员提出了软件定义网络\cite{wang2020ji}，其实现逻辑上的集中控制与网络功能快速迭代。
 目前，SDN 在云计算系统中的控制和管理已经显示出了巨大的优势\cite{jain2013network}。
@@ -28,7 +66,7 @@
 通过SDN技术，车联网可以实现更加精细化的管理和调度，提高网络的可靠性和性能，为智能交通系统应用提供更好的支持。
 考虑到车联网的特点，如动态网络拓扑、车辆的高移动性和异质通信接口，亟需一个基于 SDN 的框架来抽象资源，并在该系统中实现最佳服务调度。
 
-另一方面，边缘计算是一种新兴的网络模式，其能够在物联网时代为数十亿联网设备提供高可靠性和低延迟的信息服务 \cite{shi2016edge}。
+另一方面，边缘计算能够在物联网时代为数十亿联网设备提供高可靠性和低延迟的信息服务 \cite{shi2016edge}。
 边缘计算通过将计算、网络、存储资源从云端卸载到终端用户附近，从而有效地缩短数据传输和响应时间，提高服务的可靠性和响应速度。
 与传统的基于云的服务不同，边缘计算专注于支持高密度的设备连接和网络边缘的密集计算。
 毋庸置疑，车联网作为物联网中最具代表性的应用场景之一，有望从基于边缘的服务发展中获得巨大的收益。
@@ -38,22 +76,6 @@
 值得注意的是，5G 技术的成熟和现代汽车在计算、存储和通信能力方面的快速发展，正强力驱动着边缘计算与车联网的联合 \cite{li2021che}。
 超可靠和低延迟的5G技术可以大幅提高数据传输和响应速度，进一步提升车联网的效率和可靠性。
 而现代汽车的智能化趋势也为边缘计算的应用提供了更为广泛的可能性。
-未来，随着边缘计算技术的不断发展，车联网有望实现更加高效、安全、智能的交通运行。
-
-针对车联网中的服务架构，研究人员在研究基于 SDN 和边缘计算的范式方面付出了巨大努力。
-自Liu等人 \cite{liu2016cooperative} 于 2016年首次将 SDN 应用于车联网中，大量研究人员围绕软件定义车联网展开了研究 \cite{dai2018cooperative, luo2018sdnmac, liu2018coding, zhang2022ac-sdvn, zhao2022elite, lin2023alps, ahmed2023deep}。
-然而，现有大部分工作仅仅是在软件定义车联网架构的基础上从数据分发、路由缓存、数据安全等方面展开了研究，并没有对整体架构进行深入分析。
-另一方面，越来越多的研究在车联网环境中考虑将边缘计算范式以提高系统实时性、可靠性、安全性\cite{liu2017a, lang2022cooperative, liu2021fog, dai2021edge, zhang2022digital, liu2020adaptive, liao2021learning, liu2023mobility, liu2023asynchronous}。
-然而，上述研究并没有综合考虑异构车联网中最大化不同服务架构的协同效应，且绝大多数架构研究仍停留在理论分析层面，缺乏在实际场景中对架构优势进行验证。
-
-基于以上分析，本章首先提出了车联网中信息服务的分层架构，包括应用层、控制层、虚拟层和数据层。
-考虑到车联网的独特特征，包括车辆的高移动性、间歇性服务连接、动态网络拓扑和异构资源，本章结合了 SDN 和边缘计算范式以最大化不同范式的协同效应。
-具体地，全面分析了车联网中控制和数据平面的分离、异构资源环境中的网络功能虚拟化、针对不同服务质量要求的服务的网络切片（Network Slicing, NS），以及基于边缘服务的计算、存储、控制和通信能力卸载。
-此外，还讨论了该架构下产生的新挑战，并提出车联网的跨层协议栈，以指导未来的研究方向。
-最后，搭建了两个原型系统，并在现实的车联网环境中实现了两个应用。
-原型系统不仅验证了本章提出的异构车联网系统架构的可行性，而且为未来车联网的实际部署提供了参考。
-
-\section{架构设计}\label{section 2-2}
 
 本章提出了一个新颖的车联网分层架构，旨在增强信息服务的可扩展性和可靠性，提高应用管理的敏捷性和灵活性，并为下一代 ITS 的实现奠定坚实的基础。
 如图 \ref{fig 2-1} 所示，该架构一共具有四层：应用层、控制层、虚拟层和数据层。
@@ -73,7 +95,34 @@
 	\label{fig 2-1}
 \end{figure}
 
-\subsection{基于软件定义网络的车联网集中控制}
+\subsection{基于边缘计算的车联网分布式服务}
+
+本章讨论的架构数据层由许多具有不同通信接口的节点组成，如 LTE 基站、RSU、Wi-Fi接入点（Access Point, AP）、5G 小基站和车辆。
+除了不同无线通信接口接入能力外，这些节点还具备一定的计算和存储能力，其中部分节点被抽象为边缘节点，用于提供分布式服务。
+相比较于以前在车联网中采用的独立的基于边缘的服务，本章设计的虚拟层顺利地弥合了SDN的逻辑集中控制和边缘层的分布式服务之间的差距。
+在本架构中，移动和静态的数据节点都可以根据不同服务的调度动态地被分配为边缘节点（其中公交车、出租车等特种车辆可作为移动边缘节点）。
+边缘节点不仅可以根据SDN控制器部署的规则执行操作，并且可以为本地服务实现某些智能，进一步提高服务质量和效率。
+同时，边缘节点对底层资源进行一定的聚合和抽象，并向虚拟层实时更新状态，这反过来又有助于虚拟资源的管理。
+因此，SDN 控制器可以更加方便地进行服务卸载和负载均衡的调度，从而进一步提高整个系统的性能。
+除此之外，本架构还具有良好的灵活性和可扩展性。
+由于边缘节点具有不同的通信接口和计算能力，因此它们可以根据实际需求进行灵活的配置和组合。
+而且，随着新的节点不断加入系统，这个架构也可以随时进行扩展和升级，以适应未来的需求和挑战。
+
+\subsection{车联网中网络功能虚拟化和网络切片}
+虽然NFV和NS技术在5G网络中得到了广泛的研究 \cite{zhu2021wang}，但是考虑到车联网中底层资源的高度异构和分布，以及上层ITS应用的高度动态和差异服务要求等特点，将其迁移到车联网中仍然面临着巨大挑战。
+因此，本章提出了一个专门设计的虚拟层，它负责抽象车联网中的计算、网络和存储资源。
+该虚拟层能够在物理基础设施之上提供更高层次的抽象，从而使应用程序能够更方便地访问底层资源。
+然而，由于网络拓扑结构的快速变化、不同的无线通信接口的差异无线电覆盖范围，以及在数据层的节点之间不断产生、感知和共享的大量信息，构建并维持底层资源的准确逻辑视图是极具挑战的。
+为了解决这个问题，本章考虑增加一个虚拟层，将部分数据节点（如公交车、出租车、5G小基站、RSU等）抽象为边缘节点。
+边缘节点能够提供基于本地计算、通信和数据资源的服务，以及抽象和管理可用的本地资源。
+一方面，边缘节点可以作为资源的管理者和协调者，负责管理和分配本地的计算、通信和存储资源，为上层应用提供优质的服务。
+另一方面，边缘节点还可以作为数据的处理中心，对本地产生的数据进行处理和分析，从而降低数据的传输和处理延迟。
+此外，由于边缘节点本身具有一定的智能，可以对诸如视频流、激光雷达点云数据等进行预处理和分析，从而进一步降低数据的传输和处理压力，提高系统的效率和可靠性。
+通过上述方式，不仅降低了底层资源的动态性，也减少了上层资源虚拟化的工作量。
+此外，这种分层架构有利于NFV和NS的垂直实施。
+例如，给定一组具有各自QoS要求的应用，可以根据边缘的分布式调度或SDN控制器的集中式调度，以不同方式对虚拟资源进行协调。
+
+\subsection{基于软件定义网络的逻辑集中控制}
 
 在基于软件定义网络的车联网分层服务架构中，控制层中 SDN 控制器被部署在骨干网络中，并通过核心网络与云数据中心和互联网相连。
 与传统SDN组件类似，该控制器通过北向接口与上层应用进行通信，例如安全认证、交通管理和数据管理等。
@@ -92,216 +141,609 @@
 此外，控制器还可以实现流量监测和QoS保障，从而提高网络的可靠性和服务质量。
 上述服务实现的安全和可靠性的特性是车联网应用所必需的，因为上述应用涉及到交通安全和行车效率等关键问题，如果网络不稳定或者容易遭受攻击，则会对 ITS 应用的正常运行产生重大影响。
 
-\subsection{车联网中网络功能虚拟化和网络切片}
-虽然NFV和NS技术在5G网络中得到了广泛的研究 \cite{zhu2021wang}，但是考虑到车联网中底层资源的高度异构和分布，以及上层ITS应用的高度动态和差异服务要求等特点，将其迁移到车联网中仍然面临着巨大挑战。
-因此，本章提出了一个专门设计的虚拟层，它负责抽象车联网中的计算、网络和存储资源。
-该虚拟层能够在物理基础设施之上提供更高层次的抽象，从而使应用程序能够更方便地访问底层资源。
-然而，由于网络拓扑结构的快速变化、不同的无线通信接口的差异无线电覆盖范围，以及在数据层的节点之间不断产生、感知和共享的大量信息，构建并维持底层资源的准确逻辑视图是极具挑战的。
-为了解决这个问题，本章考虑增加一个虚拟层，将部分数据节点（如公交车、出租车、5G小基站、RSU等）抽象为边缘节点。
-边缘节点能够提供基于本地计算、通信和数据资源的服务，以及抽象和管理可用的本地资源。
-一方面，边缘节点可以作为资源的管理者和协调者，负责管理和分配本地的计算、通信和存储资源，为上层应用提供优质的服务。
-另一方面，边缘节点还可以作为数据的处理中心，对本地产生的数据进行处理和分析，从而降低数据的传输和处理延迟。
-此外，由于边缘节点本身具有一定的智能，可以对诸如视频流、激光雷达点云数据等进行预处理和分析，从而进一步降低数据的传输和处理压力，提高系统的效率和可靠性。
-通过上述方式，不仅降低了底层资源的动态性，也减少了上层资源虚拟化的工作量。
-此外，这种分层架构有利于NFV和NS的垂直实施。
-例如，给定一组具有各自QoS要求的应用，可以根据边缘的分布式调度或SDN控制器的集中式调度，以不同方式对虚拟资源进行协调。
 
-\subsection{基于边缘计算的车联网分布式服务}
+\section{协同感知和异质信息融合场景}\label{section 2-3}
 
-本章讨论的架构数据层由许多具有不同通信接口的节点组成，如 LTE 基站、RSU、Wi-Fi接入点（Access Point, AP）、5G 小基站和车辆。
-除了不同无线通信接口接入能力外，这些节点还具备一定的计算和存储能力，其中部分节点被抽象为边缘节点，用于提供分布式服务。
-相比较于以前在车联网中采用的独立的基于边缘的服务，本章设计的虚拟层顺利地弥合了SDN的逻辑集中控制和边缘层的分布式服务之间的差距。
-在本架构中，移动和静态的数据节点都可以根据不同服务的调度动态地被分配为边缘节点（其中公交车、出租车等特种车辆可作为移动边缘节点）。
-边缘节点不仅可以根据SDN控制器部署的规则执行操作，并且可以为本地服务实现某些智能，进一步提高服务质量和效率。
-同时，边缘节点对底层资源进行一定的聚合和抽象，并向虚拟层实时更新状态，这反过来又有助于虚拟资源的管理。
-因此，SDN 控制器可以更加方便地进行服务卸载和负载均衡的调度，从而进一步提高整个系统的性能。
-除此之外，本架构还具有良好的灵活性和可扩展性。
-由于边缘节点具有不同的通信接口和计算能力，因此它们可以根据实际需求进行灵活的配置和组合。
-而且，随着新的节点不断加入系统，这个架构也可以随时进行扩展和升级，以适应未来的需求和挑战。
-
-\section{架构挑战与机遇}\label{section 2-3}
-
-本章节探讨了针对所提架构的新兴的挑战以及未来研究方向。
-同时，本章提出了一个跨层协议栈，以指导未来车联网通信协议和服务算法的设计。
-
-\subsection{控制层的全局知识获取}
-
-为了实现逻辑上的集中控制，SDN控制器需要准确、及时地获取系统的全局知识，包括服务状态、资源状态、车辆状态等。
-然而，在具有间歇性无线连接的高度动态车联网中，存在着诸多问题，例如传输延迟、数据包丢失和带宽竞争。
-上述问题无法避免，并可能严重影响到控制层的全局知识获取和监控性能。
-此外，在实践中，SDN 控制器通常是分布式部署在一个大型服务区域内。
-因此，有效地整合来自多个控制器的信息，构建系统的全局逻辑视图，是至关重要的。
-为了应对这些挑战，未来的研究可能会涉及到在控制层中引入新的模块，以弥补SDN控制器的失真视图和真实系统状态之间的差距。
-此外，需要开发新的技术来高效地集成本地和分布式系统状态，构建全局系统知识的逻辑视图，实现分布式控制器之间的有效协调。
-特别地，机器学习和人工智能技术可能会在优化控制层性能方面发挥至关重要的作用，通过动态适应车联网环境的变化，进一步推动基于SDN的车联网技术发展，为未来更高效、更可靠的车联网服务铺平道路。
-
-\subsection{虚拟层的异构资源管理}
-
-在实现网络切片的过程中，其中关键问题是如何统一一致地表征车联网中高度多样化和动态化的资源。
-考虑到不同的通信接口可能会具有不同的无线电覆盖范围、传输速率和接入能力，不同通信资源的可用性和连接能力也可能随着网络拓扑结构的变化而动态变化。
-此外，车联网中节点计算和存储资源的可用性也可能不断变化，因此可能导致虚拟化实体的服务协调难度增加。
-例如，车辆或RSU等数据节点不断感知并产生新的数据，并进一步用于计算、传输和存储。
-因此，如何为异质资源构建一个统一的、连贯的视图，并将其虚拟为切片实体是另一个值得未来努力的关键问题。
-
-在车联网中，由于上层ITS应用的不断变化和不同的QoS要求，NFV 和 NS 需要能够协调虚拟化实体的服务。
-然而，实现透明和自适应的服务以保证 QoS 要求是一项具有挑战性的任务。
-例如，在虚拟化路由功能时，尽管数据平面和控制平面可以基于 SDN 进行解耦，但是仍然不能保证能在快速变化的车联网环境中为不断移动的车辆分配连续的资源。
-因此，需要进一步研究基于边缘和云的服务之间的协作，以更好地管理和分配资源。
-此外，在车联网中实现无缝和灵活的虚拟资源管理仍然具有挑战性。
-尽管在数据层提出了基于边缘的分布式服务来帮助抽象化资源，但由于车联网中大规模分布和高度异质性的底层资源，如何在车联网中实现无缝和灵活的虚拟资源管理仍需要更多的研究和努力。
-例如，在车联网中，不同的车辆和边缘设备具有不同的计算和存储资源，且它们的位置和连接性也会不断变化。
-因此，需要考虑如何在车联网中动态地分配和管理虚拟资源，以满足不同车辆和设备的需求，并在保证QoS的同时提高系统的效率和灵活性。
-为了解决这些挑战，需要继续深入研究和开发新的技术和算法，以实现更智能和自适应的虚拟资源管理。
-例如，可以利用机器学习和人工智能技术来预测车辆和设备的资源需求，以更好地调度和管理虚拟资源。
-此外，还可以探索更加分布式和去中心化的资源管理机制，以提高系统的可扩展性和鲁棒性。
-
-\subsection{数据层中的大规模数据传输}
-
-随着现代车联网中服务规模的快速增长和数据驱动型应用的蓬勃发展，现有的通信协议已经不能够有效地支持并行的 V2I/V2V 通信，特别是在高密度和高移动性的交通环境中。
-因此，如何设计一种跨层的通信协议，以提高并发数据传输的资源利用率，成为了一个重要的研究方向。
-目前，由于 C-V2X 仍处于演进阶段，IEEE 802.11p 已经成为了成熟的V2I/V2V通信标准，但是在大量基于 V2I/V2V 通信的数据传输在一定区域内同时进行时，由于其MAC层采用的载波监听多路访问（Carrier-Sense Multiple, CSMA）技术无法很好地处理并发数据传输，因此其带宽利用效率非常低。
-因此，本章提出了一个跨层的通信协议设计，通过物理层的功率控制和MAC层的复用接入协议之间的共同设计，在传输范围、数据率和干扰之间取得平衡，从而提高数据吞吐量。
-
-同时，在数据层更好地协调异质资源以实现大规模数据服务也至关重要。
-然而，数据节点的存储、计算和通信能力方面存在异质性，这种差异可能会对系统性能产生负面影响。
-另外，数据节点的移动性也增加了资源利用优化的挑战性。
-为了解决这些问题，未来的研究可以利用不同类型车辆的移动模式和轨迹来优化系统性能。
-例如，可以利用出租车的移动轨迹来动态地调整数据存储位置，以减少数据访问时的延迟。
-此外，还可以利用公交车等大型交通工具的通信能力来提高数据传输速度，从而加速数据处理的过程。
-然而，在实现这些方法时，需要解决数据安全和隐私保护等问题。
-例如，需要确保数据存储在安全的位置，并采取必要的措施来保护数据的机密性和完整性。
-同时，还需要考虑数据隐私保护的问题，例如，对用户个人信息的保护以及对敏感数据的访问控制等。
-
-\subsection{跨层协议栈}
-
-\begin{figure}[h] 
-	\centering
-	\includegraphics[width=1\columnwidth]{Fig2-2-protocol.pdf}
-	\bicaption{跨层协议设计}{Overview of the cross-layer protocol stack}
-	\label{fig 2-2}
+\begin{figure}[h]
+     \centering
+     \subfloat[][]{\includegraphics[width=0.7\columnwidth]{Fig3-1a-architerture.pdf}}
+     \subfloat[][]{\includegraphics[width=0.3\columnwidth]{Fig3-1b-procedures.pdf}}
+     \bicaption[系统场景]{系统场景。(a) 车载信息物理融合系统中协同感知与异质信息融合 (b) 系统工作流程}[System architecture]{System architecture. (a) Cooperative sensing and heterogeneous information fusion in VCPS (b) System workflow}
+     \label{fig 3-1}
 \end{figure}
 
+为了实现逻辑集中控制以及支撑上层 ITS 应用，分层车联网架构中SDN控制器需要准确、及时地构建包含系统全局知识的逻辑视图。
+因此，本章首先考虑面向车载边缘计算的协作感知和异质信息融合场景如图\ref{fig 3-1}(a)所示。
+特别地，5G基站和路侧设备（如$e_1$$\sim$$e_5$）可作为边缘节点提供服务。
+车辆能够在无线电覆盖范围内通过V2I通信与边缘节点进行通信，并通过搭载的车载传感器（例如激光雷达、GPS和车载摄像头）感知异质信息。
+显然，车联网中的物理信息具有高度的动态性和时空相关性。
+同时，搭载传感器的车辆具有异质能力和有限资源，车联网通信也具有间歇性和不可靠性。
+因此，亟需一个量身定制的指标来定量评估由边缘节点构建的逻辑视图的质量，从而有效地衡量VCPS的整体性能。
 
-在下一代车联网中，为了实现高效的系统架构，需要协同设计通信协议和服务算法。
-为此，本章提出了一种跨层协议栈如图 \ref{fig 2-2} 所示，其总体目标包括优化异构资源、提高系统性能，以及改善系统安全性。
-跨层协议栈是一种将不同层级的协议集成到一个协议栈中的新型网络体系结构。
-该设计可以在不同层级之间实现信息和资源的交互和协作，从而实现系统的整体优化。
-在车联网中，由于网络拓扑结构和设备类型的异构性，跨层协议栈的设计尤为重要。
-通过将应用层、路由层、MAC层和物理层的协议整合到一个跨层协议栈中，车联网可以更好地管理网络中的数据流和资源分配，从而提高系统的响应速度、可靠性和可扩展性。
+本系统的工作流程如图\ref{fig 3-1}(b)所示，边缘节点$e_1$的逻辑视图构建包括三个步骤。
+步骤1（感知）：每辆车都可能根据其位置和感知能力感知到不同的信息。
+被感知的信息在每辆车上排队，以便上传到边缘节点，每辆车将决定这些信息的感知频率和上传优先级。
+异质信息是由车辆以不同的感知频率感知的，因此不同信息的到达时刻可能不同。
+同时，提高感知频率可以提高信息的新鲜度，但也会延长排队延迟。
+必须综合考虑信息的数据量大小、V2I通信的连接性和视图需求，以确定不同信息的上传优先级。
+步骤2（上传）：边缘节点将V2I带宽（即不同范围的非重叠频谱）分配给有上传任务的车辆，以便这些车辆能够同时上传他们的传感信息而不受干扰。
+由于边缘节点的带宽资源有限且车辆信道条件多变，分配的V2I带宽可能不足以支持及时上传数据。
+因此，将更大的带宽分配给准备上传更新鲜、更急需信息的车辆，而不是在更差的信道条件下（如离开V2I覆盖范围），以最大化带宽效率是有意义的。
+通过对车辆和边缘节点之间的信噪比（Signal-to-Noise Ratio,  SNR）建模来考虑了不同车辆的信道条件，同时，V2I传输速率由两个节点之间的距离和分配的带宽决定。
+步骤3（视图构建）：边缘节点根据具体的ITS应用要求，将收到的物理信息映射到相应的逻辑元素上，从而构建逻辑视图。
 
-然而，跨层协议栈需要解决一些开放性问题，例如如何设计信道模型和自适应功率控制策略，以实现合作的V2I/V2V通信；如何设计带宽复用机制和自适应资源分配策略，以实现并发数据传输；如何基于SDN设计面向QoS的数据路由协议，以实现高质量的服务；以及如何通过基于边缘的服务设计任务卸载和均衡的调度算法，以更好地管理和分配资源等。
-具体地，合适的信道模型和功率控制策略是确保车辆间通信可靠性和信号质量的关键。
-如何进行带宽复用和资源分配来保证多个数据流同时传输，同时避免网络拥塞和资源浪费也是需要考虑的问题。
-如何设计面向QoS的数据路由协议来确保数据在网络中的流动性和服务质量是一个重要的研究方向。
-如何通过基于边缘的服务设计任务卸载和平衡的调度算法来提高系统的性能是一个需要深入探讨的问题。
+此外，本章提供了一个例子来更好地说明上述观点。
+如图\ref{fig 3-1}(a)所示，在时间 $t$，边缘节点$e_1$构建了一个逻辑视图，并根据车辆$v_1$、$v_2$和$v_3$感知和上传的信息，在交叉路口启用了速度建议应用。
+一般而言，速度建议应用的目标是向正在接近交叉口的车辆提供最佳速度建议，使车辆可以顺利通过，从而达到最大化的整体交通效率。
+假设车辆$v_2$和$v_3$都能感知交通灯信息，但感知的红灯剩余时间数值不一致。
+例如，车辆$v_2$观察到红灯剩余17秒，而$v_3$观察到16秒，导致信息不一致。
+另外，需要注意的是，同一物理要素的状态（例如行人P1的位置）可能会被多辆车（例如车辆$v_1$和$v_2$）同时感知到。
+在这种情况下，该消息只需要由其中一辆车（例如车辆$v_1$）在一定时间内上传以节省V2I带宽。
+同时，只要物理要素在边缘节点以相同的质量水平建模，其就可以被应用于不同的应用，而不需要由不同的车辆重复上传。
+此外，数据包丢失可能导致物理车联网环境和视图之间的差距。
+例如，假设车辆$v_2$的位置更新数据包丢失，这会导致其真实位置与时间$t$视图上的位置之间存在明显的不一致。
+如上所述，定量评估边缘节点构建的视图的质量，并为协作感知和信息融合设计有效的调度机制，以最大限度地提高VCPS的整体质量是至关重要且具有挑战性的。
 
-\section{案例研究}\label{section 2-4}
+\section{车载信息物理融合质量指标设计}\label{section 2-4}
 
-本章已经在真实的车联网环境中基于所提架构开发了两个原型系统，以验证其概念的可行性。
-以上原型系统分别实现了“透视”和碰撞预警服务。
-为了保证系统的稳定性和可靠性，采用云服务器作为SDN控制器，并连接到骨干网络，其通过基于 LTE 的通信进行集中式控制。
-同时，Cohda Wireless MK5 RSU和OBU设备被用于通过DSRC进行V2V 和 V2I 通信。
-在边缘层，一个RSU被安装在道路交叉口，并被连接到一个笔记本电脑，作为边缘节点以提供服务。
-每辆车都配备了一个OBU以及一个带有LTE接口的平板电脑/笔记本电脑，车辆可以通过它与SDN控制器进行通信。
-所有RSU和车辆的通信、计算和存储能力都可以抽象为虚拟资源。
-为了满足应用层规定的服务要求，虚拟资源可以根据SDN控制器的某些调度算法进行自适应分配。
+\subsection{基本符号}
 
-\subsection{“透视”服务}
+系统的离散时间片集合用$\mathbf{T}=\{1, \ldots, t, \ldots, T\}$表示，其中$T$是时间片的数量。
+异质信息的集合用$\mathbf{D}=\{1, \ldots, d, \ldots, D\}$表示，其中信息$d$可以用一个双元组$d=\left(\operatorname{type}_d, \left|d\right| \right)$表示，其中$\operatorname{type}_d$为类型，$\left|d\right|$为数据量。
+车辆的集合用$\mathbf{V}=\{1, \ldots, v, \ldots, V\}$表示，其中车辆$v$的特征用一个三元组$v=\left (l_v^t, \mathbf{D}_v, \pi_v \right )$表示，其中$l_v^t$是车辆$v$在时间$t$的位置；$\mathbf{D}_v$是车辆$v$可以感知的信息集合，$\pi_v$是车辆$v$的传输功率。
+边缘节点的集合用$\mathbf{E}=\{1, \ldots, e, \ldots, E\}$表示，其中边缘节点$e$的特征用一个三元组$e=\left (l_e, g_e, b_e \right)$表示，其中$l_e$是位置，$g_e$是通信范围，$b_e$是带宽。
+在时间$t$，车辆$v$与边缘节点$e$的距离用$\operatorname{dis}_{v,e}^t \triangleq \operatorname{distance} \left (l_v^t, l_e \right ), \forall v \in \mathbf{V}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}$表示，其中$\operatorname{distance}\left(\cdot,\cdot\right)$是欧氏距离。
 
-\begin{figure}[h] 
-	\centering
-	\includegraphics[width=1\columnwidth]{Fig2-3-case1.pdf}
-	\bicaption{基于V2V通信的“透视”}{`See Through' via V2V communications}
-	\label{fig 2-3}
-\end{figure}
+车辆$v$在时间$t$所感知的信息集合用$\mathbf{D}_v^t\subseteq \mathbf{D}_v$表示。
+对于$\mathbf{D}_v^t$中的任意信息$d$，信息类型都是不同的，即$\operatorname{type}_{d^*} \neq \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_v^t \setminus \left\{ d\right \}, \forall d \in \mathbf{D}_v^t$。
+车辆$v$在时间$t$对于信息$d$的感知频率用$\lambda_{d,v}^t$表示。
+由于感知能力有限，车辆感知频率需满足$\lambda_{d,v}^{t} \in [\lambda_{d,v}^{\min} , \lambda_{d,v}^{\max} ], \forall d \in \mathbf{D}_v^t, \forall v \in \mathbf{V}, \forall t \in \mathbf{T}$, 其中 $\lambda_{d,v}^{\min}$ 和 $\lambda_{d,v}^{\max}$ 分别为车辆$v$对于类型为$\operatorname{type}_{d}$的信息的最低和最高感知频率。
+车辆$v$中的信息$d$在时间$t$的上传优先级用$p_{d,v}^t$表示，且${p}_{d^*, v}^t \neq {p}_{d, v}^t, \forall d^* \in \mathbf{D}_v^t \setminus \left\{ d\right \}, \forall d \in \mathbf{D}_v^t, \forall v \in \mathbf{V}, \forall t \in \mathbf{T}$。
+在时间$t$内处于边缘节点$e$的无线电覆盖范围内的车辆集合表示为$\mathbf{V}_e^t=\left \{v \vert \operatorname{dis}_{v,e}^t \leq g_e, \forall v \in \mathbf{V} \right \}, \mathbf{V}_e^t \subseteq \mathbf{V}, \forall e \in \mathbf{E}$。
+边缘节点$e$在时间$t$为车辆$v$分配的V2I带宽用$b_{v, e}^t$表示，且$b_{v, e}^t \in \left [0,b_e \right], \forall v \in \mathbf{V}_e^{t}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}$。
+边缘节点$e$分配的V2I带宽总和不能超过其带宽容量$b_e$，即${\sum_{\forall v \in \mathbf{V}_e^{t}}b_{v, e}^t} \leq b_e, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}$。
 
-本章实现的“透视”服务如图\ref{fig 2-3}所示，该服务旨在将前方车辆的实时视图分享给后续车辆，从而提高行驶安全性。
-在所提服务中，任何愿意分享视频摄像头拍摄的视图的车辆都可以通过基于LTE的通信在SDN控制器上注册其服务。
-基于车辆拓扑结构和注册服务的全局视图，SDN控制器能够通过控制信息向特定车辆通知可用服务。
-另一方面，车辆可以通过基于LTE的通信向SDN控制器请求相应的服务，并在服务开始后，视频流将从服务提供者通过 DSRC 传输给请求的车辆，类似于基于边缘的服务。
-在一个小规模的“透视”场景中，本章考虑了三辆车配备OBU进行V2V通信的情况，每个OBU与一个笔记本电脑相连，在其中执行服务应用程序。
-笔记本电脑能够通过具有 LTE 接口的移动电话共享的个人热点与SDN控制器进行通信。
-云服务器配备2.5 GHz CPU和8G内存。
-假设V1已经注册了服务，然后V2和V3请求该服务。
-当服务开始时，V1的实时视图将通过DSRC广播给V2和V3。
-为了清楚地说明问题，在V1前面放了一个行李箱，这样可以观察到V1拍摄的视频流通过应用接口实时显示在V2和V3上，从而实现了“透视”服务的目标。
+\subsection{系统模型}
+本系统协同感知模型如图\ref{fig 3-2}所示。
+车辆感知的信息到达间时间和排队时间通过利用多类M/G/1优先级队列（Multi-Class M/G/1 Priority Queue）\cite{qian2020minimizing}对车辆中的感知信息队列进行建模得到。
+假定车辆$v$中具有相同类型$\operatorname{type}_d$的信息传输时间分布在每个时间片内保持稳定。
+类型为$\operatorname{type}_d$的信息传输时间$\operatorname{\hat{g}}_{d, v, e}^t$遵循一类一般分布（General Distribution），其均值为$\alpha_{d, v}^t$，二阶矩和三阶矩分别为$\beta_{d, v}^t$和$\gamma_{d, v}^t$，那么该分布集合可以表示为
+\begin{align}
+	\mathbb{P}=\left\{\hat{\mathrm{g}}_{d, v, e}^t:\right. & \mathbb{E}\left[\hat{\mathrm{g}}_{d, v, e}^t\right]=\alpha_{d, v}^t, \notag \\
+	& \mathbb{E}\left[\hat{\mathrm{g}}_{d, v, e}^t-\alpha_{d, v}^t\right]^2=\beta_{d, v}^t \notag \\
+	& \mathbb{E}\left[\operatorname{\hat{g}}_{d, v, e}^t-\alpha_{d, v}^t\right]^{3}=\left.\gamma_{d, v}^t \right\}
+\end{align}
+因此，上传负载 $\rho_{v}^{t}$ 可表示为 
+\begin{equation}
+    \rho_{v}^{t}=\sum_{\forall d \subseteq \mathbf{D}_v^t} \lambda_{d,v}^{t}  \alpha_{d, v}^t
+\end{equation}
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig2-4-v2v-delay.pdf}
-  \bicaption{视频帧的传输延迟}{Transmission delay of video frames}
-  \label{fig 2-4}
+  \includegraphics[width=1\columnwidth]{Fig3-2-cooperative-sensing.pdf}
+  \bicaption{协同感知模型}{Cooperative sensing model}
+  \label{fig 3-2}
 \end{figure}
 
-本章为了比较基于边缘和基于云的服务的性能，实现了一个基于云的服务，将V1的实时视图通过基于LTE的通信传输到SDN控制器，然后通过LTE将视频发布给V2和V3。
-其中500个视频帧被提取出来，平均大小为34.19 KB，范围从28.57 KB到42.41 KB。
-通过图\ref{fig 2-4}的比较可以看出，基于边缘的服务在视频传输的性能方面表现更佳。
-具体来说，V2和V3通过基于边缘的服务的平均传输延迟分别为100.8 ms和99.7 ms，而通过基于云服务的平均传输延迟分别为306.73 ms和308.93 ms。
-此外，需要注意的是，在基于边缘的服务中，视频帧是通过 DSRC 广播给车辆V2和V3的，而基于LTE的通信在此应用中只支持单播。
-因此，基于边缘的服务在资源利用方面具有很大的潜力，可以提高带宽效率并增强系统的可扩展性。
-通过这个实验结果，可以验证本章提出的系统架构和基于边缘的服务在车联网中的实际可用性，并为未来的相关研究提供了有价值的参考。
+为了确保队列具有稳定状态，需要满足 $\rho_{v}^{t} < 1$。
+到达间隔时间$\operatorname{a}_{d, v}^t$是指车辆$v$中两个相邻的具有相同类型$\operatorname{type}_d$的信息到达时间差，其计算公式为  
+\begin{equation}
+    \operatorname{a}_{d, v}^t=\frac{1}{\lambda_{d, v}^{t}}
+\end{equation}
+在时间$t$内，车辆$v$中具有比信息$d$更高上传优先权的信息集合可表示为
+\begin{equation}
+\mathbf{D}_{d, v}^t=\left\{d^* \mid p_{d^*, v}^t>p_{d, v}^t, \forall d^* \in \mathbf{D}_v^t\right\} 
+\end{equation}
+其中$p_{d^*, v}$是信息$d^* \in \mathbf{D}_v^t$的上传优先级。
+  因此，信息$d$前面的上传负载（即车辆$v$在时间$t$内要在$d$前面上传的数据量）表示为
+\begin{equation}
+\rho_{d, v}^t=\sum_{\forall d^* \in \mathbf{D}_{d, v}^t} \lambda_{d^*, v}^t \alpha_{d^*, v}^t
+\end{equation}
+其中$\lambda_{d^*, v}^t$和$\alpha_{d^*, v}^t$分别是时间$t$内车辆$v$中信息$d^*$的感知频率和平均传输时间。
+车辆$v$中类型为$\operatorname{type}_d$的信息的排队时间用$\operatorname{q}_{d, v}^t$表示。
+根据Pollaczek$-$Khintchine公式\cite{takine2001queue}，平均排队时间$\operatorname{\bar{q}}_{d, v}^t$计算如下。
+\begin{equation}
+    \operatorname{\bar{q}}_{d, v}^t= \frac{1} {1 - \rho_{d, v}^{t}} 
+        \left[ \alpha_{d, v}^t + \frac{ \lambda_{d, v}^{t} \beta_{d, v}^t + \sum\limits_{\forall d^* \in \mathbf{D}_{d, v}^t} \lambda_{d^*,s}^t \beta_{d^*, v}^t }{2\left(1-\rho_{d, v}^{t} - \lambda_{d, v}^{t}  \alpha_{d, v}^t\right)}\right] 
+        - \alpha_{d, v}^t
+\label{equ 3-6}
+\end{equation}
+进一步，多类M/G/1优先队列中排队时延的上界分析见附录\ref{appendix e}。
 
-\subsection{碰撞预警服务}
+本章根据香农理论对通过V2I通信的数据上传进行建模。
+车辆$v$和边缘节点$e$之间在时间$t$的V2I通信的信噪比用$\operatorname{SNR}_{v, e}^{t}$表示，其计算方法是\cite{sadek2009distributed}
+\begin{equation}
+    \label{equ 3-7}
+    \operatorname{SNR}_{v, e}^{t}=\frac{1}{N_{0}}  \left|h_{v, e}\right|^{2} \zeta  {\operatorname{dis}_{v, e}^{t}}^{-\varphi} {\pi}_v
+\end{equation}
+其中$N_{0}$为加性白高斯噪声（Additive White Gaussian Noise, AWGN）；$h_{s, e}$为信道衰减增益；$\zeta$为常数，取决于天线设计，$\varphi$为路径损耗指数。
+然后，车辆$v$和边缘节点$e$之间在时间$t$的V2I传输率用$\operatorname{z}_{v, e}^t$表示，其计算如下 
+\begin{equation}
+    \operatorname{z}_{v, e}^t=b_{v, e}^{t} \log _{2}\left(1+\mathrm{SNR}_{v, e}^{t}\right)
+    \label{equ 3-8}
+\end{equation}
+其中$b_{v, e}^{t}$是分配给车辆$v$在时间$t$的带宽。
+值得注意的是，给定车辆$v$的传输功率$\pi_s$，车辆$v$和边缘节点$e$之间在时间$t$的V2I通信的信噪比可以通过公式\ref{equ 3-7}得到，进一步可由公式\ref{equ 3-8}得到传输速率。
+因此，信息$d$从车辆$v$到边缘节点$e$的传输时间用$\mathrm{w}_{d, v, e}^t$表示，其计算公式为
+\begin{equation}
+	\mathrm{w}_{d, v, e}^t=\frac{\left|d\right|}{\operatorname{z}_{v, e}^t}
+\end{equation}
+成功传输需要在数据包传输过程中，接收到的信噪比高于某个阈值，其被称为信噪比墙（SNR Wall）\cite{tandra2008snr}，该阈值通过以下方式获得 
+\begin{equation}
+\mathrm{SNR}_{\text {wall }}=\frac{\sigma^{2}-1}{\sigma}
+\end{equation}
+其中$\sigma=10^{\nu / 10}$，$\nu$是以dB衡量的参数，量化了噪声不确定性的大小，且
+\begin{equation}
+	\left(\nu^2 - 1\right) {N_0}={\pi_v} \nu
+\end{equation}
+因此，表示信息$d$是否从车辆$v$成功传输到边缘节点$e$的成功传输指示器表示为 
+\begin{numcases}{\operatorname{c}_{d, v, e}^t=}
+1, \forall {t^{*}} \in\left[t + \operatorname{\bar{q}}_{d, v}^t, t + \operatorname{\bar{q}}_{d, v}^t + \operatorname{w}_{d, v, e}^t\right], \operatorname{SNR}_{v, e}^{t^{*}}>\mathrm{SNR}_{\text {wall }} \notag \\
+0, \exists {t^{*}} \in\left[t + \operatorname{\bar{q}}_{d, v}^t, t + \operatorname{\bar{q}}_{d, v}^t + \operatorname{w}_{d, v, e}^t\right], \operatorname{SNR}_{v, e}^{t^{*}} \leq \mathrm{SNR}_{\text {wall }}
+\end{numcases}
+因此，由车辆$v$传输并由边缘节点$e$接收的信息集合表示为 $\mathbf{D}_{v, e}^t = \{ d \mid \operatorname{c}_{d, v, e}^t = 1, \forall d \in \mathbf{D}_v \}, \mathbf{D}_{v, e}^t \subseteq \mathbf{D}_v^t, \forall v \in \mathbf{V}, \forall e \in \mathbf{E}$。
 
-\begin{figure}[h] 
-	\centering
-	\includegraphics[width=1\columnwidth]{Fig2-5-case2.pdf}
-	\bicaption{基于V2I通信的车辆碰撞预警}{Collision warning via V2I communications}
-	\label{fig 2-5}
-\end{figure}
+\subsection{Age of View}
+系统中的视图集合用$\mathbf{I}$表示，视图$i \in \mathbf{I}$所需的信息集用$\mathbf{D}_{i}$表示，它是特定ITS应用所需的物理交通元素的映射，它表示为
+\begin{equation}
+	\mathbf{D}_{i} = \{d \mid y_{d, i} = 1, \forall d \in \mathbf{D} \}
+\end{equation}
+视图$i$所需元素的数量用$|\mathbf{D}_{i}|$表示。
+边缘节点$e$在时间$t$所需的视图集合用$\mathbf{I}_e^t \subseteq \mathbf{I}$表示。
+因此，边缘节点$e$收到的并被视图$i$需要的信息集用下式表示
+\begin{equation}
+    \mathbf{D}_{i, e}=\bigcup_{\forall i \in \mathbf{I}}\left(\mathbf{D}_i \cap \mathbf{D}_{v, e}^t\right), \forall v \in \mathbf{V}_e^t, \forall e \in \mathbf{E}
+\end{equation}
+且$| \mathbf{D}_{i, e} |$是边缘节点$e$收到并被视图$i$需要的信息数量。
+然后，本章定义了异质信息融合的三个特征，包括视图的时效性、完整性和一致性。
 
-碰撞预警服务旨在在两车之间有可能发生碰撞时触发警告信息，从而提高车辆的安全性。
-在本系统中，云服务器配备2.5 GHz的CPU和2G的内存，而SDN控制器则可以通过基于LTE的通信与车辆进行通信。
-为了支持大规模和实时的碰撞预警服务，计算和通信的工作量被卸载到实现服务功能的边缘服务器上。
-如图\ref{fig 2-5}所示，本章考虑的场景是在道路交叉口部署一个RSU，一台笔记本与RSU连接，作为边缘服务器，并配备1.6GHz CPU和8G内存。
-在该场景中，两辆汽车（即V1和V2）正在向十字路口移动，并相互靠近。
-每辆车都配备了一个OBU，其与一个基于Android的平板电脑相连。
-本章开发了一个基于Android系统的应用程序，用于收集车辆的实时状态，包括GPS坐标、速度、加速度、方向和时间戳等。
-对于基于边缘的服务，车辆通过 DSRC 通信向边缘节点更新其状态。
-根据从不同车辆收到的信息，边缘节点执行碰撞检测服务程序。
-一旦检测有碰撞的风险，预警信息就会被触发，并通过 I2V 通信传送给相应的车辆。
-然后，车辆中搭载的平板电脑上会显示一个停车标志，并伴随着振动和警告音。
+首先，异质信息是随时间变化的，信息的新鲜度对于建立视图的质量模型至关重要。
+因此，本章对车辆$v$中的信息$d$的时效性定义如下。
+\begin{definition}
+	车辆$v$的信息$d$的时效性 $\xi_{d,v} \in (0, +\infty)$被定义为信息$d$的间隔到达时间、排队时间和传输时间之和。
+	\begin{equation}
+    	\xi_{d, v} = \operatorname{a}_{d, v}^t + \operatorname{q}_{d, v}^t + \operatorname{w}_{d, v, e}^t, \forall d \in \mathbf{D}_v^t, \forall v \in \mathbf{V}
+	\end{equation}
+\end{definition}
+\noindent 其中 $\operatorname{a}_{d, v}^t$、$\operatorname{q}_{d, v}^t$ 和 $\operatorname{w}_{d, v, e}^t$ 分别为信息$d$的间隔到达时间、排队时间和传输时间。
+进一步，视图的时效性定义如下。
+\begin{definition}
+视图$i$的时效性 $\Xi_{i} \in (0,+\infty)$被定义为信息时效性总和。
+	\begin{equation}
+    	\Xi_{i} = \sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_{i, e} \cap \mathbf{D}_v^t } \xi_{d, v}, \forall i \in \mathbf{I}_e^t, \forall e \in \mathbf{E}
+	\end{equation}
+\end{definition}
+
+其次，车联网具有包括车辆高移动性、网络资源有限性和无线通信不可靠的固有特性。
+由于车辆和边缘节点之间的无线传输连接断开，或者传输过程中数据包的丢失，视图可能是不完整的。
+因此，本章对视图的完整性定义如下。
+\begin{definition}
+	视图$i$的完整性$\Phi_{i} \in [0,1]$被定义为边缘节点$e$实际收到的信息数量与所需总量之比。
+	\begin{equation}
+	\Phi_{i}= {| \mathbf{D}_{i, e} |} \big/ {|D_{i} |}, \forall i \in \mathbf{I}_e^t, \forall e \in \mathbf{E}
+	\end{equation}
+\end{definition}
+\noindent 其中$|\mathbf{D}_{i, e}|$是边缘节点$e$收到并被视图$i$需要的信息数，$|\mathbf{D}_{i}|$是视图$i$需要的信息总数。
+
+再次，由于不同类型的信息有各自的感知频率和上传优先级，在构建视图时，必须使不同类型信息的版本尽可能接近。
+因此，本章对视图的一致性定义如下。 
+\begin{definition}
+视图$i$的一致性$\Psi_{i} \in (0,+\infty)$被定义为信息接收时间与视图所需信息的平均接收时间之差的二次方和。
+\begin{equation}
+\Psi_{i}=\sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_{i, e} \cap \mathbf{D}_v^t} \left|\operatorname{q}_{d, v}^t + \operatorname{w}_{d, v, e}^t - \psi_{i} \right|^{2}, \forall i \in \mathbf{I}_e^t, \forall e \in \mathbf{E}
+\end{equation}
+\end{definition}
+\noindent 其中 $\psi_{i}$ 是视图$i$所需信息的平均接收时间，其可由下式得到 
+\begin{equation}
+	\psi_{i} = \frac{1}{|D_{i, e}|} {\sum_{\forall v \in \mathbf{V}}\sum_{\forall d \in D_{i, e} \cap \mathbf{D}_v^t} \left( \operatorname{q}_{d, v}^t + \operatorname{w}_{d, v, e}^t\right) }, \forall i \in\mathbf{I}_e^t, \forall e \in \mathbf{E}
+\end{equation}
+
+最后，本章给出了Age of View的正式定义，其综合了视图的时效性、完整性和一致性。
+\begin{definition}
+Age of View $\operatorname{AoV}_{i} \in (0, 1)$ 被定义为视图$i$的归一化时效性、完整性和一致性的加权平均值。
+	\begin{equation}
+	    \operatorname{AoV}_{i} = w_1  \hat{\Xi}_{i} + w_2  \hat{\Phi}_{i}+  w_3 \hat{\Psi}_{i}, \forall i \in \mathbf{I}_e^t, \forall e \in \mathbf{E}
+\end{equation}
+\end{definition}
+\noindent 其中，$\hat{\Xi}_{i} \in (0, 1)$、$\hat{\Phi}_{i} \in (0, 1)$和$\hat{\Psi}_{i} \in (0, 1)$分别表示视图$i$的归一化时效性、归一化完整性和归一化一致性。
+$\operatorname{AoV}_{i}$的值越低，说明构建的视图质量越高。
+需要注意的是，由于视图的时效性、完整性和一致性的维度不同，为了形成AoV的统一表示，基于线性函数归一化，将它们归一化到$(0,1)$范围内，具体如下
+\begin{numcases}{}
+\hat{\Xi}_{i} = {\Xi}_{i} \big/ \left( \delta_\xi | \mathbf{D}_{v, e} |   T \right) \notag \\ 
+\hat{\Phi}_{i} = 1 - {\Phi}_{i}  \notag \\
+\hat{\Psi}_{i} = {\Psi}_{i} \big/ \left( \delta_\psi  \max\limits_{\substack{\forall d \in \mathbf{D}_v \cap \mathbf{D}_v^t \\ \forall v \in \mathbf{V}}}{\left\{ \left|\operatorname{q}_{d, v}^t + \operatorname{g}_{d, v, e}^t - \psi_{i} \right|^{2}\right\}}   \right)
+\end{numcases}
+\noindent 其中$\delta_{\xi} \in(0,1)$和$\delta_\psi \in(0,1)$分别是时效性和一致性的数据比例系数。它们被用来在线性函数归一化中通过缩减时效性和一致性的理论最大值避免归一化结果将大部分数值集中在一个小范围内。
+
+归一化后的$\hat{\Xi}_{i}$、$\hat{\Phi}_{i}$和$\hat{\Psi}_{i}$的加权系数分别用$w_1$、$w_2$和$w_3$表示，且$w_1+w_2+w_3=1$。
+加权系数可以根据ITS应用的不同要求进行相应的调整。
+例如，对于道路交叉口的速度咨询应用，车辆需要从边缘节点接收实时速度的指令，以便安全顺利地通过交叉口。
+在这种情况下，时效性因素（例如，实时交通灯状态）与完整性因素（例如，行人在视图中被建模）相比，在视图建模中更为重要。
+
+\subsection{问题定义}
+鉴于上述指标AoV是单独评估视图的质量，本章进一步在系统层面上定义VCPS的质量如下。
+\begin{definition}
+VCPS的质量$\Upsilon \in (0,1)$被定义为在调度期$\mathbf{T}$中边缘节点的每个视图$i$的AoV的补集平均值。
+\begin{equation}
+\Upsilon=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t} \left(1 - \operatorname{AoV}_{i}\right)}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{I}_e^t| }
+\end{equation}
+\end{definition}
+
+给定一个确定性的解决方案$(\bf\Lambda, \mathbf{P}, \mathbf{B} )$，其中$\bf\Lambda$表示确定的感知频率，$\mathbf{P}$表示确定的上传优先级，$\mathbf{B}$表示确定的V2I带宽分配，它们分别表示为 
+\begin{numcases}{}
+{\bf\Lambda} = \left\{ \lambda_{d, v}^{t} \vert \forall d \in \mathbf{D}_v^t  , \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right\} \notag \\ 
+\mathbf{P} = \left \{ p_{d, v}^{t} \vert \forall d \in \mathbf{D}_v^t  , \forall v \in \mathbf{V}, \forall t \in \mathbf{T}\right \} \notag \\
+\mathbf{B} = \left \{ b_{v, e}^t \vert \forall v \in \mathbf{V}_e^t, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}\right \}
+\end{numcases}
+\noindent 其中，$\lambda_{d,v}^{t}$ 表示车辆$v$在时间$t$对信息$d$的感知频率，$p_{d, v}^{t}$ 表示车辆$v$在时间$t$对信息$d$的上传优先级，$b_{v, e}^t$ 表示边缘节点$e$在时间$t$为车辆$v$分配的V2I 带宽。
+
+本章旨在通过车辆间协同感知与边缘节点的异质信息融合以构建边缘视图并进一步实现高质量车载信息物理融合。
+因此，本章的目标问题是通过确定所有车辆上不同信息感知频率、上传优先级，以及边缘节点对于通信覆盖范围内所有车辆进行V2I带宽分配，以最大限度地提高VCPS的质量，其形式化定义如下。
+
+
+\begin{align}
+	&\max_{\bf\Lambda, \mathbf{P}, \mathbf{B}} \Upsilon \notag \\
+	\text { s.t. }
+    \mathcal{C}3.1: & \lambda_{d,v}^{t} \in \left [\lambda_{d,v}^{\min} , \lambda_{d,v}^{\max} \right ], \forall d \in \mathbf{D}_v^t , \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \notag \\
+     \mathcal{C}3.2: &{p}_{d^*, v}^t \neq {p}_{d, v}^t, \forall d^* \in \mathbf{D}_v^t \setminus \left\{ d\right \}, \forall d \in \mathbf{D}_v^t, \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \notag \\
+    \mathcal{C}3.3: & b_{v, e}^t \in \left[ 0 , b_e \right ], \forall v \in \mathbf{V}_e^t, \forall e \in \mathbf{E}, \forall t \in \mathbf{T} \notag \\
+    \mathcal{C}3.4: & \sum_{\forall d \subseteq \mathbf{D}_v^t} \lambda_{d,v}^{t}  \alpha_{d, v}^t < 1,\ \forall v \in \mathbf{V}, \forall t \in \mathbf{T}  \notag \\
+    \mathcal{C}3.5: & {\sum_{\forall v \in \mathbf{V}_e^{t}}b_{v, e}^t} \leq b_e, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}
+\end{align}
+
+
+约束条件$\mathcal{C}3.1$要求车辆$v$中的信息$d$在时间$t$的感知频率应满足其感知能力的要求。
+$\mathcal{C}3.2$ 保证时间$t$内车辆$v$中信息$d$的上传优先权。
+$\mathcal{C}3.3$ 规定边缘节点$e$在时间$t$为车辆$v$分配的V2I带宽不能超过其带宽容量$b_e$。
+$\mathcal{C}3.4$保证在调度周期$\mathbf{T}$内队列稳定状态。
+$\mathcal{C}3.5$要求边缘节点$e$分配的V2I带宽之和不能超过其容量$b_e$。
+
+\section{基于差分奖励的多智能体强化学习算法设计}\label{section 2-5}
+
+\subsection{算法模型}
+本章将详细介绍所提基于差分奖励的多智能体深度强化学习算法，其模型如图\ref{fig 3-3}所示，是由$V$辆车、边缘节点$e$、VCPS环境和经验回放缓存组成。
+首先，车辆$v$决定其动作$\boldsymbol{a}_{v}^{t}$，包括确定感知频率和上传优先级。
+特别地，车辆$v$的行动者网络被用来生成其动作，其输入是对系统状态的局部观测$\boldsymbol{o}_{v}^{t}$。
+车辆$v$的评论家网络被用来评估由相应行动者网络产生的动作。
+其次，边缘节点$e$根据预测的车辆轨迹和视图需求决定其动作$\boldsymbol{a}_{e}^{t}$，即为无线电覆盖范围内的车辆分配V2I带宽。
+再次，环境根据动作$\{ \boldsymbol{a}_{1}^{t}, \ldots, \boldsymbol{a}_{v}^{t}, \ldots, \boldsymbol{a}_{V}^{t}, \boldsymbol{a}_{e}^{t}\}$ 获得系统奖励，即边缘节点$e$在时间$t$实现的VCPS质量。
+并采用基于DR的信用分配，将系统奖励分为差分奖励$\{r_1^t, \ldots, r_{V}^t\}$，其中$r_v^t$被用来评估车辆$v$对视图构建的贡献。
+最后，相关的交互经验包括当前系统状态、车辆动作、差分奖励和下一时刻系统状态，都存储在经验回放缓存中，并被用来训练车辆的行动者和评论家网络。
+算法模型的主要组成部分设计如下。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig2-6-v2i-delay.pdf}
-  \bicaption{数据包的传输延迟}{Transmission delay of data packets}
-  \label{fig 2-6}
+  \includegraphics[width=1\columnwidth]{Fig3-3-solution-model.pdf}
+  \bicaption{基于差分奖励的多智能体深度强化学习模型}{Multi-agent difference-reward-based deep reinforcement learning model}
+  \label{fig 3-3}
 \end{figure}
 
-同时，本章还实现了基于云的服务，车辆通过LTE通信向云服务器更新它们的状态，而碰撞预警程序则在SDN控制器中实现。
-一旦检测到潜在的碰撞，警告信息将通过 LTE 通信从云服务器传输到车辆。
-为了比较基于边缘和基于云的服务的性能，图\ref{fig 2-6}比较了V1通过边缘和云服务的数据包延迟。
-如前所述，边缘节点能够以更短的延迟接收来自车辆的更新，这对于如碰撞预警这类的安全相关的服务是至关重要的。
-具体来说，车辆V1和V2通过基于边缘的服务的平均延迟分别为72.01 ms和74.03 ms，而V1和V2通过基于云的服务的平均延迟分别为120.08 ms和104.97 ms。
-实验结果验证本章提出的基于边缘的服务的可行性，并为未来的相关研究提供了有价值的参考。
+1) \textbf{系统状态}: 边缘节点定期广播其视图需求和缓存信息。在时间$t$内，车辆$v$的系统状态的本地观测被表示为 
+	\begin{equation}
+		\boldsymbol{o}_{v}^{t}=\left\{\mathbf{D}_{v}^{t}, \mathbf{D}_{e}^{t}, \mathbf{I}_e^t\right\}
+	\end{equation} 
+	\noindent 其中$\mathbf{D}_{v}^{t}$表示车辆$v$在时间$t$感知的信息集合；
+	$\mathbf{D}_{e}^{t}$ 表示在时间$t$边缘节点$e$中的缓存信息集合，
+	以及$\mathbf{I}_e^t$表示边缘节点$e$在时间$t$的边缘节点所需的视图集合。
+	那么，时间$t$的系统状态可表示为
+	\begin{equation}
+		\boldsymbol{o}^{t}=\left\{\mathbf{D}_{1}^{t}, \ldots, \mathbf{D}_{v}^{t}, \ldots, \mathbf{D}_{V}^{t}, \mathbf{D}_{e}^{t}, \mathbf{I}_{e}^{t}\right\}
+	\end{equation}
 
-\subsection{启示}
+2) \textbf{动作空间}: 车辆$v$的动作空间由时间$t$的感知频率和传感信息的上传优先级组成，它被表示为 
+	\begin{equation}
+		\boldsymbol{a}_{v}^{t}=\{ \lambda_{d, v}^{t}, p_{d, v}^{t} \mid \forall d \in \mathbf{D}_{v}^t\}
+	\end{equation}
+	\noindent 其中$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别是时间$t$内车辆$v$中信息$d$的感知频率和上传优先级。
+	车辆动作的集合用$\boldsymbol{a}_{\mathbf{V}}^{t} = \left\{\boldsymbol{a}_{v}^{t}\mid \forall v \in \mathbf{V}\right\}$表示。
+	边缘节点的动作是对车辆进行V2I带宽分配，其表示为 
+	\begin{equation}
+		\boldsymbol{a}_{e}^{t}=\{b_{v, e}^{t} \mid \forall v \in \mathbf{V}_{e}^{t}\}
+	\end{equation}
+	其中$b_{v, e}^t$是边缘节点$e$在时间$t$为车辆$v$分配的V2I带宽。
+	
+3) \textbf{系统奖励}: 在系统状态$\boldsymbol{o}^{t}$下，通过车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$和边缘节点动作$\boldsymbol{a}_{e}^{t}$的系统奖励被定义为$t$时边缘节点$e$实现的VCPS质量，其计算公式为
+	\begin{equation}
+		r\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)=\frac{1}{\left|\mathbf{I}_e^t\right|} \sum_{\forall i \in \mathbf{I}_e^t}\left(1 -\operatorname{AoV}_{i} \right)
+	\end{equation}
+	
+系统奖励展示了整个系统的综合表现，该表现来自于车辆和边缘节点的共同努力。
+因此，为了评估各车辆的贡献，需要将系统奖励分配给每个车辆作为个人奖励。
+基于DR的信用分配方案是通过计算系统奖励与无该智能体动作所获奖励之间的差值来确定该智能体的个人奖励，可以更准确地评估每个智能体的行为，从而进一步提升所提出解决方案的性能。
+据此，车辆$v$的差分奖励表示为\cite{foerster2018counterfactual}
+\begin{equation}
+r_{v}^{t}=r\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)-r\left(\boldsymbol{a}_{\mathbf{V}-v}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)
+\end{equation}
+\noindent 其中 $r\left(\boldsymbol{a}_{\mathbf{V}-v}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$是没有车辆$v$贡献的系统奖励，它可以通过设置车辆$v$的空动作集得到。
+车辆的差分奖励集合用$\boldsymbol{r}_{\mathbf{V}}^{t}=\{ r_{v}^{t} \mid \forall v \in \mathbf{V}\}$表示。
 
-本章提供的两个案例研究结果证明了基于边缘的服务在减少服务延迟方面的优越性，并且对未来ITS的实施提供了启示。
-尽管作为迈向新的车联网范式的早期阶段，以及由于资源和环境的限制，上述案例研究只在小规模的环境中实施和评估了部分架构特征，但这些结果仍然有助于指导未来的研究和实践。
+\subsection{工作流程}
+MADR算法包括三个部分，即初始化、回放经验存储和训练。
 
-案例研究的结果表明，在一些相对理想的情况下，如低密度（2$\sim$3辆）、慢速（约25公里/小时），以及V2I（约20$\sim$50米）和V2V（约3$\sim$10米）通信距离较短情况下，DSRC的应用有效载荷数据率远低于其在PHY层的理论速率。
-例如，“透视”服务中V2V通信的平均数据速率约为2.72 Mbps（34KB/100ms），这比DSRC声称的3$\sim$27 Mbps的速率要低得多。
-因此，即使有基于边缘的服务，仍然需要 5G 等新兴技术来实现车联网中的超低延迟和安全关键应用，其是未来ITS需要重点关注的问题之一。
+1) \textbf{初始化}: 首先，每辆车都作为一个智能体并由四个神经网络组成，即一个本地行动者网络、一个目标行动者网络、一个本地评论家网络和一个目标评论家网络。
+车辆$v$的本地行动者和本地评价家网络的参数分别用$\theta_{v}^{\mu}$和$\theta_{v}^{Q}$来表示。
+目标行动者和目标评论家网络的参数分别用$\theta_{v}^{\mu^{\prime}}$和$\theta_{v}^{Q^{\prime}}$表示。
+其次，车辆的本地行动者和本地评价家网络的参数是随机初始化的。
+目标行动者和目标评论家网络的参数被初始化为与相应的本地网络相同。
+\begin{align}
+	\theta_{v}^{\mu^{\prime}} \leftarrow \theta_{v}^{\mu}, \forall v \in \mathbf{V}\\
+	\theta_{v}^{Q^{\prime}} \leftarrow \theta_{v}^{Q}, \forall v \in \mathbf{V}
+\end{align}
+最后，初始化一个最大容量为$|\mathcal{B}|$的经验回放缓存以存储车辆的回放经验。
+初始化的详细步骤显示在算法 3.1 的第1-2行。
 
-在未来的研究中，需要进一步评估基于NFV和NS的自适应资源分配和面向QoS的服务，以及基于服务卸载实现大规模和分布式服务的优势。
-上述研究将进一步推动车联网领域的发展，并为相关应用场景提供更好的解决方案。
-此外，还需要关注如何更好地处理车联网中的安全和隐私问题，以及如何将新兴技术与现有技术结合使用，以实现更加智能化和高效的应用场景。
-例如，考虑与其他领域的交叉研究，如区块链、人工智能等，以实现更广泛的例如智慧城市、智能交通等应用场景。
-综上所述，本章提供的案例研究为未来下一代ITS的发展和实现提供了有益的参考和指导。
+\SetKwInOut{KwIn}{输入}
+\SetKwInOut{KwOut}{输出}
 
-\section{本章小结}\label{section 2-5}
+\begin{algorithm}[h]\small
+\renewcommand{\algorithmcfname}{算法}
+		\caption{基于差分奖励的多智能体深度强化学习}
+		初始化网络参数\\
+		初始化经验回放缓存$\mathcal{B}$\\
+        \For{\songti{迭代次数} $= 1$ \songti{到最大迭代次数}}{
+            初始化一个随机过程 $\mathcal{N}$ 以进行探索 \\
+            接收初始系统状态 $\boldsymbol{o}_{1}$\\
+            \For{\songti{时间片} $t = 1$ \songti{到} $T$}{
+            	\For{\songti{车辆} $v=1$ \songti{到} $V$ }{
+            			接收本地观测值 $\boldsymbol{o}_{v}^{t}$ \\
+                    	选择一个动作 $\boldsymbol{a}_{v}^{t}=\boldsymbol{\mu}_{v}\left(\boldsymbol{o}_{v}^{t} \mid \theta_{v}^{\mu}\right)+\mathcal{N}_{t}$ \\
+            		得到所需信息 $\mathbf{D}_{v,\operatorname{R}}^{t}$\\
+        		通过基于EM方法利用历史相对距离来预测移动模式\\
+        		预测未来的轨迹 $\operatorname{Traj}_{v}^{t}$ \\
+        		计算平均距离$\operatorname{\bar{dis}}_{v, e}^{t}$
+            	}
+        	\For{\songti{车辆} $v=1$ \songti{到} $V$ }{
+        		通过VBA策略分配带宽 $b_{v, e}^{t}$ 给车辆 $s$\\}
+            	接收系统奖励 $r\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$ 和下一时刻系统状态 $\boldsymbol{o}^{t+1}$\\
+            	划分系统奖励为差分奖励$\boldsymbol{r}_{\mathbf{V}}^{t}$\\
+            	存储 $\left(\boldsymbol{o}^{t}, \boldsymbol{a}_{\mathbf{V}}^{t}, \boldsymbol{r}_{\mathbf{V}}^{t}, \boldsymbol{o}^{t+1}\right)$ 到经验回放缓存 $\mathcal{B}$
+            }
+            \For{\songti{车辆} $v=1$ \songti{到} $V$ }{
+            		从经验回放缓存$\mathcal{B}$随机采样 $M$ 训练样本\\
+            		更新本地行动者和评论家网络参数\\
+            	}
+            	更新目标行动者和评论家网络参数
+       	}
+\label{algorithm 3-1}
+\end{algorithm}
 
-本章为未来车联网的大规模、实时和可靠的信息服务提出了一个包括应用层、路由层、MAC层和物理层的分层服务架构。
-所提新架构通过解耦控制和数据平面来实现逻辑上的集中控制。
-在控制平面，SDN控制器与云服务器交互，管理车辆和边缘服务器的资源，并执行服务的自适应分配。
-在数据平面，基于边缘的服务实现了资源和计算的卸载，以提高系统的可扩展性和性能。
-此外，通过抽象和虚拟化异构资源来促进NFV和NS，这使得服务能够以高度灵活和可编程的方式实现。
-同时，在新模式下出现了诸多挑战和机会。
-例如，控制层的全局知识获取、虚拟层的异构资源管理、数据层的大规模数据传输等问题需要解决。
-进一步，本章提出了一个跨层协议栈用于实现服务发现、分配和管理等功能。
-此外，本章在现实世界的车联网环境中实现了系统原型，并提出了两个案例研究，其证明了所提架构的巨大潜力。
-案例研究包括“透视”服务和碰撞预警服务，其实验结果表明，基于边缘的服务在减少服务延迟方面比基于云的服务更加优越，同时也提高了系统的可扩展性和性能。
-然而，所提架构仍然需要 5G 等新兴技术的支持，以实现车联网中超低延迟和安全关键应用。
-综上，本章提出的新架构为未来车联网提供了一个可行的解决方案，使车联网系统能够更加灵活、可靠和可扩展。
+2) \textbf{回放经验存储}:
+在每次迭代的开始，初始化一个随机过程$\mathcal{N}$用于增加智能体探索。
+车辆$v$在时间$t$的行动是由本地行动者网络根据其对系统状态的本地观察得到的。
+\begin{equation}
+	\boldsymbol{a}_{v}^{t}=\boldsymbol{\mu}_{\boldsymbol{v}}\left(\boldsymbol{o}_{v}^{t} \mid \theta_{v}^{\mu}\right)+\mathcal{N}_{t}
+\end{equation}
+\noindent 其中，$\mathcal{N}_{t}$是一个由随机过程$\mathcal{N}$得到的探索噪音，以增加车辆动作的多样性。
+
+边缘节点$e$根据预测的车辆轨迹和视图需求，通过VBA方案分配V2I带宽。
+具体地说，首先，车辆的移动模式由边缘节点$e$根据车辆和边缘节点之间的历史距离，使用期望最大化（Expectation-Maximization, EM）方法\cite{hofmann2001unsupervised} 进行预测。
+然后，根据基于EM的移动性模式预测，预测车辆$v$在未来$H$时间片的轨迹，用$\operatorname{Traj}_{v}^{t} = \{ \hat{l}_{v}^{t+1}, \dots, \hat{l}_{v}^{t+h}, \dots, \hat{l}_{v}^{t+H}\}$表示，其中$\hat{l}_{v}^{t+h}$是车辆$v$在时间$t+h$的预测位置。
+因此，车辆在边缘节点之间的平均距离是通过下式计算得到
+\begin{equation}
+	\operatorname{\bar{dis}}_{v, e}^{t} = \frac{1}{H} {\sum_{\forall h \in [1, H]} \widehat{\operatorname{dis}}_{v, e}^{t+h}}
+\end{equation}
+其中，$\widehat{\operatorname{dis}}_{v, e}^{t+h}$ 是车辆$v$预测位置与边缘节点的距离，即$\widehat{\operatorname{dis}}_{v, e}^{t+h}=\operatorname{distance}(\hat{l}_{v}^{t+h}, l_{e})$。
+
+那么，由车辆$v$感知到的并被视图$i$在时间$t$所需的信息集表示为 
+\begin{equation}
+	\mathbf{D}_{v, i}^{t} = \left\{ d \mid  d \in \mathbf{D}_{v}^t \cap  \mathbf{D}_i \right\}
+\end{equation}
+因此，由车辆$v$感知到并被边缘节点$e$上所有视图在时间$t$所需的信息集合表示为 
+\begin{equation}
+	\mathbf{D}_{v, {\mathbf{I}_e^t}}^{t} = \{ d \mid  d \in \bigcup_{\forall v \in V_e^t} \mathbf{D}_{v, i}^{t}\}
+\end{equation}
+\noindent 该集合的大小记为$|\mathbf{D}_{v, {\mathbf{I}_e^t}}^{t}|$, 并可通过下式得到
+\begin{equation}
+	|\mathbf{D}_{v, {\mathbf{I}_e^t}}^{t}| = \sum_{\forall d \in \mathbf{D}_{v, {\mathbf{I}_e^t}}^{t}}|d|
+\end{equation}
+最后，边缘节点$e$为车辆$v$分配的V2I带宽由下式计算 
+\begin{equation}
+	b_{v, e}^{t} =\frac{b_{e}} {\omega+\operatorname{rank}_{v}}
+\end{equation}
+\noindent 其中$\omega$为常数，$\operatorname{rank}_{v}$为车辆$v$按$| \mathbf{D}_{v, {\mathbf{I}_e^t}}^{t}|$的序列降序并按$\operatorname{\bar{dis}}_{v, e}^{t}$的序列升序排列的序列名次。
+
+在确定车辆和边缘节点的联合动作后，以实现的VCPS质量作为系统奖励$r\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$，并通过基于DR的信用分配方案进一步划分为差分奖励$\boldsymbol{r}_{\mathbf{V}}^{t}$。
+最后，包括当前系统状态$\boldsymbol{o}^{t}$、车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$、差分奖励$\boldsymbol{r}_{\mathbf{V}}^{t}$和下一时刻系统状态$\boldsymbol{o}^{t+1}$在内的交互经验被存储在经验回放缓存$\mathcal{B}$。
+回放经验存储的详细过程显示在算法3.1的第4-18行。
+
+3) \textbf{训练}: 从经验回放缓存$\mathcal{B}$中随机抽取$M$样本的小批量，用于训练车辆中的行动者和评论家网络，其中单个样本用$(\boldsymbol{o}_{v}^{m}, \boldsymbol{a}_{\mathbf{V}}^{m}, \boldsymbol{r}_{\mathbf{V}}^{m}, \boldsymbol{o}_{v}^{m+1})$表示。
+车辆$v$的本地评论家网络的损失函数通过下式计算
+\begin{equation}
+	\mathcal{L}\left(\theta_{v}^{Q}\right)=\frac{1}{M} \Sigma_{m}\left(\eta_{m}-Q_{v}\left(\boldsymbol{o}_{v}^{m}, \boldsymbol{a}_{\mathbf{V}}^{m} \mid \theta_{v}^{Q}\right)\right)^{2}
+\end{equation}
+\noindent 其中，$\eta_{m}$是由目标评论家网络产生的目标值，$\eta_{m}=r_{v}^{m}+\tau Q_{v}^{\prime}(\boldsymbol{o}_{v}^{m+1}, \boldsymbol{a}_{\mathbf{V}}^{m+1} \mid \theta_{v}^{Q^{\prime}})$，$\tau$是折扣率。
+车辆$v$在时间$m+1$的行动是由目标行动者网络根据对下一时刻系统状态的局部观察得到的，即$\boldsymbol{a}_{\mathbf{V}}^{m+1}=\mu_{v}^{\prime}(\boldsymbol{o}_{v}^{m+1} \mid \theta_{v}^{\mu^{\prime}})$。
+车辆$v$的本地行动者网络的参数通过策略网络梯度更新。
+\begin{equation}
+	\nabla_{\theta_{v}^{\mu}} \mathcal{J} \approx \frac{1}{M} \sum_{m} \nabla_{\boldsymbol{a}_{\mathbf{V}}^{m}} Q_{v}\left(\boldsymbol{o}_{v}^{m}, \boldsymbol{a}_{\mathbf{V}}^{m} \mid \theta_{v}^{Q}\right) \nabla_{\theta_{v}^{\mu}} \mu_{v}\left(\boldsymbol{o}_{v}^{m+1} \mid \theta_{v}^{\mu}\right)
+\end{equation}
+最后，车辆更新目标网络的参数。
+\begin{align}
+	\theta_{v}^{\mu^{\prime}} &\leftarrow n_{v} \theta_{v}^{\mu}+(1-n_{v})  \theta_{v}^{\mu^{\prime}}, \forall v \in \mathbf{V}\\
+	\theta_{v}^{Q^{\prime}} &\leftarrow n_{v} \theta_{i}^{Q}+(1-n_{v})  \theta_{v}^{Q^{\prime}}, \forall v \in \mathbf{V}
+\end{align}
+\noindent 其中 $n_{v} \ll 1, \forall v \in \mathbf{V} $。
+训练过程的详细步骤显示在算法3.1的第19-22行。
+
+\section{实验结果与分析}\label{section 2-6}
+
+\subsection{基本设置}
+本章使用Python 3.9和PyTorch 1.11.0实现了一个仿真模型，以评估MADR的性能。
+该仿真模型基于一台配备AMD Ryzen 9 5950X 16核处理器@3.4 GHz、两个NVIDIA GeForce RTX 3090图形处理单元和64 GB内存的Ubuntu 20.04服务器。
+特别地，本章使用真实世界的车辆轨迹构建了三种交通场景，这些轨迹来自滴滴GAIA公开数据集，包括：1）中国成都市青羊区3平方公里区域，2016年11月16日8:00至8:05；2）同一区域，同日23:00至23:05；3）中国西安碑林区3平方公里区域，2016年11月27日8:00至8:05。
+车辆轨迹的具体分析包括车辆轨迹总数、车辆平均停留时间（Average Dwell Time，ADT）、停留时间方差（Variance of Dwell Time, VDT）、平均车辆数（Average Vehicle Number, AVN）、车辆数方差（Variance of Vehicle Number, VVN）、车辆平均速度（Average Vehicle Speed，AVS）和车辆速度方差（Variance of Vehicle Speed，VVS）的详细统计，其总结在表\ref{table 3-1}中。
+图\ref{fig 3-4}显示了调度周期内车辆分布的热力图，以更好地展示不同场景下的交通特征。
+比较图\ref{fig 3-4}(a)、图\ref{fig 3-4}(b)和图\ref{fig 3-4}(c)，可以发现工作日高峰期（即2016年11月16日星期三8点左右）的车辆密度远远高于同一地区的夜间（即同日23点左右），也比周末的高峰期（即2016年11月27日，星期日，8:00左右）高得多。
+此外，在图\ref{fig 3-4}(c)中可以观察到车辆分布完全不同，因为场景3中的车辆轨迹是从另一个城市提取的。
+
+实验参数设置描述如下。
+信息的数据大小均匀分布在[100 B, 1 MB]的范围内。
+每辆车的传输功率为1 mW。
+V2I通信的 AWGN 和路径损耗指数分别设置为-90 dBm和3 \cite{sadek2009distributed}。
+V2I通信的信道衰减增益遵循均值为2、方差为0.4的高斯分布。
+边缘节点的带宽被设置为3 MHz \cite{wang2019delay}。
+噪声的不确定性遵循[0，3] dB的均匀分布 \cite{tandra2008snr}。
+
+\begin{table}[h]\small
+\centering
+\bicaption{不同场景的交通特征}{Traffic characteristics of each scenario}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}[t]{cccccccc}
+\toprule
+场景&轨迹&ADT&VDT&AVN&VVN&AVS&VVS\\
+\midrule
+1&718&198.3(s)&123.8&474.6&11.6&5.22(m/s)&2.61\\
+2&359&173.7(s)&124.1&207.9&3.93&7.30(m/s)&3.16\\
+3&206&145.5(s)&114.7&99.9&7.65&8.06(m/s)&3.70\\
+\bottomrule
+\end{tabular}}
+\label{table 3-1}
+\end{table}
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig3-4-heat-map.pdf}
+  \bicaption[不同场景下的车辆分布热力图]{不同场景下的车辆分布热力图。(a) 场景1（b）场景2（c）场景3}[Heat map of the distribution of vehicles under different scenarios]{Heat map of the distribution of vehicles under different scenarios. (a) Scenario 1 (b) Scenario 2 (c) Scenario 3}
+  \label{fig 3-4}
+\end{figure} 
+
+MADR的架构和超参数描述如下。
+本地行动者网络是一个四层全连接的神经网络，其中包含两个隐藏层，其神经元数量分别为64和32。
+目标行动者网络结构与本地行动者网络相同。
+本地评论家网络是一个四层全连接的神经网络，其中包含两个隐藏层，其神经元数量分别为128和64。
+目标评论家网络的结构与本地评论家网络相同。
+使用整流线性单元（Rectified Linear Unit, ReLU）作为激活函数，使用自适应矩估计（Adaptive Moment Estimation, Adam）优化器更新网络权重，学习率为0.001，折扣系数设置为0.996。
+经验回放缓存$|\mathcal{B}|$的大小为100000，批大小为512。
+此外，本章还实现了以下四种可比较的算法。
+
+\begin{itemize}
+	\item \textbf{随机分配}: 在每个时间片中，随机选择一个关于确定感知频率、上传优先级和V2I带宽分配的动作。
+	\item \textbf{集中式深度确定性策略梯度}\cite{mlika2022deep}: 在边缘节点实现一个智能体，根据系统状态以集中的方式确定感知频率、上传优先级和V2I带宽分配。同时，智能体接收系统奖励以评估其贡献。
+	\item \textbf{多智能体行动者-评论家}\cite{he2021efficient}: 实现了车辆中的智能体，基于本地车联网环境观测来决定感知频率和上传优先级，以及边缘节点中的智能体来决定V2I带宽分配。每个智能体都接收系统奖励，以评估其贡献，这对每个智能体都是相同的。
+	\item \textbf{采用VBA策略的MAAC}: 为了更好地分配V2I带宽，本章进一步设计了一个名为MAAC-VBA的变体，其中边缘节点根据预测的车辆轨迹和视图需求来分配V2I带宽。
+\end{itemize}
+
+此外，本章还设计了以下指标用于性能评估。
+\begin{itemize}
+	\item \textbf{累积奖励} (Cumulative Reward, CR): 定义为调度期间的累积系统奖励, 其计算方法为
+		\begin{equation}
+			\operatorname{CR} = \sum_{\forall t \in \mathbf{T}} r\left(\boldsymbol{a}_{v}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)
+		\end{equation}
+	\item \textbf{平均奖励的构成} (Composition of Average Reward, CAR): 定义为归一化的时效性、完整性和一致性在平均奖励中的百分比，其表示为
+		\begin{equation}
+			\operatorname{CAR} = <\frac{3}{10}(1-\hat{\Xi}_{i}),\frac{4}{10}(1-\hat{\Phi}_{i}), \frac{3}{10}(1-\hat{\Psi}_{i})>
+		\end{equation}
+	\item \textbf{平均排队时间} (Average Queuing Time, AQT): 定义为感知信息的排队时间之和除以调度期$T$内的信息数量，其计算方法为 
+		\begin{equation}
+			\operatorname{AQT} =\sum_{\forall t \in \mathbf{T}} \left \{ \frac{\sum_{v \in \mathbf{V}} \sum_{\forall d \subseteq \mathbf{D}_{v}^t} \frac{\operatorname{q}_{d, v}^t}{|\mathbf{D}_{v}^t|} }{V} \right\} \bigg/ T
+		\end{equation}
+	\item \textbf{服务率} (Service Ratio, SR): 定义为满足完整性要求的视图的数量与调度期间$T$所需的视图总数的比率，其计算方法是 
+		\begin{equation}
+			\operatorname{SR} = \frac{\sum_{\forall t \in \mathbf{T}}\sum_{\forall i \in \mathbf{I}_e^t} \mathds{1}\{\Phi_{i} \geq \Phi_{threshold}\}}{ \sum_{\forall t \in \mathbf{T}} |\mathbf{I}_e^t|}
+		\end{equation}
+	其中 $\Phi_{threshold}$ 是完整性阈值。
+\end{itemize}
+
+\subsection{实验结果与分析}
+
+\textbf{1) 算法收敛性:}
+图\ref{fig 3-5}比较了五种算法的收敛速度以及取得的CR值。
+结果显示，本章提出的MADR算法具有最快的收敛速度（约660次迭代），并获得了最高的CR值（约357）。
+相比之下，C-DDPG、MAAC和MAAC-VBA分别在大约4500次、950次和870次迭代后收敛，并分别达到约307、290和315的CR值。
+RA作为基线算法实现了约241的CR值。
+值得注意的是，与C-DDPG、MAAC和MAAC-VBA相比，MADR算法在CR值方面分别实现了大约16.3\%、23.1\%和13.3\%的增加，并在收敛速度方面分别有大约6.8倍、1.4倍和1.3倍的提升。
+主要的原因是，所提MADR算法旨在维护车辆的稳定通信环境，这使得车辆中的行动者和评论家网络的训练更加有效。
+另一方面，由于MADR的行动空间较小，因此相比于C-DDPG，MADR更容易收敛，因为C-DDPG需要同时决定感知频率、上传优先级和V2I带宽分配。
+
+\begin{figure}[h]
+\centering
+  \includegraphics[width=1\columnwidth]{Fig3-5-convergence.pdf}
+  \bicaption{算法收敛性比较}{Convergence comparison}
+  \label{fig 3-5}
+\end{figure} 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\columnwidth]{Fig3-6-different-scenarios.pdf}
+  \bicaption[不同交通场景下的性能比较]{不同交通场景下的性能比较。（a）车载信息物理融合系统质量（b）平均 AoV（c）累积奖励（d）平均奖励的构成（e）平均排队时间（f）服务率}[Performance comparison under different traffic scenarios]{Performance comparison under different traffic scenarios. (a) Vehicular cyber-physical system quality (b) Average age of view (c) Cumulative reward (d) Composition of average reward (e) Average queuing time (f) Service ratio}
+  \label{fig 3-6}
+\end{figure}
+
+\textbf{2) 交通场景的影响:}
+图\ref{fig 3-6}比较了五种算法在不同交通场景下的性能。
+图\ref{fig 3-6}(a) 比较了五种算法的VCPS质量。
+如图所示，所提MADR算法在所有场景下都能达到最高的VCPS质量。
+特别地，在不同的交通场景下，MADR比RA、C-DDPG、MAAC和MAAC-VBA分别平均提高了58.0\%、27.1\%、19.1\%和12.5\%的VCPS质量。
+图\ref{fig 3-6}(b)显示了五种算法的平均AoV。
+与预想的一致，在所有场景下，MADR都能实现最低的平均AoV。
+图\ref{fig 3-6}(c) 比较了五种算法的CR。
+如图所示，MADR实现的CR高于RA、C-DDPG、MAAC和MAAC-VBA。
+同时，在场景3下，MADR和MAAC-VBA的CR是相似的。
+原因是场景3中较低的车辆密度和较高的车辆动态性使得数据上传比场景1和2中更加困难。
+
+图\ref{fig 3-6}(d) 将平均奖励分解成三部分，分别显示了其中时效性、完整性和一致性的比例。
+可以看出，在场景3下，五种算法的时效性和一致性都非常小。
+这主要是因为当视图不完整时，时效性和一致性的要求很难得到满足。
+图\ref{fig 3-6}(e) 和\ref{fig 3-6}(f) 比较了不同交通场景下五种算法的AQT和SR。
+其表明，MADR实现了最低的AQT，并在所有情况下保持最高的SR。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\columnwidth]{Fig3-7-different-bandwidths.pdf}
+  \bicaption[不同V2I带宽下的性能比较]{不同V2I带宽下的性能比较。（a）车载信息物理融合系统质量（b）平均 AoV（c）累积奖励（d）平均奖励的构成（e）平均排队时间（f）服务率}[Performance comparison under different V2I bandwidths]{Performance comparison under different V2I bandwidths. (a) Vehicular cyber-physical system quality (b) Average age of view (c) Cumulative reward (d) Composition of average reward (e) Average queuing time (f) Service ratio}
+  \label{fig 3-7}
+\end{figure}
+
+\textbf{3) V2I 带宽的影响:}
+图\ref{fig 3-7}比较了不同V2I带宽下五种算法的性能。
+在这组实验中，边缘节点的V2I带宽从1 MHz增加到5 MHz。
+更大的带宽代表更多的信息可以通过V2I通信上传。
+图\ref{fig 3-7}(a)比较了五种算法的VCPS质量。
+随着带宽的增加，所有算法的VCPS质量都相应增加。
+在边缘节点的不同带宽下，MADR的VCPS质量分别比RA、C-DDPG、MAAC和MAAC-VBA高出约72.9\%、28.3\%、17.8\%和9.3\%。
+图\ref{fig 3-7}(b)比较了这五种算法的平均AoV。
+特别是，MADR在所有情况下实现了最低的平均AoV。
+图\ref{fig 3-7}(c)比较了五种算法的CR。
+正如预期的那样，当带宽增加时，所有五种算法的性能都会变好。
+具体来说，与RA、C-DDPG、MAAC和MAAC-VBA相比，MADR在CR方面分别实现了75.1\%、29.4\%、22.7\%和10.6\%的提升。
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\columnwidth]{Fig3-8-different-view-sizes.pdf}
+  \bicaption[不同视图需求下的性能比较]{不同视图需求下的性能比较。（a）车载信息物理融合系统质量（b）平均 AoV（c）累积奖励（d）平均奖励的构成（e）平均排队时间（f）服务率}[Performance comparison under different requirements on views]{Performance comparison under different requirements on views. (a) Vehicular cyber-physical system quality (b) Average age of view (c) Cumulative reward (d) Composition of average reward (e) Average queuing time (f) Service ratio}
+  \label{fig 3-8}
+\end{figure}
+
+图\ref{fig 3-7}(d) 比较了五种算法的CAR。
+MADR比其他四种算法取得了更好的性能，特别是在时效性和平均奖励的一致性方面。
+这是因为在有限的带宽下，所提出的方案中车辆之间的信息感知和上传的协作更加有效。
+图\ref{fig 3-7}(e) 比较了五种算法的AQT。
+如图所示，在不同的V2I带宽下，MADR的AQT保持最低，这反映了所设计的MADR能够更有效地分配带宽。
+图\ref{fig 3-7}(f)显示了五种算法的SR，可以进一步证明这一优势。
+在所有情况下，MADR的SR都保持在最高水平。
+
+\textbf{4) 视图需求的影响:}
+图\ref{fig 3-8}比较了五种算法在对视图的不同需求下的性能，其中ITS应用需求的视图平均大小从0.25倍增加到4倍，1倍的平均视图大小约为6.46 MB。
+图\ref{fig 3-8}(a)比较了五种算法的VCPS质量。
+正如预期的那样，当平均视图大小增加时，五种算法的性能都会变差。
+在不同的视图应用要求下，MADR在最大限度地提高VCPS质量方面分别比RA、C-DDPG、MAAC和MAAC-VBA高出约68.1\%、23.5\%、27.9\% 和4.9\%。
+图\ref{fig 3-8}(b)和\ref{fig 3-8}(c)比较了五种算法的平均AoV和CR。
+当平均视图大小较小时（即1.62 MB左右），MADR中的平均AoV略低于MAAC和MAAC-VBA。
+同时，值得注意的是，MADR、MAAC和MAAC-VBA的CR是相似的。
+原因是较小的数据量有较高的成功上传的概率。
+
+图\ref{fig 3-8}(d)比较了五种算法的CAR。
+可以看出，当平均视图大小从0.25倍增加到0.5倍时，MADR和MAAC-VBA之间的性能差异很小。
+原因是当有足够的资源来满足较小的平均视图大小（即1.62 MB和3.23 MB左右）的要求时，算法的调度效果并不明显。
+图\ref{fig 3-8}(e)和\ref{fig 3-8}(f)比较了五种算法的AQT和SR，表明MADR可以保持最低的AQT，同时在大多数情况下实现最高的SR。
+值得注意的是，当平均视图大小为2倍时，MAAC-VBA实现了最低的AQT和最高的SR，这反映了所提出的VBA方案可以更有效地分配带宽。
+
+\section{本章小结}\label{section 2-7}
+
+本章提出了一个包括应用层、控制层、虚拟层和数据层的车联网分层服务架构，以最大化软件定义网络和边缘计算范式的协同效应。
+在此基础上，本章提出了一种新的指标AoV，用于评估边缘构建的逻辑视图，即车载信息物理融合中异质信息的质量，包括时效性、完整性和一致性。
+进一步，提出了最大化VCPS质量的问题，并设计了一个基于多智能体强化学习的解决方案，其中车辆作为独立智能体，决定感知频率和上传优先级。
+边缘节点通过考虑车辆轨迹和视图需求，基于VBA策略分配V2I带宽。
+并采用基于DR的信用分配方案，根据车辆差分奖励评估其对于视图构建的贡献。
+通过仿真实验的全面性能评估表明，所提MADR算法比RA、C-DDPG、MAAC和MAAC-VBA在最大限度地提高VCPS质量方面分别高出约61.8\%、23.8\%、22.0\%和8.0\%，同时加快了收敛速度。

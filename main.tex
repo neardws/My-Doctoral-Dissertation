@@ -4,7 +4,7 @@
 %% =======================================================
 \documentclass%
 	[type=doctor, bilinguallist=apart, 
-	blindtrail, printmode=auto]{cquthesis}%
+	blindtrail, printmode=auto, draft]{cquthesis}%
 % 可用选项：
 % type=[bachelor|master|doctor],      % 必选，毕业论文类型，以下项目不填时为默认
 % liberalformat,                      % 可选，仅适用本科生，使用文学类论文标题格式，默认未打开
@@ -37,7 +37,6 @@
 
 \input{contents/cover}
 \makecover %%% 封面部分
-
 
 \frontmatter %%%前置部分(封面后绪论前)
 %% 摘要
@@ -83,7 +82,6 @@
 
 \include{contents/introduction}
 \include{contents/architecture}
-\include{contents/metric}
 \include{contents/resource}
 \include{contents/qos}
 \include{contents/system}

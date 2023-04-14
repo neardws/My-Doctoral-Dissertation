@@ -1,4 +1,4 @@
-\chapter{面向NOMA车载边缘计算的异构资源协同优化策略研究}
+\chapter[面向车载信息物理融合的通信与计算资源协同优化关键技术]{面向车载信息物理融合的通信与计算资源协同优化\\关键技术}
 本章主要研究面向NOMA车载边缘计算的异构资源协同优化策略。
 具体内容安排如下：\ref{section 4-1} 节是本章的引言，介绍车联网中资源分配与任务卸载研究现状及存在的不足，同时阐述本章的主要贡献。
 接着，\ref{section 4-2} 节阐述了本章的系统架构设计。
@@ -54,7 +54,7 @@
 第四，基于现实世界的车辆轨迹建立了仿真模型，并介绍了除主要指标外的四个指标，包括平均处理时间（Average Processing Time, APT）、平均服务时间（Average Service Time, AST）、平均实现势（Average Achieved Potential, AAP）和本地处理与迁移的比例（Proportion of Locally Processing to Migration, PLPM）。
 并实现了所提算法，以及四种有竞争力的解决方案，分别是最优资源分配和任务全迁移（Optimal Resource Allocation and Task Migration Only, ORM）、最优资源分配和任务仅本地处理（Optimal Resource Allocation and Task Local Processing Only, ORL）、分布式深度确定性策略梯度（Distributed Distributional Deterministic Policy Gradient, D4PG）\cite{barth2018distributed}，以及多智能体深度确定性策略梯度\cite{zhang2021adaptive}，并通过仿真结果证明了所提算法的优越性。
 
-\section{系统架构}\label{section 4-2}
+\section{协同通信与计算卸载场景}\label{section 4-2}
 
 本章提出了一个基于NOMA的车载边缘计算架构，用于VEC中的协作通信和计算。
 如图\ref{fig 4-1}所示，沿路安装的基础设施包括5G基站和RSU（如$e_1$$\sim$$e_3$）都安装了不同的计算单元（即CPU芯片），其可作为边缘节点以加速移动车辆卸载的计算任务。
@@ -94,7 +94,7 @@
 假设边缘节点$e_1$的计算资源明显多于边缘节点$e_3$的资源，那么任务$k_1$应该通过有线网络迁移到边缘节点$e_1$，因而可以在更短的时间内得到服务。
 如上所述，通过设计一个有效的分布式调度机制来实现实时任务卸载和异构资源分配，从而优化系统的整体性能，这对利用边缘节点之间的协作通信和计算是非常关键且具有挑战性的。
 
-\section{问题定义}\label{section 4-3}
+\section{协同资源优化问题定义}\label{section 4-3}
 
 离散时间片的集合用$\mathbf{T}=\{1, \ldots, t, \ldots, T\}$表示，其中$T$是时间片的数量。
 车辆的集合用$\mathbf{V}=\{1, \ldots, v, \ldots, V\}$表示，车辆$v \in \mathbf{V}$在$t$时的位置用$l_{v}^{t}$表示。
@@ -115,7 +115,7 @@ V2I通信的带宽用$b$表示。
 
 \subsection{V2I 传输模型}
 
-本章节构建了V2I传输模型，如图\ref{fig 4-2}所示， 其中域内和域间干扰的干扰是基于NOMA原则建模的。
+本章节构建了V2I传输模型，如图\ref{fig 4-2}所示， 其中边缘内和边缘间干扰的干扰是基于NOMA原则建模的。
 本章将边缘节点$e$在时间$t$分配的车辆$v$的传输功率表示为$p_{v, e}^{t}$。
 分配的功率之和不能超过边缘节点$e$的V2I通信的最大功率，即$\sum_{\forall v \in {V}_{e}^{t}} p_{v, e}^{t} \leq p_{e}$。
 然后，车辆$v$和边缘节点$e$之间在时间$t$的信道增益用$h_{v, e}^t$表示，可通过以下公式计算\cite{sun2020performance}
@@ -138,7 +138,7 @@ V2I通信的带宽用$b$表示。
 	\mathrm{SINR}_{v, e}^t = \frac{ |h_{v, e}^t| ^{2}  p_{v, e}^{t}}{ \underbrace{\sum\limits_{\forall v^{\prime} \in \mathbf{V}_{h_{v, e}}^{t}} |h_{v^{\prime}, e}^t|^2 p_{v^{\prime}, e}^{t}}_{\text {域内干扰}} + \underbrace{\sum\limits_{\forall e^{\prime} \in \mathbf{E} / \{e\}} \sum\limits_{\forall v^{\prime} \in \mathbf{V}_{e^{\prime}}^{t}} |h_{v^{\prime}, e}^t|^2 p_{v^{\prime}, e^{\prime}}^{t}}_{\text {域间干扰}} + N_{0}}
 \end{equation}
 其中$p_{v^{\prime}, e}^{t}$是车辆$v^{\prime} \in \mathbf{V}_{e}^{t}$的传输功率，$|h_{v^{\prime}, e}^t|^2$是车辆$v^{\prime}$与边缘节点$e$之间干扰环节的信道系数。
-分母中的第一和第二部分分别代表域内和域间干扰。
+分母中的第一和第二部分分别代表边缘内和边缘间干扰。
 因此，由车辆$v$请求并传输给边缘节点$e$的任务$k_{v}^{t}$的上传时间由以下方式计算
 \begin{equation}
 	m_{v, e}^{t} = \frac{d_{k}}{b  \log _{2}\left(1+\mathrm{SINR}_{v, e}^t\right)}
@@ -199,7 +199,7 @@ n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\pr
 	\mathbf{C}= \left \{ c_{v, e}^t \mid \forall v \in \mathbf{V}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T} \right \}
 \end{numcases}
 本章旨在通过联合优化基于NOMA的VEC中的任务卸载决策和异构资源分配，实现调度期间边缘节点服务率之和的最大化。
-因此，协作资源优化问题（CRO）表述如下
+因此，协作资源优化问题表述如下:
 \begin{align}
 	\operatorname{CRO}:&\max_{\mathbf{P}, \mathbf{Q}, \mathbf{C}} f_1= \sum_{\forall t \in \mathbf{T}} \sum_{ \forall e \in \mathbf{E}} \Psi_{e}^{t} \notag \\
 		\text { s.t. }
@@ -212,7 +212,7 @@ n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\pr
 $\mathcal{C}4.2$要求分配的总体计算资源不能超过边缘节点的计算能力。
 约束条件 $\mathcal{C}4.3$ 和 $\mathcal{C}4.4$ 规定任务卸载决策 $q_{v, e}^t$ 是一个 0-1 的整数变量，且每个任务只能卸载到一个边缘节点。
 
-\section{算法设计}\label{section 4-4}
+\section{基于博弈理论的多智能体强化学习算法设计}\label{section 4-4}
 
 如图\ref{fig 4-3}所示，通过解耦CRO，其可被分解为两个独立子问题来解决，即任务卸载（$\mathcal{P}4.1$）和资源分配（$\mathcal{P}4.2$）。
 特别地，$\mathcal{P}4.1$被建模为边缘节点之间的非合作博弈，并被证明为具有NE存在和收敛性的EPG。
@@ -435,13 +435,13 @@ MAD4PG的程序显示在算法4.1中。
 
 \begin{algorithm}[h]\small
 \renewcommand{\algorithmcfname}{算法}
-	\caption{多智能体分布式深度确定性策略梯度（MAD4PG）}
+	\caption{多智能体分布式深度确定性策略梯度}
 	初始化网络参数\\
 	初始化经验回放缓存 $\mathcal{B}$\\
 	启动 $J$ 分布式行动者并复制网络参数给行动者\\
-	\For{迭代次数 $= 1$ 到最大迭代次数}{
-		\For{时间片 $t = 1$ 到 $T$}{
-			\For{边缘节点 $e=1$ 到 $E$}{
+	\For{\songti{迭代次数} $= 1$ \songti{到最大迭代次数}}{
+		\For{\songti{时间片} $t = 1$ \songti{到} $T$}{
+			\For{\songti{边缘节点} $e=1$ \songti{到} $E$}{
 				从经验回放缓存$\mathcal{B}$随机采样长度为$N$ 的$M$ 最小样本集\\
 				构建目标分布\\
 				计算策略和评论家网络损失\\
@@ -473,12 +473,12 @@ MAD4PG的程序显示在算法4.1中。
 
 \begin{algorithm}[t]\small
 \renewcommand{\algorithmcfname}{算法}
-	\caption{第 $j$ 个分布式行动者}	
-	\While{学习器没有结束}{
+	\caption{分布式行动者}	
+	\While{\songti{学习器没有结束}}{
 		初始化一个随机过程 $\mathcal{N}$ 以进行探索\\
 		接收初始系统状态 $\boldsymbol{o}_{1}$\\
-		\For{时间片 $t = 1$ 到 $T$}{
-			\For{边缘节点 $e=1$ 到 $E$}{
+		\For{\songti{时间片} $t = 1$ \songti{到} $T$}{
+			\For{\songti{边缘节点} $e=1$ \songti{到} $E$}{
 				接收本地观测 $\boldsymbol{o}_{e}^{t}$\\
 				选择一个动作 $\boldsymbol{a}_{e}^{t}=\boldsymbol{\mu}\left(\boldsymbol{o}_{e}^{t} \mid \theta^{\mu}_{j}\right)+\mathcal{N}_{t}$\\
 			}
@@ -567,7 +567,7 @@ p_{v, e}^{t, {(i+1)}}=\frac{b \xi_{v, e}^{t}}{\lambda_{e}^{t,(i)}+\sum\limits_{\
 	{c_{v, e}^{t}}^{\star} = \frac{1 / c_e \sqrt{d_k  c_k} } {\sum_{\forall k_{v}^{t} \in {\mathbf{K}_{q_e}^{t} }} 1 / c_e \sqrt{d_k  c_k}} , \forall k_{v}^{t} \in {\mathbf{K}_{q_e}^{t} } 
 \end{equation}
 
-\section{实验分析}\label{section 4-5}
+\section{实验结果与分析}\label{section 4-5}
 
 \subsection{实验设置}
 
@@ -642,14 +642,14 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 \end{itemize}
 
 为了进行性能评估，本章收集以下统计数据。每个任务的上传时间和处理时间；本地执行的任务总数，用$K_{\operatorname{local}}$表示；迁移到其他边缘节点的任务数，用$K_{\operatorname{migrated}}$表示；任务总数，用$K_{\operatorname{total}}$表示，以及服务的任务数，用$K_{\operatorname{serviced}}$表示。
-在此基础上，根据公式\ref{equ 4-9}、\ref{equ 4-10}、\ref{equ 4-11}和 \ref{equ 4-32}得到四个指标，即\textbf{平均处理时间}（APT）、\textbf{平均服务时间}（AST）、\textbf{平均服务率}（Average Service Ratio, ASR）和\textbf{累积奖励}（CR）。
+在此基础上，根据公式\ref{equ 4-9}、\ref{equ 4-10}、\ref{equ 4-11}和 \ref{equ 4-32}得到四个指标，即\textbf{平均处理时间}、\textbf{平均服务时间}、\textbf{平均服务率}（Average Service Ratio, ASR）和\textbf{累积奖励}。
 本章进一步设计了以下两个额外的度量来进行分析。
 \begin{itemize}
-	\item \textbf{平均实现势} (AAP): 它被定义为边缘奖励的总和（即实现的势）除以调度期间的边缘节点数，其计算公式为
+	\item \textbf{平均实现势} : 它被定义为边缘奖励的总和（即实现的势）除以调度期间的边缘节点数，其计算公式为
 		\begin{equation}
 		 	 \operatorname{AAP} = \frac{1}{E}\sum_{\forall e \in \mathbf{E}} \sum_{\forall t \in \mathbf{T}} r_{e}^{t}
 		\end{equation}
-	\item \textbf{本地处理与迁移的比例} (PLPM): 本地处理的任务的比例可通过下式计算
+	\item \textbf{本地处理与迁移的比例} : 本地处理的任务的比例可通过下式计算
 		\begin{equation}
 			P_{\operatorname{local}} = \frac{K_{\operatorname{local}}}{K_{\operatorname{total}}}
 		\end{equation}
@@ -701,7 +701,7 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 \section{本章小结}\label{section 4-6}
 
 本文提出了一个基于NOMA的VEC架构，用于边缘节点之间的合作通信和计算。
-在此基础上，通过考虑域内和域间干扰的建立了V2I传输模型，并通过考虑异构资源和边缘节点间的合作建立了任务卸载模型。
+在此基础上，通过考虑边缘内和边缘间干扰的建立了V2I传输模型，并通过考虑异构资源和边缘节点间的合作建立了任务卸载模型。
 然后，本章提出了CRO问题，其目标为最大化任务服务率。
 此外，本章将CRO分解为两个子问题，即任务卸载和资源分配。
 任务卸载子问题被建模为一个具有NE存在和收敛性的EPG。

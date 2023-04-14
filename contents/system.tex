@@ -1,4 +1,4 @@
-\chapter{基于车载信息物理融合的超视距碰撞预警原型系统设计与实现}
+\chapter{面向车载信息物理融合的超视距碰撞预警原型系统设计及实现}
 本章将针对基于车载信息物理融合的超视距碰撞预警原型系统设计与实现进行研究。
 内容安排如下：\ref{section 6-1} 节是本章的引言，介绍车联网碰撞预警系统研究现状和目前研究的不足以及本章的主要贡献。
 接着，\ref{section 6-2} 节阐述本章的系统场景与架构设计。
@@ -52,7 +52,7 @@ Gelbar等人\cite{gelbal2017elastic}提出了一个基于V2X通信的车辆行�
 进一步，搭建了基于无人小车的验证平台，并实现了超视距碰撞预警原型系统，在真实车联网环境中验证了所提算法的有效性。
 
 
-\section{超视距碰撞预警场景}\label{section 6-2}
+\section{系统场景}\label{section 6-2}
 
 本章将详细介绍超视距碰撞预警场景，其如图 \ref{fig 6-1} 所示，碰撞预警系统作为智能交通系统中典型安全应用，对于预防交通事故具有重要意义。
 在本系统中，具有短无线电覆盖范围的通信基础设施（如RSU、5G小基站）可被作为边缘节点，因为它们在物理位置上更接近车辆并具有一定的计算能力。
@@ -345,8 +345,8 @@ $\mathbf{ID}_{t}$ 可通过上一时刻的值$\mathbf{ID}_{t-1}$进行初始化�
 		}
 		$\mathbf{Tra} = \mathbf{Tra} \cup \{\mathbf{Tra}_{v}\}$
 	}
-	\For{$\mathbf{Tra}_{v} \in \mathbf{Tra}$ 且 $\mathbf{Tra}_{v^{\prime}} \in \mathbf{Tra} \setminus \{ \mathbf{Tra}_{v}\}$}{
-		\For{$l_v^t \in \mathbf{Tra}_{v}$ 且 $l_{v^{\prime}}^{t^{\prime}} \in \mathbf{Tra}_{v^{\prime}}$}{
+	\For{$\mathbf{Tra}_{v} \in \mathbf{Tra}$ \songti{且} $\mathbf{Tra}_{v^{\prime}} \in \mathbf{Tra} \setminus \{ \mathbf{Tra}_{v}\}$}{
+		\For{$l_v^t \in \mathbf{Tra}_{v}$ \songti{且} $l_{v^{\prime}}^{t^{\prime}} \in \mathbf{Tra}_{v^{\prime}}$}{
 			\If{$\operatorname{dis}_{v, v^{\prime}}^{t, t^{\prime}} < \operatorname{dis}_{\operatorname{col}}$}{
 				${h}_{v, v^{\prime}} = |t - t^{\prime}|$\\
 				\If{${h}_{v, v^{\prime}} < \imath$}{
@@ -355,6 +355,7 @@ $\mathbf{ID}_{t}$ 可通过上一时刻的值$\mathbf{ID}_{t-1}$进行初始化�
 			}
 		}
 	}
+	\label{algorithm 5-1}
 \end{algorithm}
 
 \textbf{1）车辆ID集合更新：}
@@ -392,7 +393,7 @@ $\mathbf{ID}_{t}$ 可通过上一时刻的值$\mathbf{ID}_{t-1}$进行初始化�
 因此，边缘节点计算两车间的车头时距 ${h}_{v, v^{\prime}} = |t - t^{\prime}|$，如果${h}_{v, v^{\prime}} < \imath$，其中$\imath$是车头时距阈值，碰撞预警信息将被触发，即$w_{v}^{t} = w_{v^{\prime}}^{t^{\prime}} = 1$。
 潜在碰撞检测的详细过程在算法6.1的第19-24行中给出。
 
-\section{仿真实验验证}\label{section 6-4}
+\section{实验结果与分析}\label{section 6-4}
 
 \subsection{实验设置}
 
@@ -496,7 +497,7 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
      \label{fig 6-7}
 \end{figure}
 
-\section{原型系统实现与验证}\label{section 6-5}
+\section{原型系统实现}\label{section 6-5}
 
 本章节基于C-V2X OBU和RSU 通信设备搭建原型系统，并进一步基于无人小车在真实车联网环境中验证了所提基于车载信息物理融合的超视距碰撞预警系统效果。
 首先，利用C-V2X OBU 和 RSU 在室内搭建了硬件在环试验平台，并采集了C-V2X 端到端传输时延。
@@ -596,6 +597,27 @@ OBU 具有Wi-Fi 接口可与车载平板电脑建立通信连接，因而平板�
   \bicaption[超视距碰撞预警原型系统]{超视距碰撞预警原型系统}[Non-light-of-sight collision warning prototype system]{Non-light-of-sight collision warning prototype system}
   \label{fig 6-12}
 \end{figure}
+
+\subsection{超视距碰撞预警原型系统}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=1\columnwidth]{Fig2-5-case2.pdf}
+	\bicaption{基于V2I通信的车辆碰撞预警}{Collision warning via V2I communications}
+	\label{fig 2-5}
+\end{figure}
+
+碰撞预警服务旨在在两车之间有可能发生碰撞时触发警告信息，从而提高车辆的安全性。
+在本系统中，云服务器配备2.5 GHz的CPU和2G的内存，而SDN控制器则可以通过基于LTE的通信与车辆进行通信。
+为了支持大规模和实时的碰撞预警服务，计算和通信的工作量被卸载到实现服务功能的边缘服务器上。
+如图\ref{fig 2-5}所示，本章考虑的场景是在道路交叉口部署一个RSU，一台笔记本与RSU连接，作为边缘服务器，并配备1.6GHz CPU和8G内存。
+在该场景中，两辆汽车（即V1和V2）正在向十字路口移动，并相互靠近。
+每辆车都配备了一个OBU，其与一个基于Android的平板电脑相连。
+本章开发了一个基于Android系统的应用程序，用于收集车辆的实时状态，包括GPS坐标、速度、加速度、方向和时间戳等。
+对于基于边缘的服务，车辆通过 DSRC 通信向边缘节点更新其状态。
+根据从不同车辆收到的信息，边缘节点执行碰撞检测服务程序。
+一旦检测有碰撞的风险，预警信息就会被触发，并通过 I2V 通信传送给相应的车辆。
+然后，车辆中搭载的平板电脑上会显示一个停车标志，并伴随着振动和警告音。
 
 
 \section{本章小结}\label{section 6-6}

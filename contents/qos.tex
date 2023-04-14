@@ -1,4 +1,4 @@
-\chapter{面向车载信息物理融合的质量-开销均衡优化策略研究}
+\chapter[面向车载信息物理融合的质量-开销均衡优化关键技术]{面向车载信息物理融合的质量-开销均衡优化关键技术}
 
 本章主要研究面向车载信息物理融合系统的质量-开销均衡优化策略。
 具体内容安排如下：\ref{section 5-1} 节是本章的引言，介绍车联网中车载信息物理融合系统的研究现状及存在的不足，同时阐述本章的主要贡献。
@@ -23,7 +23,7 @@
 对车联网中的任务卸载进行了大量研究，如基于深度学习的节能任务卸载\cite{shang2021deep}、实时多周期任务卸载\cite{liu2021rtds}、交替方向乘子法和粒子群优化结合的任务卸载\cite{liu2022a}。
 以上研究主要集中在车联网中的数据传播、信息缓存和任务卸载的调度算法上。然而，都没有考虑到VEC中的协同感知和上传。 
 
-车载信息物理融合中的检测、预测、规划和控制技术也被广泛研究，以实现车载边缘计算中的数字孪生。
+车载信息物理融合中的检测、预测、规划和控制技术也被广泛研究，以实现车载边缘计算中的视图。
 大量工作聚焦于检测技术，如雨滴数量检测\cite{wang2021deep}和驾驶员疲劳检测\cite{chang2018design}。
 研究人员针对车辆状态预测方法展开了研究，如混合速度曲线预测\cite{zhang2019a}、车辆跟踪\cite{iepure2021a}和加速预测\cite{zhang2020data}。
 同时，部分研究工作在车联网中提出了不同的调度方案，如基于物理比率-K干扰模型的广播调度\cite{li2020cyber}和基于既定地图模型的路径规划\cite{lian2021cyber}。
@@ -31,38 +31,48 @@
 上述关于状态检测、轨迹预测、路径调度和车辆控制的研究促进了各种ITS应用的实施。
 尽管如此，这些工作假设高质量可用信息可以在VEC中构建，而不考虑感知和上传开销。
 少数研究考虑了VCPS中的信息质量，包括时效性\cite{liu2014temporal, dai2019temporal} 和准确性\cite{rager2017scalability, yoon2021performance}。
-然而，这些工作还不足以评估面向车载边缘计算的数字孪生中异质信息融合的质量。
-一些研究考虑了在VEC中启用数字孪生，包括边缘管理框架\cite{zhang2021adaptive}、QoS优化\cite{xu2022service}、边缘缓存系统\cite{zhang2022digital}。
+然而，这些工作还不足以评估面向车载边缘计算的视图中异质信息融合的质量。
 然而，上述研究都没有考虑在面向车载边缘计算的VCPS中实现高质量信息融合的协同感知和上传。
 
-本章首次尝试在面向车载边缘计算的数字孪生中提高车载物理信息融合的质量，并在最小化协同感知和上传开销方面寻求最佳平衡。
+
+本章主要解决的关键问题和挑战总结如下。
+首先，车联网中物理信息是高度动态的。
+因此，考虑感知频率、排队延迟和传输时延的协同效应，以确保信息的新鲜度和时效性是至关重要的。
+其次，物理信息是具有时空相关性的。
+同时，车辆具有不同的传输能力，并且以分布式方式进行调度。
+因此，车辆需要在信息感知和上传方面进行合作，以减少资源消耗并提高信息质量。
+再次，V2I 通信具有有限的无线电覆盖范围，并且由于无线通信的自身性质而并不可靠。
+因此，降低上传过程中的间歇性连接和数据包丢失的影响也非常关键。
+最后，物理信息在分布、更新频率和模式方面具有内在的异质性，这些异质特征同样给信息融合的质量建模带来了巨大挑战。
+
+本章在面向车载边缘计算的视图中提高车载物理信息融合的质量，并在最小化协同感知和上传开销方面寻求最佳平衡。
 然而，实现这一目标面临着以下主要挑战。
 首先，车联网中的信息高度动态，因此评估感知频率、排队延迟和传输延迟之间的相互关系以提高信息新鲜度至关重要。
 其次，不同车辆在不同的时间或空间范围内感应到的信息可能存在冗余或不一致性。因此，具有不同感知能力的车辆有望以分布式方式合作，以提高感知和通信资源的利用率。
-第三，物理信息在分布、更新频率和模式方面存在异质性，这给数字孪生质量的建模带来很大挑战。
-最后，高质量的数字孪生构建需要更高的感知和通信资源开销，这也是一个需要考虑的关键因素。
-综上所述，实现面向车载边缘计算的高质量、低开销数字孪生需要协同感知和上传，但其实现也具有一定的挑战性。
+第三，物理信息在分布、更新频率和模式方面存在异质性，这给视图质量的建模带来很大挑战。
+最后，高质量的视图构建需要更高的感知和通信资源开销，这也是一个需要考虑的关键因素。
+综上所述，实现面向车载边缘计算的高质量、低开销视图需要协同感知和上传，但其实现也具有一定的挑战性。
 
-基于以上分析，本章致力于研究车载信息物理融合系统的质量-开销均衡优化问题，并通过协同感知与上传实现高质量、低开销的数字孪生建模。
+基于以上分析，本章致力于研究车载信息物理融合系统的质量-开销均衡优化问题，并通过协同感知与上传实现高质量、低开销的视图建模。
 本章的主要贡献总结如下。
-第一，研究了在VEC中实现数字孪生的分布式信息感知和V2I协同上传的问题，并设计了一个分布式信息感知模型和一个V2I上传模型。
-在此基础上，设计了VCPS质量指标来衡量面向车载边缘计算的数字孪生中信息物理融合的及时性和一致性，并通过整合冗余度、感知开销和传输开销设计了VCPS开销指标。
+第一，研究了在VEC中实现视图的分布式信息感知和V2I协同上传的问题，并设计了一个分布式信息感知模型和一个V2I上传模型。
+在此基础上，设计了VCPS质量指标来衡量面向车载边缘计算的视图中信息物理融合的及时性和一致性，并通过整合冗余度、感知开销和传输开销设计了VCPS开销指标。
 并提出了一个双目标问题：VCPS质量最大化和开销最小化。
 第二，提出了一个多智能体多目标深度强化学习(Multi-Agent Multi-Objective Deep Reinforcement Learning, MAMO）算法，其通过分布式方式在车辆和边缘节点中部署。
 每个车辆的动作空间包括感知决策、感知频率、上传优先级和传输功率分配。
 每个边缘节点的动作空间是V2I带宽分配策略。
 同时，设计了一个（Dueling Critic Network, DCN）来根据状态价值（State-Value, SV）和动作优势（Action-Advantage, AA）来评估智能体动作。
 具体地，奖励向量包括通过差分奖励得到并分配给车辆的个人奖励，以及通过最小-最大归一化得到给边缘节点分配的归一化奖励。
-第三，建立了一个基于现实世界车辆轨迹的仿真模型，并将提出的解决方案与三种可比较的算法进行比较，其中包括随机分配（RA）、分布式深度确定性策略梯度（D4PG）\cite{barth2018distributed}，以及多智能体D4PG（MAD4PG）。
+第三，建立了一个基于现实世界车辆轨迹的仿真模型，并将提出的解决方案与三种可比较的算法进行比较，其中包括随机分配、分布式深度确定性策略梯度\cite{barth2018distributed}，以及多智能体D4PG（MAD4PG）。
 同时，本文设计了两个新的指标，即单位开销质量（Quality Per Unit Cost, QPUC）和单位质量利润（Proﬁt Per Unit Quality, PPUQ），用于定量衡量算法实现的均衡。
 仿真结果表明，所提出的MAMO方案在最大化QPUC和PPUQ方面与其他算法相比更具优势。
 
-\section{系统架构}\label{section 5-2}
+\section{分布式感知与 V2I 上传场景}\label{section 5-2}
 
 本章节介绍了车载信息物理融合架构，如图\ref{fig 5-1}所示。
 在本架构中，配备各种车载感知器，如超声波雷达、激光雷达、光学相机和毫米波雷达的车辆可以对环境进行感知。
 并通过车辆间协同感知，以获得包括其他车辆、弱势道路参与者、停车场和路边基础设施的状态在内的异质信息。
-这些信息可用于在边缘节点中建立数字孪生模型\cite{nguyen2021digital}，并进一步用于逻辑视图的构建，以实现各种ITS应用，如即时定位与地图构建（Simultaneous Localization and Mapping, SLAM）和自主交叉口控制系统。
+这些信息可用于在边缘节点中建立视图模型\cite{nguyen2021digital}，并进一步用于逻辑视图的构建，以实现各种ITS应用，如即时定位与地图构建（Simultaneous Localization and Mapping, SLAM）和自主交叉口控制系统。
 其中，逻辑视图需要融合车联网中物理实体的不同模式信息，以更好地反映实时物理车辆环境，从而提高ITS的性能。
 然而，构建高质量的逻辑视图可能需要更高的感知频率、更多的信息上传量以及更高的能量消耗。
 
@@ -76,14 +86,14 @@
 本系统的工作流程如下。
 首先，车辆感知并排队上传不同物理实体的实时状态。
 接着，边缘节点将V2I带宽分配给车辆，并在此基础上让每辆车确定传输功率。
-物理实体的数字孪生是基于从车辆收到的异质信息进行融合建立的。
+物理实体的视图是基于从车辆收到的异质信息进行融合建立的。
 需要注意的是，在该系统中，异质信息是由车辆以不同的感知频率感应到的，因此上传时的新鲜度会不同。
 虽然增加感知频率可以提高新鲜度，但会增加排队延迟和能源消耗。
 此外，多个车辆可能感知到特定物理实体的信息，若由所有车辆上传，则可能会浪费通信资源。
 因此，为了提高资源利用率，需要有效而经济地分配通信资源。
-在此基础上，为了最大化面向车载边缘计算的数字孪生的VCPS质量并最小化 VCPS 开销，必须量化衡量边缘节点构建的数字孪生的质量和开销，并设计高效经济的协同感知和上传的调度机制。
+在此基础上，为了最大化面向车载边缘计算的视图的VCPS质量并最小化 VCPS 开销，必须量化衡量边缘节点构建的视图的质量和开销，并设计高效经济的协同感知和上传的调度机制。
 
-\section{系统模型}\label{section 5-3}
+\section{车载信息物理融合质量/开销模型}\label{section 5-3}
 \subsection{基本符号}
 本系统离散时间片的集合用$\mathbf{T}=\left\{1,\ldots,t,\ldots, T \right\}$表示，其中$T$是时间片的数量。
 让$\mathbf{D}$表示异质信息集合，每个信息$d \in \mathbf{D}$的特征是一个三元组$d=\left(\operatorname{type}_d, u_d, \left|d\right| \right)$，其中$\operatorname{type}_d$、$u_d$和$\left|d\right|$分别是信息类型、更新间隔和数据大小。
@@ -93,12 +103,12 @@
 车辆$v$与边缘节点$e$之间的距离用$\operatorname{dis}_{v, e}^t \triangleq \operatorname{distance} \left (l_v^t, l_e \right ), \forall v \in \mathbf{V}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}$表示。
 在时间$t$内处于边缘节点$e$的无线电覆盖范围内的车辆集合表示为$\mathbf{V}_e^t=\left \{v \vert \operatorname{dis}_{v, e}^t \leq g_e, \forall v \in \mathbf{V} \right \}, \mathbf{V}_e^t \subseteq \mathbf{V}$。
 
-感知决策指示器表明信息$d$在时间$t$是否被车辆$v$感应到，其用以下方式表示
+感知决策指示器表示车辆$v$在时间$t$是否感知信息$d$，其用以下方式表示
 \begin{equation}
 	c_{d, v}^t \in \{0, 1\}, \forall d \in \mathbf{D}_{v}, \forall v \in \mathbf{V}, \forall t \in \mathbf{T}
 	\label{equ 5-1} 
 \end{equation}
-那么，车辆$v$在时间$t$感应到的信息集合表示为 $\mathbf{D}_v^t = \{ d | c_{d, v}^{t} = 1, \forall d \in \mathbf{D}_v \}, \mathbf{D}_v^t \subseteq \mathbf{D}_v$。
+那么，车辆$v$在时间$t$的感应信息集合表示为 $\mathbf{D}_v^t = \{ d | c_{d, v}^{t} = 1, \forall d \in \mathbf{D}_v \}, \mathbf{D}_v^t \subseteq \mathbf{D}_v$。
 对于任何信息$d \in \mathbf{D}_v^t$来说，信息类型都是不同的, 即$\operatorname{type}_{d^*} \neq \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_v^t \setminus \left\{ d\right \}, \forall d \in \mathbf{D}_v^t$。
 车辆$v$在时间$t$的信息$d$的感知频率用$\lambda_{d, v}^t$表示，它应该满足车辆$v$的感应能力要求。
 \begin{equation}
@@ -121,13 +131,13 @@
 \end{equation}
 边缘节点$e$分配的V2I总带宽不能超过其容量$b_e$，即${\sum_{\forall v \in \mathbf{V}_e^{t}} b_{v, e}^t} \leq b_e, \forall t \in \mathbf{T}$。
 
-用$j^{\prime}$表示物理实体，如车辆、行人和路边的基础设施，在VEC中表示物理实体的集合为 $\mathbf{J}^{\prime}$。
-$\mathbf{D}_{j^{\prime}}$是与实体$j^{\prime}$相关的信息集合，可以用$\mathbf{D}_{j^{\prime}}=\left\{d \mid y_{d,j^{\prime}} = 1, \forall d \in \mathbf{D} \right\}$, $\forall j^{\prime} \in \mathbf{J}^{\prime}$表示, 其中$y_{d, j^{\prime}}$是一个二进制数，表示信息$d$是否与实体$j^{\prime}$关联。
-$\mathbf{D}_{j^{\prime}}$的大小用$|\mathbf{D}_{j^{\prime}}|$表示。
-每个实体可能需要多个信息，即$|\mathbf{D}_{j^{\prime}}| = \sum_{\forall d \in \mathbf{D}}y_{d, j^{\prime}} \geq 1, \forall j^{\prime} \in \mathbf{J}^{\prime}$。
-对于每个实体$j^{\prime} \in \mathbf{J}^{\prime}$，可能有一个数字孪生$j$在边缘节点中建模。
-用$\mathbf{J}$表示数字孪生的集合，用$\mathbf{J}_e^{t}$表示时间为$t$时在边缘节点$e$中建模的数字孪生集合。
-因此，边缘节点$e$收到的、数字孪生$j$需要的信息集合可以用$\mathbf{D}_{j, e}^t=\bigcup_{\forall v \in \mathbf{V}}\left(\mathbf{D}_{j^{\prime}} \cap \mathbf{D}_{v, e}^t\right), \forall j \in \mathbf{J}_e^{t}, \forall e \in \mathbf{E}$表示，且 $| \mathbf{D}_{j, e}^t |$是边缘节点$e$收到的、数字孪生$j$需要的信息数量，其计算公式为$| \mathbf{D}_{j, e}^t | =  \sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_v} c_{d, v}^t  y_{d, j^{\prime}}$。
+用$I^{\prime}$表示物理实体，如车辆、行人和路边的基础设施，在VEC中表示物理实体的集合为 $\mathbf{I}^{\prime}$。
+$\mathbf{D}_{i^{\prime}}$是与实体$i^{\prime}$相关的信息集合，可以用$\mathbf{D}_{i^{\prime}}=\left\{d \mid y_{d, i^{\prime}} = 1, \forall d \in \mathbf{D} \right\}$, $\forall i^{\prime} \in \mathbf{I}^{\prime}$表示, 其中$y_{d, i^{\prime}}$是一个二进制数，表示信息$d$是否与实体$i^{\prime}$关联。
+$\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
+每个实体可能需要多个信息，即$|\mathbf{D}_{i^{\prime}}| = \sum_{\forall d \in \mathbf{D}}y_{d, i^{\prime}} \geq 1, \forall i^{\prime} \in \mathbf{I}^{\prime}$。
+对于每个实体$i^{\prime} \in \mathbf{I}^{\prime}$，可能有一个视图$i$在边缘节点中建模。
+用$\mathbf{I}$表示视图的集合，用$\mathbf{I}_e^{t}$表示时间为$t$时在边缘节点$e$中建模的视图集合。
+因此，边缘节点$e$收到的、视图$i$需要的信息集合可以用$\mathbf{D}_{i, e}^t=\bigcup_{\forall v \in \mathbf{V}}\left(\mathbf{D}_{i^{\prime}} \cap \mathbf{D}_{v, e}^t\right), \forall i \in \mathbf{I}_e^{t}, \forall e \in \mathbf{E}$表示，且 $| \mathbf{D}_{i, e}^t |$是边缘节点$e$收到的、视图$i$需要的信息数量，其计算公式为$| \mathbf{D}_{i, e}^t | =  \sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_v} c_{d, v}^t  y_{d, i^{\prime}}$。
 
 \subsection{分布式感知模型}
 车辆分布式感知是基于多类M/G/1优先级队列\cite{moltafet2020age}进行建模。
@@ -182,7 +192,7 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 \end{equation}
 假设车辆$v$被安排在时间$t$上传$d$，并且$d$将在一定的排队时间$\mathrm{\bar{q}}_{d, v}^t$后被传输。
 然后，本章把车辆$v$开始传输$d$的时刻表示为$\mathrm{t}_{d, v}^t=t+\mathrm{q}_{d, v}^t$。
-从$\mathrm{t}_{d, v}^t$到$\mathrm{t}_{d, v}^t + f$之间传输的数据量可由 $\int_{\mathrm{t}_{d, v}^t}^{\mathrm{t}_{d, v}^t+f} \mathrm{z}_{v, e}^t \mathrm{~d} t$ bits 得到，其中$f \in \mathbb{R}^{+}$和$\mathrm{z}_{j, e}^t$是时间$t$的传输速率。
+从$\mathrm{t}_{d, v}^t$到$\mathrm{t}_{d, v}^t + f$之间传输的数据量可由 $\int_{\mathrm{t}_{d, v}^t}^{\mathrm{t}_{d, v}^t+f} \mathrm{z}_{v, e}^t \mathrm{~d} t$ bits 得到，其中$f \in \mathbb{R}^{+}$和$\mathrm{z}_{i, e}^t$是时间$t$的传输速率。
 如果在整个传输过程中可以传输的数据量大于信息$d$的大小，那么上传就会完成。
 因此，从车辆$v$到边缘节点$e$传输信息$d$的时间，用$\operatorname{g}_{d, v, e}^t$表示，计算如下 
 \begin{equation}
@@ -190,10 +200,10 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 \end{equation}
 \noindent 其中$\operatorname{t}_{d, v}^t = t +\operatorname{q}_{d, v}^t$是车辆$v$开始传输信息$d$的时刻。
 
-\section{问题定义}\label{section 5-4}
+\section{质量-开销均衡问题定义}\label{section 5-4}
 
 \subsection{VCPS质量}
-首先，由于数字孪生是基于连续上传和时间变化的信息建模的，本章对信息$d$的及时性定义如下。
+首先，由于视图是基于连续上传和时间变化的信息建模的，本章对信息$d$的及时性定义如下。
 \begin{definition}
 信息$d$在车辆$v$中的及时性$\theta_{d, v} \in \mathbb{Q}^{+}$被定义为更新和接收信息$d$之间的时间差。
 \begin{equation}
@@ -201,35 +211,35 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 \end{equation}
 \end{definition}
 \begin{definition}
-数字孪生$j$的及时性 $\Theta_{j} \in \mathbb{Q}^{+}$被定义为与物理实体$j^{\prime}$相关的信息的最大及时性之和。
+视图$i$的及时性 $\Theta_{i} \in \mathbb{Q}^{+}$被定义为与物理实体$i^{\prime}$相关的信息的最大及时性之和。
 	\begin{equation}
-    	\Theta_{j} = \sum_{\forall v\in \mathbf{V}_{e}^{t}} \max_{\forall d \in \mathbf{D}_{j^{\prime}} \cap \mathbf{D}_v^t}\theta_{d, v}, \forall j \in \mathbf{J}_{e}^{t}, \forall e \in \mathbf{E}
+    	\Theta_{i} = \sum_{\forall v\in \mathbf{V}_{e}^{t}} \max_{\forall d \in \mathbf{D}_{i^{\prime}} \cap \mathbf{D}_v^t}\theta_{d, v}, \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
     	\label{equ 5-16}
 	\end{equation}
 \end{definition}
 
-其次，由于不同类型的信息有不同的感知频率和上传优先级，本章定义数字孪生的一致性来衡量与同一物理实体相关的信息的一致性。
+其次，由于不同类型的信息有不同的感知频率和上传优先级，本章定义视图的一致性来衡量与同一物理实体相关的信息的一致性。
 \begin{definition}
-数字孪生$j$的一致性$\Psi_{j} \in \mathbb{Q}^{+}$被定义为信息更新时间差的最大值。
+视图$i$的一致性$\Psi_{i} \in \mathbb{Q}^{+}$被定义为信息更新时间差的最大值。
 \begin{equation}
-    \Psi_{j}=\max_{\forall d \in \mathbf{D}_{j, e}^{t}, \forall v \in \mathbf{V}_{e}^{t}} {\operatorname{u}_{d, v}^t} - \min_{\forall d \in \mathbf{D}_{j, e}^{t}, \forall v \in \mathbf{V}_{e}^{t}} {\operatorname{u}_{d, v}^t} , \forall j \in \mathbf{J}_{e}^{t}, \forall e \in \mathbf{E}
+    \Psi_{i}=\max_{\forall d \in \mathbf{D}_{i, e}^{t}, \forall v \in \mathbf{V}_{e}^{t}} {\operatorname{u}_{d, v}^t} - \min_{\forall d \in \mathbf{D}_{i, e}^{t}, \forall v \in \mathbf{V}_{e}^{t}} {\operatorname{u}_{d, v}^t} , \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
 \end{equation}
 \end{definition}
 
-最后，本章给出了数字孪生的质量的正式定义，其综合了数字孪生的及时性和一致性。
+最后，本章给出了视图的质量的正式定义，其综合了视图的及时性和一致性。
 \begin{definition}
-数字孪生$\operatorname{QDT}_{j} \in (0, 1)$的质量被定义为数字孪生$j$的归一化及时性和归一化一致性的加权平均和。
+视图$\operatorname{QV}_{i} \in (0, 1)$的质量被定义为视图$i$的归一化及时性和归一化一致性的加权平均和。
 	\begin{equation}
-	    \operatorname{QDT}_{j} = w_1 (1 -\hat{\Theta_{j}}) + w_2 (1 - \hat{\Psi_{j}}), \forall j \in \mathbf{J}_{e}^t, \forall e \in \mathbf{E}
+	    \operatorname{QV}_{i} = w_1 (1 -\hat{\Theta_{i}}) + w_2 (1 - \hat{\Psi_{i}}), \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
 	\end{equation}
 \end{definition}
-\noindent 其中$\hat{\Theta_{j}} \in (0, 1)$和$\hat{\Psi_{j}} \in (0, 1)$分别表示归一化的及时性和归一化的一致性，这可以通过最小-最大归一化对及时性和一致性的范围进行重新调整至$(0, 1)$来获得。
-$\hat{\Theta_{j}}$和$\hat{\Psi_{j}}$的加权系数分别用$w_1$和$w_2$表示，可以根据ITS应用的不同要求进行相应的调整，$w_1+w_2=1$。
-进一步，基于数字孪生质量定义车载信息物理融合系统的质量，具体如下。
+\noindent 其中$\hat{\Theta_{i}} \in (0, 1)$和$\hat{\Psi_{i}} \in (0, 1)$分别表示归一化的及时性和归一化的一致性，这可以通过最小-最大归一化对及时性和一致性的范围进行重新调整至$(0, 1)$来获得。
+$\hat{\Theta_{i}}$和$\hat{\Psi_{i}}$的加权系数分别用$w_1$和$w_2$表示，可以根据ITS应用的不同要求进行相应的调整，$w_1+w_2=1$。
+进一步，基于视图质量定义车载信息物理融合系统的质量，具体如下。
 \begin{definition}
-VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边缘节点中建模的每个数字孪生的QDT的平均值。
+VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边缘节点中建模的每个视图的QV的平均值。
 	\begin{equation}
-		\mathscr{Q}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t} \operatorname{QDT}_{j}}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{J}_e^t| }
+		\mathscr{Q}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t} \operatorname{QV}_{i}}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{I}_e^t| }
 	\end{equation}
 \end{definition}
 
@@ -239,24 +249,24 @@ VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边�
 \begin{definition}
 信息$d$的冗余度$\xi_d \in \mathbb{N}$被定义为车辆感应到同一类型$\operatorname{type}_d$的额外信息数量。
 \begin{equation}
-    \xi_d= \left | \mathbf{D}_{d, j, e} \right| - 1, \forall d \in \mathbf{D}_j, \forall j \in \mathbf{J}_{e}^{t}, \forall e \in \mathbf{E}
+    \xi_d= \left | \mathbf{D}_{d, i, e} \right| - 1, \forall d \in \mathbf{D}_j, \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
 \end{equation}
-\noindent 其中$\mathbf{D}_{d, j, e}$是边缘节点$e$收到的、数字孪生$j$需要的具有$\operatorname{type}_d$的信息集合，其由$\mathbf{D}_{d, j, e}=\left\{ d^* \vert \operatorname{type}_{d^*} = \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_{j, e}^t \right \}$表示。
+\noindent 其中$\mathbf{D}_{d, i, e}$是边缘节点$e$收到的、视图$i$需要的具有$\operatorname{type}_d$的信息集合，其由$\mathbf{D}_{d, i, e}=\left\{ d^* \vert \operatorname{type}_{d^*} = \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_{i, e}^t \right \}$表示。
 
 \end{definition}
 \begin{definition}
-数字孪生$j$的冗余度$\Xi_j \in \mathbb{N}$被定义为数字孪生$j$中的总冗余度。
+视图$i$的冗余度$\Xi_j \in \mathbb{N}$被定义为视图$i$中的总冗余度。
 	\begin{equation}
-       \Xi_j =  \sum_{\forall d \in \mathbf{D}_{j^{\prime}}} \xi_d, \forall j \in \mathbf{J}_{e}^{t}, \forall e \in \mathbf{E}
+       \Xi_j =  \sum_{\forall d \in \mathbf{D}_{i^{\prime}}} \xi_d, \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
        \label{equ 5-20}
     \end{equation}
 \end{definition}
 
-其次，信息感知和传输需要消耗车辆的能量，本章定义数字孪生$j$的感知开销和传输开销如下。
+其次，信息感知和传输需要消耗车辆的能量，本章定义视图$i$的感知开销和传输开销如下。
 \begin{definition}
-数字孪生$j$的感知开销$\Phi_{j} \in \mathbb{Q}^{+}$被定义为数字孪生$j$所需信息的总感知开销。
+视图$i$的感知开销$\Phi_{i} \in \mathbb{Q}^{+}$被定义为视图$i$所需信息的总感知开销。
 	\begin{equation}
-        \Phi_{j} = \sum_{\forall v \in \mathbf{V}_{e}^{t}} \sum_{\forall d \in \mathbf{D}_{j^{\prime}} \cap \mathbf{D}_v^t}{\phi_{d, v}}, \forall j \in \mathbf{J}_{e}^t, \forall e \in \mathbf{E}
+        \Phi_{i} = \sum_{\forall v \in \mathbf{V}_{e}^{t}} \sum_{\forall d \in \mathbf{D}_{i^{\prime}} \cap \mathbf{D}_v^t}{\phi_{d, v}}, \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
         \label{equ 5-21}
     \end{equation}
     其中$\phi_{d, v}$是信息$d$在车辆$v$中的感知开销。
@@ -269,32 +279,32 @@ VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边�
 其中$\pi_v^t$和$\operatorname{g}_{d, v, e}^t$分别为传输功率和传输时间。
 \end{definition}
 \begin{definition}
-数字孪生$j$的传输开销$\Omega_{j} \in \mathbb{Q}^{+}$被定义为数字孪生$j$所需的信息总传输开销。
+视图$i$的传输开销$\Omega_{i} \in \mathbb{Q}^{+}$被定义为视图$i$所需的信息总传输开销。
 	\begin{equation}
-        \Omega_{j} = \sum_{\forall v \in \mathbf{V}_{e}^{t}} \sum_{\forall d \in \mathbf{D}_{j^{\prime}} \cap \mathbf{D}_v^t} {\omega}_{d, v}, \forall j \in \mathbf{J}_{e}^t, \forall e \in \mathbf{E}
+        \Omega_{i} = \sum_{\forall v \in \mathbf{V}_{e}^{t}} \sum_{\forall d \in \mathbf{D}_{i^{\prime}} \cap \mathbf{D}_v^t} {\omega}_{d, v}, \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
        	\label{equ 5-23}
     \end{equation}
 \end{definition}
 
-最后，本章给出了数字孪生开销的正式定义，其综合了冗余度、感知开销和传输开销。
+最后，本章给出了视图开销的正式定义，其综合了冗余度、感知开销和传输开销。
 \begin{definition}
-数字孪生的开销$\operatorname{CDT}_{j} \in (0, 1)$被定义为数字孪生$j$的归一化冗余度、归一化感知开销和归一化传输开销的加权平均和。
+视图的开销$\operatorname{CV}_{i} \in (0, 1)$被定义为视图$i$的归一化冗余度、归一化感知开销和归一化传输开销的加权平均和。
 	\begin{equation}
-	    \operatorname{CDT}_{j} = w_3  \hat{\Xi_{j}} +  w_4 \hat{\Phi_{j}} + w_5 \hat{\Omega_{j}}, \forall j \in \mathbf{J}_{e}^t, \forall e \in \mathbf{E}
+	    \operatorname{CV}_{i} = w_3  \hat{\Xi_{i}} +  w_4 \hat{\Phi_{i}} + w_5 \hat{\Omega_{i}}, \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
 	\end{equation}
 \end{definition}
-\noindent 其中 $\hat{\Xi_{j}}\in (0, 1)$、$\hat{\Phi_{j}} \in (0, 1)$和$\hat{\Omega_{j}} \in (0, 1)$ 分别表示数字孪生$j$的归一化冗余度、归一化感知开销和归一化传输开销。
-$\hat{\Xi_{j}}$、$\hat{\Phi_{j}}$和$\hat{\Omega_{j}}$ 的加权系数分别表示为 $w_3$、$w_4$和 $w_5$。
+\noindent 其中 $\hat{\Xi_{i}}\in (0, 1)$、$\hat{\Phi_{i}} \in (0, 1)$和$\hat{\Omega_{i}} \in (0, 1)$ 分别表示视图$i$的归一化冗余度、归一化感知开销和归一化传输开销。
+$\hat{\Xi_{i}}$、$\hat{\Phi_{i}}$和$\hat{\Omega_{i}}$ 的加权系数分别表示为 $w_3$、$w_4$和 $w_5$。
 同样地，$w_3+w_4+w_5=1$。
 进一步，VCPS开销定义如下。
 \begin{definition}
-VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节点中每个数字孪生模型的CDT的平均值。
+VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节点中每个视图模型的CV的平均值。
 	\begin{equation}
-		\mathscr{C}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t}  \operatorname{CDT}_{j}}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{J}_e^t| }
+		\mathscr{C}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t}  \operatorname{CV}_{i}}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{I}_e^t| }
 	\end{equation}
 \end{definition}
 
-\subsection{双目标问题}
+\subsection{双目标优化问题}
 给定一个确定的解决方案$( \mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B} )$，其中$\mathbf{C}$表示确定的感知信息决策，$\bf\Lambda$表示确定的感知频率。$\mathbf{P}$表示确定的上传优先级，$\bf\Pi$表示确定的传输功率，$\mathbf{B}$表示确定的V2I带宽分配。
 \begin{numcases}{}
 	\mathbf{C} = \left \{ c_{d, v}^t \vert \forall d \in \mathbf{D}_{v}, \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right  \} \notag \\
@@ -304,7 +314,7 @@ VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节
 	\mathbf{B} = \left \{ b_v^t \vert \forall v \in \mathbf{V}, \forall t \in \mathbf{T}\right \}
 \end{numcases}
 其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先权，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
-本章提出了一个双目标问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题表示为
+本章提出了一个双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题表示为
 \begin{align}
 	\mathcal{P}5.1: & \max_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{Q}, \min_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{C} \notag \\
 	\text { s.t. }
@@ -315,18 +325,18 @@ VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节
 \end{align}
 其中$\mathcal{C}5.1$保证队列稳定状态，$\mathcal{C}5.2$保证传输可靠性。
 $\mathcal{C}5.3$要求边缘节点$e$分配的V2I带宽之和不能超过其容量$b_e$。
-基于CDT的定义，数字孪生的利润定义如下。
+基于CV的定义，视图的利润定义如下。
 \begin{definition}
-数字孪生的利润$\operatorname{PDT}_{j} \in (0, 1)$被定义为数字孪生$j$的CDT的补充。
+视图的利润$\operatorname{PV}_{j} \in (0, 1)$被定义为视图$i$的CV的补充。
 	\begin{equation}
-		\mathscr{P}= 1 - \operatorname{CDT}_{j}
+		\mathscr{P}= 1 - \operatorname{CV}_{i}
 	\end{equation}
 \end{definition}
 \noindent 然后，本章将VCPS 利润定义如下。
 \begin{definition}
-VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，边缘节点中每个数字孪生模型的PDT的平均值。
+VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，边缘节点中每个视图模型的PV的平均值。
 	\begin{equation}
-		\mathscr{P}= \frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t}   \operatorname{PDT}_{j} }{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{J}_e^t| }
+		\mathscr{P}= \frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t}   \operatorname{PV}_{j} }{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{I}_e^t| }
 	\end{equation}
 \end{definition}
 \noindent 因此，$\mathcal{P}5.1$问题可以改写如下。
@@ -336,7 +346,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 	&(\ref{equ 5-1}) \sim (\ref{equ 5-5}), \mathcal{C}5.1 \sim \mathcal{C}5.3
 \end{align}
 
-\section{算法设计}\label{section 5-5}
+\section{基于多目标的多智能体强化学习算法设计}\label{section 5-5}
 
 本章节提出了一个多智能体多目标深度强化学习，其模型如图\ref{fig 5-2}所示，它由$K$分布式行动者、学习器和经验回放缓存组成。
 具体地，学习器由四个神经网络组成，即一个本地策略网络、一个本地评论家网络、一个目标策略网络和一个目标评论家网络，其中车辆的参数表示为 $\theta_{\mathbf{V}}^{\mu}$、$\theta_{\mathbf{V}}^{Q}$、 $\theta_{\mathbf{V}}^{\mu^{\prime}}$和$\theta_{\mathbf{V}}^{Q^{\prime}}$。
@@ -359,18 +369,18 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 在MAMO中，车辆和边缘节点通过本地策略网络以分布式的方式决定动作。
 车辆$v$在时间$t$上对系统状态的局部观测表示为 
 	\begin{equation}
-		\boldsymbol{o}_{v}^{t}=\left\{t, v, l_{v}^t, \mathbf{D}_{v}, \Phi_{v}, \mathbf{D}_{e}^{t}, \mathbf{D}_{\mathbf{J}_e^t}, \boldsymbol{w}^{t}\right\}
+		\boldsymbol{o}_{v}^{t}=\left\{t, v, l_{v}^t, \mathbf{D}_{v}, \Phi_{v}, \mathbf{D}_{e}^{t}, \mathbf{D}_{\mathbf{I}_e^t}, \boldsymbol{w}^{t}\right\}
 	\end{equation} 
 \noindent 其中$t$为时间片索引。
 $v$是车辆索引；$l_{v}^t$是车辆$v$的位置。
 $\mathbf{D}_{v}$表示车辆$v$可以感知的信息集合。
 $\Phi_{v}$代表$\mathbf{D}_{v}$中信息的感知开销。
 $\mathbf{D}_{e}^{t}$ 代表$e$在时间$t$的边缘节点的缓存信息集。
-$\mathbf{D}_{\mathbf{J}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的数字孪生所需的信息集，且 $\boldsymbol{w}^{t}$ 代表每个目标的权重向量，它在每次迭代中随机生成。
-具体来说，$\boldsymbol{w}^{t} = \begin{bmatrix}  w^{(1), t}  &  w^{(2), t} \end{bmatrix}$，其中$w^{(1), t} \in (0, 1)$和$w^{(2), t} \in (0, 1)$分别是VCPS质量和VCPS 利润的权重，$\sum_{\forall j \in \{1, 2\}} w^{(j), t} = 1$。
+$\mathbf{D}_{\mathbf{I}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的视图所需的信息集，且 $\boldsymbol{w}^{t}$ 代表每个目标的权重向量，它在每次迭代中随机生成。
+具体来说，$\boldsymbol{w}^{t} = \begin{bmatrix}  w^{(1), t}  &  w^{(2), t} \end{bmatrix}$，其中$w^{(1), t} \in (0, 1)$和$w^{(2), t} \in (0, 1)$分别是VCPS质量和VCPS 利润的权重，$\sum_{\forall i \in \{1, 2\}} w^{(j), t} = 1$。
 另一方面，边缘节点$e$在时间$t$上对系统状态的局部观测表示为
 \begin{equation}
-	\boldsymbol{o}_{e}^{t}=\left\{t, e, \operatorname{\mathbf{Dis}}_{\mathbf{V}, e}^{t}, \mathbf{D}_{1}, \ldots, \mathbf{D}_{v}, \ldots, \mathbf{D}_{v}, \mathbf{D}_{e}^{t}, \mathbf{D}_{\mathbf{J}_e^t}, \boldsymbol{w}^{t} \right\}
+	\boldsymbol{o}_{e}^{t}=\left\{t, e, \operatorname{\mathbf{Dis}}_{\mathbf{V}, e}^{t}, \mathbf{D}_{1}, \ldots, \mathbf{D}_{v}, \ldots, \mathbf{D}_{v}, \mathbf{D}_{e}^{t}, \mathbf{D}_{\mathbf{I}_e^t}, \boldsymbol{w}^{t} \right\}
 \end{equation}
 \noindent 其中$e$是边缘节点索引，$\operatorname{\mathbf{Dis}}_{\mathbf{V}, e}^{t}$代表车辆与边缘节点$e$之间的距离集合。
 因此，系统在时间$t$的状态可以表示为$\boldsymbol{o}^{t}=\boldsymbol{o}_{e}^{t} \cup \boldsymbol{o}_{1}^{t} \cup \ldots \cup \boldsymbol{o}_{v}^{t} \cup \ldots \cup \boldsymbol{o}_{v}^{t}$。
@@ -404,19 +414,19 @@ $\mathbf{D}_{\mathbf{J}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的�
 	\end{equation}
 	\noindent 其中 $r^{(1)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$ 和 $r^{(2)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$ 分别是两个目标（即实现的VCPS质量和VCPS 利润）的奖励，可以通过以下方式计算出来  
 	\begin{numcases}{}
-			r^{(1)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)={1}/{\left|\mathbf{J}_e^t\right|} \sum_{\forall j \in \mathbf{J}_e^t}\operatorname{QDT}_{j} \notag \\
-			r^{(2)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)={1}/{\left|\mathbf{J}_e^t\right|} \sum_{\forall j \in \mathbf{J}_e^t} \operatorname{PDT}_{j} 
+			r^{(1)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)={1}/{\left|\mathbf{I}_e^t\right|} \sum_{\forall i \in \mathbf{I}_e^t}\operatorname{QV}_{i} \notag \\
+			r^{(2)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)={1}/{\left|\mathbf{I}_e^t\right|} \sum_{\forall i \in \mathbf{I}_e^t} \operatorname{PV}_{j} 
 	\end{numcases}
-因此，车辆$v$在第$j$个目标中的奖励是由基于奖励分配的差分奖励 \cite{foerster2018counterfactual} 得到的，其为系统奖励和没有其行动所取得的奖励之间的差值，可以表示为 
+因此，车辆$v$在第$i$个目标中的奖励是由基于奖励分配的差分奖励 \cite{foerster2018counterfactual} 得到的，其为系统奖励和没有其行动所取得的奖励之间的差值，可以表示为 
 \begin{equation}
-r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)-r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}-s}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right), \forall j \in \{1, 2\}
+r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)-r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}-s}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right), \forall i \in \{1, 2\}
 \end{equation}
 \noindent 其中 $r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}-s}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$ 是在没有车辆$v$贡献的情况下实现的系统奖励，它可以通过设置车辆$v$的空动作集得到。
 车辆$v$在时间$t$的奖励向量表示为$\boldsymbol{r}_{v}^{t} = \begin{bmatrix}  r_{v}^{(1), t}  &  r_{v}^{(2), t} \end{bmatrix} ^{T}$。
 车辆的差分奖励集合表示为 $\boldsymbol{r}_{\mathbf{V}}^{t}=\{ \boldsymbol{r}_{v}^{t} \mid \forall v \in \mathbf{V}\}$.
 
 另一方面，系统奖励通过最小-最大归一化进一步转化为边缘节点的归一化奖励。
-边缘节点$e$在时间$t$的第$j$个目标中的奖励由以下方式计算 
+边缘节点$e$在时间$t$的第$i$个目标中的奖励由以下方式计算 
 \begin{equation}
 	r_{e}^{(j), t}= \frac{r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right) - \min \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t}\right)} {\max \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t}\right) - \min \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t}\right)}
 \end{equation}
@@ -433,8 +443,8 @@ r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{
 同样，车辆和边缘节点的SV网络的参数分别表示为 $\theta_{\mathbf{V}}^{\mathscr{V}}$ 和 $\theta_{\mathbf{E}}^{\mathscr{V}}$。
 本章用以下方式表示车辆$v$中AA网络的输出标量 $A_{\mathbf{V}}\left({o}_{v}^{m},  {a}_{v}^{m}, \boldsymbol{a}_{\boldsymbol{\mathbf{V}}-v}^{m}, \boldsymbol{w}^{m} \mid \theta_{\mathbf{V}}^{\mathscr{A}} \right)$, 其中 $\boldsymbol{a}_{\boldsymbol{\mathbf{V}}-v}^{m}$ 表示其他车辆动作。
 同样地，以边缘节点$e$为输入的AA网络的输出标量表示为 $A_{\mathbf{E}}\left({o}_{e}^{m},  {a}_{e}^{m}, \boldsymbol{a}_{\boldsymbol{\mathbf{V}}}^{m}, \boldsymbol{w}^{m} \mid \theta_{\mathbf{E}}^{\mathscr{A}} \right)$, 其中 $\boldsymbol{a}_{\boldsymbol{\mathbf{V}}}^{m}$ 表示所有车辆动作。
-车辆$v$的SV网络的输出标量表示为 $j\left({o}_{v}^{m}, \boldsymbol{w}^{m} \mid \theta_{\mathbf{V}}^{\mathscr{V}} \right)$。
-同样地，边缘节点$e$的SV网络的输出标量表示为 $j\left({o}_{e}^{m}, \boldsymbol{w}^{m} \mid \theta_{\mathbf{E}}^{\mathscr{V}} \right)$。
+车辆$v$的SV网络的输出标量表示为 $V\left({o}_{v}^{m}, \boldsymbol{w}^{m} \mid \theta_{\mathbf{V}}^{\mathscr{V}} \right)$。
+同样地，边缘节点$e$的SV网络的输出标量表示为 $V\left({o}_{e}^{m}, \boldsymbol{w}^{m} \mid \theta_{\mathbf{E}}^{\mathscr{V}} \right)$。
 
 智能体动作评估由三个步骤组成。
 首先，AA网络通过输出基于观测、动作和权重的智能体动作的优势来估计优势函数。
@@ -531,7 +541,7 @@ P_{e}^{m} = \nabla_{{a}_{e}^{m}} Q_{\mathbf{E}}\left({o}_{e}^{m}, {a}_{e}^{m}, \
 	\theta_{\mathbf{E}, k}^{\mu} \leftarrow \theta_{\mathbf{E}}^{\mu^{\prime}}, \theta_{\mathbf{E}, k}^{Q} \leftarrow \theta_{\mathbf{E}}^{Q^{\prime}}, \forall k \in \{1, 2, \ldots, K\}
 \end{align}
 
-\section{实验分析}\label{section 5-6}
+\section{实验结果与分析}\label{section 5-6}
 
 \subsection{实验设置}
 
@@ -541,7 +551,7 @@ V2I通信范围被设定为500 m。
 传输功率被设定为100 mW。
 AWGN和可靠性阈值分别设置为-90 dBm和0.9。
 V2I通信的信道衰减增益遵循高斯分布，其均值为2，方差为0.4。
-$\hat{\Theta_{j}}$、$\hat{\Psi_{j}}$、$\hat{\Xi_{j}}$、$\hat{\Phi_{j}}$和$\hat{\Omega_{j}}$的加权系数分别设置为0.6、0.4、0.2、0.4和0.4。
+$\hat{\Theta_{i}}$、$\hat{\Psi_{i}}$、$\hat{\Xi_{i}}$、$\hat{\Phi_{i}}$和$\hat{\Omega_{i}}$的加权系数分别设置为0.6、0.4、0.2、0.4和0.4。
 
 为了实现所提出的解决方案，策略和评论家网络的架构和超参数描述如下。
 本地策略网络是一个有两个隐藏层的四层全连接神经网络，其中神经元的数量分别为256和128。
@@ -553,23 +563,23 @@ $\hat{\Theta_{j}}$、$\hat{\Psi_{j}}$、$\hat{\Xi_{j}}$、$\hat{\Phi_{j}}$和$\h
 
 三个可比较的算法实现如下。
 \begin{itemize}
-	\item \textbf{随机分配}（RA）: 随机选择一个动作来确定感知信息、感知频率、上传优先级、传输功率和V2I带宽分配。
-	\item \textbf{分布式深度确定性策略梯度}（D4PG）\cite{barth2018distributed}: 在边缘节点实现了一个智能体，根据系统状态，以集中的方式确定感知信息、感知频率、上传优先级、传输功率和V2I带宽分配。VCPS质量和VCPS 利润权重分别设定为0.5和0.5。
-	\item \textbf{多智能体分布式深度确定性策略梯度}（MAD4PG): 其为D4PG的多智能体版本并在车辆上分布式实现，根据对物理环境的局部观测决定感知信息、感知频率、上传优先级和传输功率，边缘节点决定V2I带宽分配。VCPS质量和VCPS 利润权重分别设为0.5和0.5。
+	\item \textbf{随机分配}: 随机选择一个动作来确定感知信息、感知频率、上传优先级、传输功率和V2I带宽分配。
+	\item \textbf{分布式深度确定性策略梯度}\cite{barth2018distributed}: 在边缘节点实现了一个智能体，根据系统状态，以集中的方式确定感知信息、感知频率、上传优先级、传输功率和V2I带宽分配。VCPS质量和VCPS 利润权重分别设定为0.5和0.5。
+	\item \textbf{多智能体分布式深度确定性策略梯度}: 其为D4PG的多智能体版本并在车辆上分布式实现，根据对物理环境的局部观测决定感知信息、感知频率、上传优先级和传输功率，边缘节点决定V2I带宽分配。VCPS质量和VCPS 利润权重分别设为0.5和0.5。
 \end{itemize}
 
-为了评估算法在数字孪生体建模质量和有效性方面的表现，本章设计了以下两个新的指标。
+为了评估算法在视图体建模质量和有效性方面的表现，本章设计了以下两个新的指标。
 \begin{itemize}
-	\item \textbf{单位开销质量}（QPUC）：其被定义为以花费单位VCPS 开销实现的VCPS质量，其计算公式为
+	\item \textbf{单位开销质量}：其被定义为以花费单位VCPS 开销实现的VCPS质量，其计算公式为
 		\begin{equation}
-			\operatorname{QPUC}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t} \mathrm{QDT}_j}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t} \mathrm{CDT}_j}
+			\operatorname{QPUC}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t} \mathrm{QV}_i}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t} \mathrm{CV}_i}
 		\end{equation}
-		其中$\mathrm{QDT}_j$和$\mathrm{CDT}_j$分别是数字孪生$j$的质量和开销。
-	\item \textbf{单位质量利润}（PPUQ）：其被定义为单位VCPS质量所实现的VCPS 利润，其计算公式为
+		其中$\mathrm{QV}_i$和$\mathrm{CV}_i$分别是视图$i$的质量和开销。
+	\item \textbf{单位质量利润}：其被定义为单位VCPS质量所实现的VCPS 利润，其计算公式为
 		\begin{equation}
-		\operatorname{PPUQ}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t}\mathrm{PDT}_j}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall j \in \mathbf{J}_e^t} \mathrm{QDT}_j}
+		\operatorname{PPUQ}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t}\mathrm{PV}_i}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t} \mathrm{QV}_i}
 		\end{equation}
-		其中$\mathrm{PDT}_j$和$\mathrm{CDT}_j$分别是数字孪生$j$的利润和开销。
+		其中$\mathrm{PV}_i$和$\mathrm{CV}_i$分别是视图$i$的利润和开销。
 \end{itemize}
 QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ越高表明它能更有效地使用感知和通信资源。这两个指标全面显示了算法在同时最大化VCPS质量和最小化VCPS 开销的性能。
 本章进一步基于公式\ref{equ 5-16}、\ref{equ 5-20}、\ref{equ 5-21}和\ref{equ 5-23}设计了四个指标，分别是\textbf{平均及时性}（Average Timeliness, AT）、\textbf{平均冗余度}（Average Redundancy, AR）、\textbf{平均感知开销}（Average Sensing Cost, ASC）和\textbf{平均传输开销}（Average Transmission Cost, ATC）。 
@@ -623,7 +633,7 @@ QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ�
 图\ref{fig 5-6}比较了四种算法在不同V2I带宽下的性能，其中X轴表示V2I带宽，从1MHz增加到3MHz。较大的V2I带宽代表每辆车被分配的V2I带宽增加。图\ref{fig 5-6}(a)比较了四种算法的QPUC。随着带宽的增加，MAMO的QPUC也相应增加。这是因为在带宽富余的场景中，MAMO中车辆之间的协同感知和上传更加有效。图\ref{fig 5-6}(b)显示了四种算法的PPUQ，可以进一步证明这一优势。如图\ref{fig 5-6}(b)所示，MAMO在不同的V2I带宽下实现了最高的PPUQ。特别是，MAMO比RA、D4PG和MAD4PG分别提高了约453.3\%、131.4\%和437.6\%的QPUC，并使PPUQ提高了约33.0\%、18.3\%和48.4\%。
 图\ref{fig 5-6}(c)比较了这四种算法的AT，其显示MAMO实现了最低的AT。
 可以看出，当带宽从2.5MHz增加到3MHz时，MAMO和D4PG的性能差距很小。
-这是因为随着带宽的增加，数字孪生的及时性改善是有限的。
+这是因为随着带宽的增加，视图的及时性改善是有限的。
 图\ref{fig 5-6}(d) 比较了四种算法的AR。
 AR越低意味着协同感知和上传的性能越好，MAMO实现了最低的AR。
 图\ref{fig 5-6}(e)和\ref{fig 5-6}(f)分别比较了四种算法的ASC和ATC。
@@ -634,24 +644,24 @@ AR越低意味着协同感知和上传的性能越好，MAMO实现了最低的AR
 \begin{figure}[h]
  \centering
  \includegraphics[width=1\columnwidth]{Fig5-7-different-numbers.pdf}
- \bicaption[不同数字孪生需求下的性能比较]{不同数字孪生需求下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均及时性（d）平均冗余度（e）平均感知开销（f）平均传输开销}[Performance comparison under different digit twin requirements]{Performance comparison under different digit twin requirements. (a) Quality per unit cost (b) Profit per unit quality (c) Average timeliness (d) Average redundancy (e) Average sensing cost (f) Average transmission cost}
+ \bicaption[不同视图需求下的性能比较]{不同视图需求下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均及时性（d）平均冗余度（e）平均感知开销（f）平均传输开销}[Performance comparison under different digit twin requirements]{Performance comparison under different digit twin requirements. (a) Quality per unit cost (b) Profit per unit quality (c) Average timeliness (d) Average redundancy (e) Average sensing cost (f) Average transmission cost}
  \label{fig 5-7}
 \end{figure}
 
-\textbf{5) 数字孪生需求的影响：}
-图\ref{fig 5-7}比较了四种算法在不同数字孪生需求下的性能，其中X轴表示数字孪生体所需信息的平均数量从3增加到7。数字孪生所需信息的平均数越大，说明车辆的感知和上传工作负荷越大。图\ref{fig 5-7}(a) 比较了四种算法的QPUC。随着平均所需信息数的增加，四种算法的QPUC也相应减少。如前所述，MAMO在所有情况下都保持最高的QPUC。图\ref{fig 5-7}(b) 比较了四种算法的PPUQ。正如预期的那样，MAMO在所有情况下都取得了最高的PPUQ。特别地，MAMO的QPUC比RA、D4PG和MAD4PG分别高出458.7\%、130.6\%和426.2\%，而MAMO的PPUQ比RA、D4PG和MAD4PG分别高出31.5\%、18.2\%和40.7\%。
+\textbf{5) 视图需求的影响：}
+图\ref{fig 5-7}比较了四种算法在不同视图需求下的性能，其中X轴表示视图体所需信息的平均数量从3增加到7。视图所需信息的平均数越大，说明车辆的感知和上传工作负荷越大。图\ref{fig 5-7}(a) 比较了四种算法的QPUC。随着平均所需信息数的增加，四种算法的QPUC也相应减少。如前所述，MAMO在所有情况下都保持最高的QPUC。图\ref{fig 5-7}(b) 比较了四种算法的PPUQ。正如预期的那样，MAMO在所有情况下都取得了最高的PPUQ。特别地，MAMO的QPUC比RA、D4PG和MAD4PG分别高出458.7\%、130.6\%和426.2\%，而MAMO的PPUQ比RA、D4PG和MAD4PG分别高出31.5\%、18.2\%和40.7\%。
 图\ref{fig 5-7}(c)比较了四种算法的AT。
 正如预期，MAMO在AT方面取得了最佳性能。
 图\ref{fig 5-7}(d)比较了四种算法的AR，表明MAMO可以在所有情况下实现最低的AR。
 图\ref{fig 5-7}(e)和\ref{fig 5-7}(f)分别比较了四个算法的ASC和ATC。
 本章注意到，当平均信息数增加时，四种算法的ASC和ATC都会增加。
-原因是面向车载边缘计算的数字孪生需要的平均信息量增加，导致车辆感应和传输开销提高。
+原因是面向车载边缘计算的视图需要的平均信息量增加，导致车辆感应和传输开销提高。
 
 \section{本章小结}\label{section 5-7}
 
-本章提出了车载信息物理融合架构，其中基于分布式感知与V2I协同上传构建车联网要素的数字孪生。
-具体地，在信息物理融合的基础上，建立了车辆数字孪生模型，并进一步利用其来形成边缘节点的逻辑视图并反映物理车联网环境。
+本章提出了车载信息物理融合架构，其中基于分布式感知与V2I协同上传构建车联网要素的视图。
+具体地，在信息物理融合的基础上，建立了车辆视图模型，并进一步利用其来形成边缘节点的逻辑视图并反映物理车联网环境。
 基于多类M/G/1优先级队列构建了分布式感知模型，并基于信道衰减分布和SNR阈值构建了V2I协同上传模型。
-在此基础上，设计了两个指标QDT和CDT，以衡量在边缘节点建模的数字孪生的质量和开销，并制定了一个双目标问题，通过协同感知和上传，使VCPS质量最大化与VCPS 开销最小化。
+在此基础上，设计了两个指标QV和CV，以衡量在边缘节点建模的视图的质量和开销，并制定了一个双目标问题，通过协同感知和上传，使VCPS质量最大化与VCPS 开销最小化。
 此外，还提出了一个多智能体多目标深度强化学习算法，其中采用了一个决斗评论家网络，根据状态价值和动作优势来评估智能体动作。
 最后，进行了全面的性能评估，证明了所提算法的优越性。
