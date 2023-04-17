@@ -28,20 +28,10 @@
 少数研究考虑了VCPS中的信息质量，包括时效性\cite{liu2014temporal, dai2019temporal} 和准确性\cite{rager2017scalability, yoon2021performance}。
 然而，上述研究都没有考虑在面向车载边缘计算的VCPS中实现高质量信息融合的协同感知和上传。
 
-本章主要解决的关键问题和挑战总结如下：
-首先，车联网中物理信息是高度动态的。
-因此，考虑感知频率、排队延迟和传输时延的协同效应，以确保信息的新鲜度和时效性是至关重要的。
-其次，物理信息是具有时空相关性的。
-同时，车辆具有不同的传输能力，并且以分布式方式进行调度。
-因此，车辆需要在信息感知和上传方面进行合作，以减少资源消耗并提高信息质量。
-再次，V2I 通信具有有限的无线电覆盖范围，并且由于无线通信的自身性质而并不可靠。
-因此，降低上传过程中的间歇性连接和数据包丢失的影响也非常关键。
-最后，物理信息在分布、更新频率和模式方面具有内在的异质性，这些异质特征同样给信息融合的质量建模带来了巨大挑战。
-
 本章在面向车载边缘计算的视图中提高车载物理信息融合的质量，并在最小化协同感知和上传开销方面寻求最佳平衡。
 然而，实现这一目标面临着以下主要挑战。
-首先，车联网中的信息高度动态，因此评估感知频率、排队延迟和传输延迟之间的相互关系以提高信息新鲜度至关重要。
-其次，不同车辆在不同的时间或空间范围内感应到的信息可能存在冗余或不一致性。因此，具有不同感知能力的车辆有望以分布式方式合作，以提高感知和通信资源的利用率。
+首先，车联网中的信息高度动态，因此考虑感知频率、排队延迟和传输时延的协同效应，以确保信息的新鲜度和时效性是至关重要的。
+其次，物理信息是具有时空相关性的，不同车辆在不同的时间或空间范围内感应到的信息可能存在冗余或不一致性。因此，具有不同感知能力的车辆有望以分布式方式合作，以提高感知和通信资源的利用率。
 第三，物理信息在分布、更新频率和模式方面存在异质性，这给视图质量的建模带来很大挑战。
 最后，高质量的视图构建需要更高的感知和通信资源开销，这也是一个需要考虑的关键因素。
 综上所述，实现面向车载边缘计算的高质量、低开销视图需要协同感知和上传，但其实现也具有一定的挑战性。
@@ -71,7 +61,7 @@
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig5-1-architerture.pdf}
-  \bicaption{车载信息物理融合架构}{Vehicular cyber-physical architecture}
+  \bicaption{协同感知与 V2I 上传场景}{Cooperative sensing and V2I uploading scenario}
   \label{fig 4-1}
 \end{figure} 
 
@@ -308,15 +298,15 @@ VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节
 其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先权，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
 本章提出了一个双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题表示为
 \begin{align}
-	\mathcal{P}5.1: & \max_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{Q}, \min_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{C} \notag \\
+	\mathcal{P}4.1: & \max_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{Q}, \min_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{C} \notag \\
 	\text { s.t. }
 	& (\ref{equ 4-1}) \sim (\ref{equ 4-5}) \notag \\
-    &\mathcal{C}5.1: \sum_{\forall d \subseteq \mathbf{D}_v^t} \lambda_{d, v}^{t} \mu_d<1,\ \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \notag \\
-    &\mathcal{C}5.2: \inf_{\mathbb{P} \in \tilde{p}} \operatorname{Pr}_{[\mathbb{P}]}\left(\operatorname{SNR}_{v, e}^{t} \geq \operatorname{SNR}_{v, e}^{\operatorname{tgt}}\right) \geq \delta, \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \notag \\
-    &\mathcal{C}5.3: {\sum_{\forall v \in \mathbf{V}_e^{t}}b_v^t} \leq b_e, \forall t \in \mathbf{T}
+    &\mathcal{C}4.1: \sum_{\forall d \subseteq \mathbf{D}_v^t} \lambda_{d, v}^{t} \mu_d<1,\ \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \notag \\
+    &\mathcal{C}4.2: \inf_{\mathbb{P} \in \tilde{p}} \operatorname{Pr}_{[\mathbb{P}]}\left(\operatorname{SNR}_{v, e}^{t} \geq \operatorname{SNR}_{v, e}^{\operatorname{tgt}}\right) \geq \delta, \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \notag \\
+    &\mathcal{C}4.3: {\sum_{\forall v \in \mathbf{V}_e^{t}}b_v^t} \leq b_e, \forall t \in \mathbf{T}
 \end{align}
-其中$\mathcal{C}5.1$保证队列稳定状态，$\mathcal{C}5.2$保证传输可靠性。
-$\mathcal{C}5.3$要求边缘节点$e$分配的V2I带宽之和不能超过其容量$b_e$。
+其中$\mathcal{C}4.1$保证队列稳定状态，$\mathcal{C}4.2$保证传输可靠性。
+$\mathcal{C}4.3$要求边缘节点$e$分配的V2I带宽之和不能超过其容量$b_e$。
 基于CV的定义，视图的利润定义如下：
 \begin{definition}
 视图的利润$\operatorname{PV}_{j} \in (0, 1)$被定义为视图$i$的CV的补充。
@@ -331,11 +321,11 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 		\mathscr{P}= \frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t}   \operatorname{PV}_{j} }{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{I}_e^t| }
 	\end{equation}
 \end{definition}
-\noindent 因此，$\mathcal{P}5.1$问题可以改写如下：
+\noindent 因此，$\mathcal{P}4.1$问题可以改写如下：
 \begin{align}
-	\mathcal{P}5.2: & \max_{ \mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B} } \left (\mathscr{Q}, \mathscr{P} \right ) \notag \\
+	\mathcal{P}4.2: & \max_{ \mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B} } \left (\mathscr{Q}, \mathscr{P} \right ) \notag \\
 		\text { s.t. }
-	&(\ref{equ 4-1}) \sim (\ref{equ 4-5}), \mathcal{C}5.1 \sim \mathcal{C}5.3
+	&(\ref{equ 4-1}) \sim (\ref{equ 4-5}), \mathcal{C}4.1 \sim \mathcal{C}4.3
 \end{align}
 
 \section{基于多目标的多智能体强化学习算法设计}\label{section 4-5}
@@ -348,13 +338,70 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 启动$K$分布式行动者，与环境进行交互，并执行重放经验存储。
 每个行动体由一个本地车辆策略网络和一个本地边缘策略网络组成，分别用$\theta_{\mathbf{V}, k}^{\mu}$和$\theta_{\mathbf{E}, k}^{\mu}$表示，它们是由学习器的本地策略网络复制而来的。
 存储容量为$\mathcal{B}$的经验回放缓存被初始化以存储重放经验。
+基于多目标的多智能体深度强化学习的具体步骤见算法4.1。
 
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig5-2-solution-model.pdf}
-  \bicaption{多智能体多目标深度强化学习模型}{Multi-agent multi-objective deep reinforcement learning model}
+  \bicaption{基于多目标的多智能体深度强化学习模型}{Multi-agent multi-objective deep reinforcement learning model}
   \label{fig 4-2}
 \end{figure}
+
+
+\SetKwInOut{KwIn}{输入}
+\SetKwInOut{KwOut}{输出}
+
+\begin{algorithm}[h]\small
+\renewcommand{\algorithmcfname}{算法}
+	\caption{基于多目标的多智能体深度强化学习}
+	\KwIn{折扣因子 $\gamma$、批大小 $M$、回放经验缓存 $\mathcal{B}$、学习率$\alpha$和$\beta$、目标网络参数更新周期 $t_{\operatorname{tgt}}$、分布式行动者网络参数更新周期 $t_{\operatorname{act}}$、随机行动数量$N$}
+	\KwOut{信息感知决策$\mathbf{C}_v^t$、信息感知频率决策$\lambda_{d, v}^{t}$、上传优先级决策$p_{d, v}^{t}$、传输功率$\pi_v^t$、V2I带宽分配$b_{v, e}^{t}$}
+	初始化网络参数\\
+	初始化经验回放缓存 $\mathcal{B}$\\
+	启动 $K$ 分布式行动者并复制网络参数给行动者\\
+	\For{\songti{迭代次数} $= 1$ \songti{到最大迭代次数}}{
+		\For{\songti{时间片} $t = 1$ \songti{到} $T$}{
+			从经验回放缓存$\mathcal{B}$随机采样$M$小批量\\
+			通过目标评论家网络中DCN网络得到目标值\\
+			基于分类分布的TD学习计算更新评论家网络\\
+			更新本地策略和评论家网络\\
+			\If{$t \mod t_{\operatorname{tgt}} = 0$}{
+				更新目标网络\\
+			}
+			\If{$t \mod t_{\operatorname{act}} = 0$}{
+				复制网络参数给分布式行动者\\
+			}
+		}
+	}
+\label{algorithm 4-1}
+\end{algorithm}
+
+\begin{algorithm}[t]\small
+\renewcommand{\algorithmcfname}{算法}
+	\caption{分布式行动者}
+	\KwIn{车辆探索常数 $\epsilon_{v}$、边缘节点探索常数$\epsilon_{e}$、车辆本地观测 $\boldsymbol{o}_{v}^{t}$、边缘节点本地观测 $\boldsymbol{o}_{e}^{t}$}
+	\KwOut{车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$、边缘节点动作$\boldsymbol{a}_{e}^{t}$}
+	\While{\songti{学习器没有结束}}{
+		初始化一个随机过程 $\mathcal{N}$ 以进行探索\\
+		生成随机权重 $\boldsymbol{w}^{t}$\\
+		接收初始系统状态 $\boldsymbol{o}_{1}$\\
+		\For{\songti{时间片} $t = 1$ \songti{到} $T$}{
+			\For{\songti{车辆} $v=1$ \songti{到} $V$}{
+				接收车辆本地观测 $\boldsymbol{o}_{v}^{t}$\\
+				选择一个车辆动作 $\mu_{\mathbf{V}}\left(\boldsymbol{o}_{v}^{t} \mid \theta_{\mathbf{V}}^{\mu}\right)+\epsilon_{v} \mathcal{N}_{v}^{t}$\\
+			}
+			接收边缘节点本地观测 $\boldsymbol{o}_{e}^{t}$\\
+			选择一个边缘节点动作 $\boldsymbol{a}_{e}^{t}=\mu_{\mathbf{E}}\left(\boldsymbol{o}_{e}^{t},  \boldsymbol{a}_{\boldsymbol{\mathbf{V}}}^{t} \mid \theta_{\mathbf{E}}^{\mu}\right)+\epsilon_{e} \mathcal{N}_{e}^{t}$\\
+			接收奖励 $\boldsymbol{r}^{t}$ 和下一个系统状态 $\boldsymbol{o}^{t+1}$\\
+			\For{\songti{车辆} $v=1$ \songti{到} $V$}{
+				根据公式\ref{equ 4-40}计算车辆的差分奖励\\
+			}
+			根据公式\ref{equ 4-41}计算边缘节点的归一化奖励\\
+			存储 $\left(\boldsymbol{o}^{t}, \boldsymbol{a}_{\mathbf{V}}^{t}, \boldsymbol{a}_{e}^{t}, \boldsymbol{r}_{\mathbf{V}}^{t}, \boldsymbol{r}_{e}^{t}, \boldsymbol{w}^{t}, \boldsymbol{o}^{t+1}\right)$ 到经验回放缓存 $\mathcal{B}$
+		}
+	}
+\label{algorithm 3-2}
+\end{algorithm}
 
 \subsection{多智能体分布式策略执行}
 
@@ -412,20 +459,22 @@ $\mathbf{D}_{\mathbf{I}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的�
 因此，车辆$v$在第$i$个目标中的奖励是由基于奖励分配的差分奖励 \cite{foerster2018counterfactual} 得到的，其为系统奖励和没有其行动所取得的奖励之间的差值，可以表示为 
 \begin{equation}
 r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)-r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}-s}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right), \forall i \in \{1, 2\}
+\label{equ 4-40}
 \end{equation}
 \noindent 其中 $r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}-s}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)$ 是在没有车辆$v$贡献的情况下实现的系统奖励，它可以通过设置车辆$v$的空动作集得到。
 车辆$v$在时间$t$的奖励向量表示为$\boldsymbol{r}_{v}^{t} = \begin{bmatrix}  r_{v}^{(1), t}  &  r_{v}^{(2), t} \end{bmatrix} ^{T}$。
-车辆的差分奖励集合表示为 $\boldsymbol{r}_{\mathbf{V}}^{t}=\{ \boldsymbol{r}_{v}^{t} \mid \forall v \in \mathbf{V}\}$.
+车辆的差分奖励集合表示为 $\boldsymbol{r}_{\mathbf{V}}^{t}=\{ \boldsymbol{r}_{v}^{t} \mid \forall v \in \mathbf{V}\}$。
 
 另一方面，系统奖励通过最小-最大归一化进一步转化为边缘节点的归一化奖励。
 边缘节点$e$在时间$t$的第$i$个目标中的奖励由以下方式计算 
 \begin{equation}
 	r_{e}^{(j), t}= \frac{r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right) - \min \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t}\right)} {\max \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t}\right) - \min \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t}\right)}
+\label{equ 4-41}
 \end{equation}
 \noindent 其中 $\min \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)} (\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t})$ 和 $\max \limits_{\forall {\boldsymbol{a}_{e}^{t}}^{\prime}} r^{(j)}(\boldsymbol{a}_{\mathbf{V}}^{t}, {\boldsymbol{a}_{e}^{t}}^{\prime} \mid \boldsymbol{o}^{t})$ 分别是在相同的系统状态$\boldsymbol{o}^{t}$下，车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$不变时实现的系统奖励的最小值和最大值。
 边缘节点$e$在时间$t$的奖励向量表示为 $\boldsymbol{r}_{e}^{t} = \begin{bmatrix}  r_{e}^{(1), t}  &  r_{e}^{(2), t} \end{bmatrix} ^{T}$。
-交互经验包括当前系统状态$\boldsymbol{o}^{t}$，车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$、边缘节点动作${a}_{e}^{t}$，车辆奖励$\boldsymbol{r}_{v}^{t}$、边缘节点奖励$\boldsymbol{r}_{e}^{t}$、权重$\boldsymbol{w}^{t}$，以及下一时刻系统状态$\boldsymbol{o}^{t+1}$都存储到经验回放缓存$\mathcal{B}$。
-与环境的交互将持续到学习器的训练过程结束。
+交互经验包括当前系统状态$\boldsymbol{o}^{t}$、车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$、边缘节点动作$\boldsymbol{a}_{e}^{t}$、车辆奖励$\boldsymbol{r}_{\mathbf{V}}^{t}$、边缘节点奖励$\boldsymbol{r}_{e}^{t}$、权重$\boldsymbol{w}^{t}$，以及下一时刻系统状态$\boldsymbol{o}^{t+1}$都存储到经验回放缓存$\mathcal{B}$。
+分布式行动者与环境的交互将持续到学习器的训练过程结束，其具体步骤见算法4.2。
 
 \subsection{多目标策略评估}
 
@@ -621,6 +670,13 @@ QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ�
  \label{fig 4-6}
 \end{figure}
 
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=1\columnwidth]{Fig5-7-different-numbers.pdf}
+ \bicaption[不同视图需求下的性能比较]{不同视图需求下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均及时性（d）平均冗余度（e）平均感知开销（f）平均传输开销}[Performance comparison under different digit twin requirements]{Performance comparison under different digit twin requirements. (a) Quality per unit cost (b) Profit per unit quality (c) Average timeliness (d) Average redundancy (e) Average sensing cost (f) Average transmission cost}
+ \label{fig 4-7}
+\end{figure}
+
 \textbf{4) V2I带宽的影响：}
 图\ref{fig 4-6}比较了四种算法在不同V2I带宽下的性能，其中X轴表示V2I带宽，从1MHz增加到3MHz。较大的V2I带宽代表每辆车被分配的V2I带宽增加。图\ref{fig 4-6}(a)比较了四种算法的QPUC。随着带宽的增加，MAMO的QPUC也相应增加。这是因为在带宽富余的场景中，MAMO中车辆之间的协同感知和上传更加有效。图\ref{fig 4-6}(b)显示了四种算法的PPUQ，可以进一步证明这一优势。如图\ref{fig 4-6}(b)所示，MAMO在不同的V2I带宽下实现了最高的PPUQ。特别是，MAMO比RA、D4PG和MAD4PG分别提高了约453.3\%、131.4\%和437.6\%的QPUC，并使PPUQ提高了约33.0\%、18.3\%和48.4\%。
 图\ref{fig 4-6}(c)比较了这四种算法的AT，其显示MAMO实现了最低的AT。
@@ -632,13 +688,6 @@ AR越低意味着协同感知和上传的性能越好，MAMO实现了最低的AR
 可以看出，当带宽增加时，这四种算法的ATC都会下降。
 原因是，当带宽增加时，信息上传时间减少，导致传输开销降低。
 正如预期的那样，MAMO的ASC和ATC在大多数情况下保持在最低水平。
-
-\begin{figure}[h]
- \centering
- \includegraphics[width=1\columnwidth]{Fig5-7-different-numbers.pdf}
- \bicaption[不同视图需求下的性能比较]{不同视图需求下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均及时性（d）平均冗余度（e）平均感知开销（f）平均传输开销}[Performance comparison under different digit twin requirements]{Performance comparison under different digit twin requirements. (a) Quality per unit cost (b) Profit per unit quality (c) Average timeliness (d) Average redundancy (e) Average sensing cost (f) Average transmission cost}
- \label{fig 4-7}
-\end{figure}
 
 \textbf{5) 视图需求的影响：}
 图\ref{fig 4-7}比较了四种算法在不同视图需求下的性能，其中X轴表示视图体所需信息的平均数量从3增加到7。视图所需信息的平均数越大，说明车辆的感知和上传工作负荷越大。图\ref{fig 4-7}(a) 比较了四种算法的QPUC。随着平均所需信息数的增加，四种算法的QPUC也相应减少。如前所述，MAMO在所有情况下都保持最高的QPUC。图\ref{fig 4-7}(b) 比较了四种算法的PPUQ。正如预期的那样，MAMO在所有情况下都取得了最高的PPUQ。特别地，MAMO的QPUC比RA、D4PG和MAD4PG分别高出458.7\%、130.6\%和426.2\%，而MAMO的PPUQ比RA、D4PG和MAD4PG分别高出31.5\%、18.2\%和40.7\%。
