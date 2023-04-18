@@ -35,36 +35,36 @@
 
 \section{车载信息物理融合质量/开销模型}\label{section 4-3}
 \subsection{基本符号}
-本系统离散时间片的集合用$\mathbf{T}=\left\{1,\ldots,t,\ldots, T \right\}$表示，其中$T$是时间片的数量。
-让$\mathbf{D}$表示异质信息集合，每个信息$d \in \mathbf{D}$的特征是一个三元组$d=\left(\operatorname{type}_d, u_d, \left|d\right| \right)$，其中$\operatorname{type}_d$、$u_d$和$\left|d\right|$分别是信息类型、更新间隔和数据大小。
-用$\mathbf{V}$表示车辆的集合，每个车辆$v\in \mathbf{V}$的特征是一个三元组$v=\left (l_v^t, \mathbf{D}_v, \pi_v \right )$，其中$l_v^t$、$\mathbf{D}_v$和$\pi_v$分别是位置、感知的信息集和传输功率。
+本系统离散时间片的集合用$\mathbf{T}=\left\{1,\ldots,t,\ldots, T \right\}$表示。
+异质信息集合用$\mathbf{D}$表示，其中信息$d \in \mathbf{D}$的特征是一个三元组$d=\left(\operatorname{type}_d, u_d, \left|d\right| \right)$，其中$\operatorname{type}_d$、$u_d$和$\left|d\right|$分别是信息类型、更新间隔和数据大小。
+$\mathbf{V}$表示车辆的集合，每个车辆$v\in \mathbf{V}$的特征是一个三元组$v=\left (l_v^t, \mathbf{D}_v, \pi_v \right )$，其中$l_v^t$、$\mathbf{D}_v$和$\pi_v$分别是位置、感知的信息集和传输功率。
 对于$d \in \mathbf{D}_v$，车辆$v$的感知开销（即能耗）用$\phi_{d, v}$表示。
 用$\mathbf{E}$表示边缘节点的集合，其中每个边缘节点$e \in \mathbf{E}$的特征是$e=\left (l_e, g_e, b_e \right)$，其中$l_{e}$、$r_{e}$和$b_{e}$分别为位置、通信范围和带宽。
-车辆$v$与边缘节点$e$之间的距离用$\operatorname{dis}_{v, e}^t \triangleq \operatorname{distance} \left (l_v^t, l_e \right ), \forall v \in \mathbf{V}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}$表示。
-在时间$t$内处于边缘节点$e$的无线电覆盖范围内的车辆集合表示为$\mathbf{V}_e^t=\left \{v \vert \operatorname{dis}_{v, e}^t \leq g_e, \forall v \in \mathbf{V} \right \}, \mathbf{V}_e^t \subseteq \mathbf{V}$。
+车辆$v$与边缘节点$e$之间的距离表示为$\operatorname{dis}_{v, e}^t \triangleq \operatorname{distance} \left (l_v^t, l_e \right ), \forall v \in \mathbf{V}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}$。
+在时间$t$内处于边缘节点$e$的通信覆盖范围内的车辆集合表示为$\mathbf{V}_e^t=\left \{v \vert \operatorname{dis}_{v, e}^t \leq g_e, \forall v \in \mathbf{V} \right \}, \mathbf{V}_e^t \subseteq \mathbf{V}$。
 
-感知决策指示器表示车辆$v$在时间$t$是否感知信息$d$，其用以下方式表示
+感知决策指示器表示车辆$v$在时间$t$是否感知信息$d$，其用以下方式表示：
 \begin{equation}
 	c_{d, v}^t \in \{0, 1\}, \forall d \in \mathbf{D}_{v}, \forall v \in \mathbf{V}, \forall t \in \mathbf{T}
 	\label{equ 4-1} 
 \end{equation}
 那么，车辆$v$在时间$t$的感应信息集合表示为 $\mathbf{D}_v^t = \{ d | c_{d, v}^{t} = 1, \forall d \in \mathbf{D}_v \}, \mathbf{D}_v^t \subseteq \mathbf{D}_v$。
 对于任何信息$d \in \mathbf{D}_v^t$来说，信息类型都是不同的, 即$\operatorname{type}_{d^*} \neq \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_v^t \setminus \left\{ d\right \}, \forall d \in \mathbf{D}_v^t$。
-车辆$v$在时间$t$的信息$d$的感知频率用$\lambda_{d, v}^t$表示，它应该满足车辆$v$的感应能力要求。
+车辆$v$在时间$t$的信息$d$的感知频率用$\lambda_{d, v}^t$表示，其需要满足车辆$v$的感应能力要求。
 \begin{equation}
 	\lambda_{d, v}^{t} \in [\lambda_{d, v}^{\min} , \lambda_{d, v}^{\max} ], \ \forall d \in \mathbf{D}_v^t, \forall v \in \mathbf{V}, \forall t \in \mathbf{T}
 \end{equation}
 其中$\lambda_{d, v}^{\min}$和$\lambda_{d, v}^{\max}$分别是车辆$v$中信息${d}$的最小和最大感知频率。
-车辆$v$中的信息$d$在时间$t$的上传优先级用$p_{d, v}^t$表示，其需满足各不相同，即
+车辆$v$中的信息$d$在时间$t$的上传优先级用$p_{d, v}^t$表示，不同信息的上传优先级需各不相同。
 \begin{equation}
 	{p}_{d^*, v}^t \neq {p}_{d, v}^t, \forall d^* \in \mathbf{D}_v^t \setminus \left\{ d\right \}, \forall d \in \mathbf{D}_v^t, \forall v \in \mathbf{V}, \forall t \in \mathbf{T}
 \end{equation}
 其中${p}_{d^*, v}^t$是信息$d^* \in \mathbf{D}_v^t$中的上传优先级。
-车辆$v$在时间$t$的传输功率用$\pi_{v}^t$表示，它不能超过车辆$v$的功率容量。
+车辆$v$在时间$t$的传输功率用$\pi_{v}^t$表示，其不能超过车辆$v$的功率容量。
 \begin{equation}
 	\pi_v^t \in \left[ 0 , \pi_v \right ], \forall v \in \mathbf{V}, \forall t \in \mathbf{T}
 \end{equation}
-边缘节点$e$在时间$t$为车辆$v$分配的V2I带宽用$b_{v, e}^t$表示，且 
+边缘节点$e$在时间$t$为车辆$v$分配的V2I带宽用$b_{v, e}^t$表示，且其需要满足：
 \begin{equation}
 	b_{v, e}^t \in \left [0, b_e \right], \forall v \in \mathbf{V}_e^{t}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}
 	\label{equ 4-5} 
@@ -77,26 +77,26 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
 每个实体可能需要多个信息，即$|\mathbf{D}_{i^{\prime}}| = \sum_{\forall d \in \mathbf{D}}y_{d, i^{\prime}} \geq 1, \forall i^{\prime} \in \mathbf{I}^{\prime}$。
 对于每个实体$i^{\prime} \in \mathbf{I}^{\prime}$，可能有一个视图$i$在边缘节点中建模。
 用$\mathbf{I}$表示视图的集合，用$\mathbf{I}_e^{t}$表示时间为$t$时在边缘节点$e$中建模的视图集合。
-因此，边缘节点$e$收到的、视图$i$需要的信息集合可以用$\mathbf{D}_{i, e}^t=\bigcup_{\forall v \in \mathbf{V}}\left(\mathbf{D}_{i^{\prime}} \cap \mathbf{D}_{v, e}^t\right), \forall i \in \mathbf{I}_e^{t}, \forall e \in \mathbf{E}$表示，且 $| \mathbf{D}_{i, e}^t |$是边缘节点$e$收到的、视图$i$需要的信息数量，其计算公式为$| \mathbf{D}_{i, e}^t | =  \sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_v} c_{d, v}^t  y_{d, i^{\prime}}$。
+因此，边缘节点$e$收到且被视图$i$需要的信息集合可以用$\mathbf{D}_{i, e}^t=\bigcup_{\forall v \in \mathbf{V}}\left(\mathbf{D}_{i^{\prime}} \cap \mathbf{D}_{v, e}^t\right), \forall i \in \mathbf{I}_e^{t}, \forall e \in \mathbf{E}$表示，且 $| \mathbf{D}_{i, e}^t |$是边缘节点$e$收到且被视图$i$需要的信息数量，其计算公式为$| \mathbf{D}_{i, e}^t | =  \sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_v} c_{d, v}^t  y_{d, i^{\prime}}$。
 
 \subsection{协同感知模型}
 车辆协同感知是基于多类M/G/1优先级队列\cite{moltafet2020age}进行建模。
 假设具有$\operatorname{type}_d$的信息的上传时间$\operatorname{\hat{g}}_{d, v, e}^t$遵循均值$\alpha_{d, v}^t$和方差$\beta_{d, v}^t$的一类一般分布。
 那么，车辆$v$中的上传负载$\rho_{v}^{t}$由$ \rho_{v}^{t}=\sum_{\forall d \subseteq \mathbf{D}_v^t} \lambda_{d, v}^{t} \alpha_{d, v}^t$表示。
 根据多类M/G/1优先级队列，需要满足$\rho_{v}^{t} < 1$才能达到队列的稳定状态。
-信息$d$在时间$t$之前的到达时间用$\operatorname{a}_{d, v}^t$表示，其计算公式为
+信息$d$在时间$t$之前的到达时间用$\operatorname{a}_{d, v}^t$表示，其计算公式为：
 \begin{equation}
     \operatorname{a}_{d, v}^t =  \frac{\left \lfloor t \lambda_{d, v}^t \right \rfloor }{\lambda_{d, v}^{t}} 
 \end{equation}
-在时间$t$之前，由$\operatorname{u}_{d, v}^t$表示的信息$d$的更新时间是通过以下方式计算的
+在时间$t$之前，由$\operatorname{u}_{d, v}^t$表示的信息$d$的更新时间是通过下式计算：
 \begin{equation}
     \operatorname{u}_{d, v}^t = \left \lfloor  \frac{\operatorname{a}_{d, v}^t}{u_d} \right \rfloor  u_d
 \end{equation}
 其中$u_d$是信息$d$的更新间隔时间。
 
 
-在时间$t$，车辆$v$中比$d$有更高上传优先级的元素集合，用$\mathbf{D}_{d, v}^t = \{ d^* \mid p_{d^*, v}^{t} > p_{d, v}^{t} , \forall d^* \in \mathbf{D}_v^t \}$表示，其中$p_{d^*, v}^{t}$是信息$d^* \in \mathbf{D}_v^t$的上传优先级。
-因此，信息$d$前面的上传负载（即$v$在时间$t$时要在$d$之前上传的元素数量）通过以下方式计算得出 
+在时间$t$，车辆$v$中比$d$有更高上传优先级的信息集合，用$\mathbf{D}_{d, v}^t = \{ d^* \mid p_{d^*, v}^{t} > p_{d, v}^{t} , \forall d^* \in \mathbf{D}_v^t \}$表示，其中$p_{d^*, v}^{t}$是信息$d^* \in \mathbf{D}_v^t$的上传优先级。
+因此，信息$d$前面的上传负载（即$v$在时间$t$时要在$d$之前上传的信息数量）通过下方计算得出： 
 \begin{equation}
 	\rho_{d, v}^{t}=\sum_{\forall d^* \in \mathbf{D}_{d, v}^t} \lambda_{d^*, v}^t \alpha_{d^*, v}^t
 \end{equation}
@@ -109,24 +109,25 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
 \end{equation}
 
 \subsection{V2I协同上传模型}
-V2I上传是基于信道衰减分布和信噪比阈值来建模的。
-车辆$v$和边缘节点$e$之间的V2I通信在时间$t$的信噪比通过下式计算\cite{sadek2009distributed}
+车辆间V2I协同上传是基于信道衰减分布和信噪比阈值来建模的。
+车辆$v$和边缘节点$e$之间的V2I通信在时间$t$的信噪比通过公式\ref{equ 4-10}\cite{sadek2009distributed}计算得到。
 \begin{equation}
     \operatorname{SNR}_{v, e}^{t}=\frac{1}{N_{0}} \left|h_{v, e}\right|^{2} \tau {\operatorname{dis}_{v, e}^{t}}^{-\varphi} {\pi}_v^t
+    \label{equ 4-10}
 \end{equation}
-其中$N_{0}$为AWGN；$h_{v, e}$为信道衰减增益；$\tau$为常数，取决于天线设计，$\varphi$为路径损耗指数。
-假设$\left|h_{v, e}\right|^{2}$遵循均值$\mu_{v, e}$和方差$\sigma_{v, e}$的一类分布，其表示方法为
+其中$N_{0}$为AWGN；$h_{v, e}$为信道衰减增益；$\tau$为取决于天线设计的常数；$\varphi$为路径损耗指数。
+假设$\left|h_{v, e}\right|^{2}$遵循均值$\mu_{v, e}$和方差$\sigma_{v, e}$的一类分布，其表示方法为：
 \begin{equation}
     \tilde{p}=\left\{\mathbb{P}: \mathbb{E}_{\mathbb{P}}\left[\left|h_{v, e}\right|^{2}\right]=\mu_{v, e}, \mathbb{E}_{\mathbb{P}}\left[\left|h_{v, e}\right|^{2}-\mu_{v, e}\right]^{2}=\sigma_{v, e}\right\}
 \end{equation}
-传输可靠性是由成功传输概率超过可靠性阈值的可能性来衡量的。
+进一步，基于成功传输概率和可靠性阈值来衡量V2I传输可靠性。
 \begin{equation}
     \inf_{\mathbb{P} \in \tilde{p}} \operatorname{Pr}_{[\mathbb{P}]}\left(\operatorname{SNR}_{v, e}^{t} \geq \operatorname{SNR}_{v, e}^{\operatorname{tgt}}\right) \geq \delta
 \end{equation}
 \noindent 其中$\operatorname{SNR}_{v, e}^{\operatorname{tgt}}$和$\delta$分别为目标SNR阈值和可靠性阈值。
 由车辆$v$上传并由边缘节点$e$接收的信息集合用$\mathbf{D}_{v, e}^{t} = \bigcup_{\forall v \in \mathbf{V}_{e}^{t}} \mathbf{D}_{v}^{t}$表示。
 
-根据香农理论，车辆$v$和边缘节点$e$之间在时间$t$的V2I通信的传输率用$\operatorname{z}_{v, e}^t$表示，计算结果为
+根据香农理论，车辆$v$和边缘节点$e$之间在时间$t$的V2I通信的传输率用$\operatorname{z}_{v, e}^t$表示，其计算公式如下：
 \begin{equation}
     \operatorname{z}_{v, e}^t=b_{v}^{t} \log _{2}\left(1+\mathrm{SNR}_{v, e}^{t}\right)
 \end{equation}
@@ -134,7 +135,7 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 然后，本章把车辆$v$开始传输$d$的时刻表示为$\mathrm{t}_{d, v}^t=t+\mathrm{q}_{d, v}^t$。
 从$\mathrm{t}_{d, v}^t$到$\mathrm{t}_{d, v}^t + f$之间传输的数据量可由 $\int_{\mathrm{t}_{d, v}^t}^{\mathrm{t}_{d, v}^t+f} \mathrm{z}_{v, e}^t \mathrm{~d} t$ bits 得到，其中$f \in \mathbb{R}^{+}$和$\mathrm{z}_{i, e}^t$是时间$t$的传输速率。
 如果在整个传输过程中可以传输的数据量大于信息$d$的大小，那么上传就会完成。
-因此，从车辆$v$到边缘节点$e$传输信息$d$的时间，用$\operatorname{g}_{d, v, e}^t$表示，计算如下 
+因此，从车辆$v$到边缘节点$e$传输信息$d$的时间，用$\operatorname{g}_{d, v, e}^t$表示，计算如下：
 \begin{equation}
     \operatorname{g}_{d, v, e}^t=\inf _{j \in \mathbb{R}^+} \left \{ \int_{\operatorname{k}_{d, v}^t}^{\operatorname{k}_{d, v}^t + j} {\operatorname{z}_{v, e}^t} \operatorname{d}t \geq \left|d\right| \right \} 
 \end{equation}
@@ -151,7 +152,7 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 \end{equation}
 \end{definition}
 \begin{definition}
-视图$i$的及时性 $\Theta_{i} \in \mathbb{Q}^{+}$被定义为与物理实体$i^{\prime}$相关的信息的最大及时性之和。
+视图$i$的及时性 $\Theta_{i} \in \mathbb{Q}^{+}$定义为与物理实体$i^{\prime}$相关的信息的最大及时性之和。
 	\begin{equation}
     	\Theta_{i} = \sum_{\forall v\in \mathbf{V}_{e}^{t}} \max_{\forall d \in \mathbf{D}_{i^{\prime}} \cap \mathbf{D}_v^t}\theta_{d, v}, \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
     	\label{equ 4-16}
@@ -160,7 +161,7 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 
 其次，由于不同类型的信息有不同的感知频率和上传优先级，本章定义视图的一致性来衡量与同一物理实体相关的信息的一致性。
 \begin{definition}
-视图$i$的一致性$\Psi_{i} \in \mathbb{Q}^{+}$被定义为信息更新时间差的最大值。
+视图$i$的一致性$\Psi_{i} \in \mathbb{Q}^{+}$定义为信息更新时间差的最大值。
 \begin{equation}
     \Psi_{i}=\max_{\forall d \in \mathbf{D}_{i, e}^{t}, \forall v \in \mathbf{V}_{e}^{t}} {\operatorname{u}_{d, v}^t} - \min_{\forall d \in \mathbf{D}_{i, e}^{t}, \forall v \in \mathbf{V}_{e}^{t}} {\operatorname{u}_{d, v}^t} , \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
 \end{equation}
@@ -168,14 +169,14 @@ V2I上传是基于信道衰减分布和信噪比阈值来建模的。
 
 最后，本章给出了视图的质量的正式定义，其综合了视图的及时性和一致性。
 \begin{definition}
-视图$\operatorname{QV}_{i} \in (0, 1)$的质量被定义为视图$i$的归一化及时性和归一化一致性的加权平均和。
+视图质量$\operatorname{QV}_{i} \in (0, 1)$定义为视图$i$的归一化及时性和归一化一致性的加权平均和。
 	\begin{equation}
 	    \operatorname{QV}_{i} = w_1 (1 -\hat{\Theta_{i}}) + w_2 (1 - \hat{\Psi_{i}}), \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
 	\end{equation}
 \end{definition}
 \noindent 其中$\hat{\Theta_{i}} \in (0, 1)$和$\hat{\Psi_{i}} \in (0, 1)$分别表示归一化的及时性和归一化的一致性，这可以通过最小-最大归一化对及时性和一致性的范围进行重新调整至$(0, 1)$来获得。
 $\hat{\Theta_{i}}$和$\hat{\Psi_{i}}$的加权系数分别用$w_1$和$w_2$表示，可以根据ITS应用的不同要求进行相应的调整，$w_1+w_2=1$。
-进一步，基于视图质量定义车载信息物理融合系统的质量，具体如下：
+进一步，基于视图质量定义车载信息物理融合质量如下：
 \begin{definition}
 VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边缘节点中建模的每个视图的QV的平均值。
 	\begin{equation}
@@ -187,15 +188,15 @@ VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边�
 
 首先，由于同一物理实体的状态可能被多个车辆同时感应到，本章对信息$d$的冗余度定义如下：
 \begin{definition}
-信息$d$的冗余度$\xi_d \in \mathbb{N}$被定义为车辆感应到同一类型$\operatorname{type}_d$的额外信息数量。
+信息$d$的冗余度$\xi_d \in \mathbb{N}$定义为车辆感应到同一类型$\operatorname{type}_d$的额外信息数量。
 \begin{equation}
     \xi_d= \left | \mathbf{D}_{d, i, e} \right| - 1, \forall d \in \mathbf{D}_j, \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
 \end{equation}
-\noindent 其中$\mathbf{D}_{d, i, e}$是边缘节点$e$收到的、视图$i$需要的具有$\operatorname{type}_d$的信息集合，其由$\mathbf{D}_{d, i, e}=\left\{ d^* \vert \operatorname{type}_{d^*} = \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_{i, e}^t \right \}$表示。
+\noindent 其中$\mathbf{D}_{d, i, e}$是边缘节点$e$收到且被视图$i$需要，且类型为$\operatorname{type}_d$的信息集合，其由$\mathbf{D}_{d, i, e}=\left\{ d^* \vert \operatorname{type}_{d^*} = \operatorname{type}_{d}, \forall d^* \in \mathbf{D}_{i, e}^t \right \}$表示。
 
 \end{definition}
 \begin{definition}
-视图$i$的冗余度$\Xi_j \in \mathbb{N}$被定义为视图$i$中的总冗余度。
+视图$i$的冗余度$\Xi_j \in \mathbb{N}$定义为视图$i$中的总冗余度。
 	\begin{equation}
        \Xi_j =  \sum_{\forall d \in \mathbf{D}_{i^{\prime}}} \xi_d, \forall i \in \mathbf{I}_{e}^{t}, \forall e \in \mathbf{E}
        \label{equ 4-20}
@@ -204,7 +205,7 @@ VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边�
 
 其次，信息感知和传输需要消耗车辆的能量，本章定义视图$i$的感知开销和传输开销如下：
 \begin{definition}
-视图$i$的感知开销$\Phi_{i} \in \mathbb{Q}^{+}$被定义为视图$i$所需信息的总感知开销。
+视图$i$的感知开销$\Phi_{i} \in \mathbb{Q}^{+}$定义为视图$i$所需信息的总感知开销。
 	\begin{equation}
         \Phi_{i} = \sum_{\forall v \in \mathbf{V}_{e}^{t}} \sum_{\forall d \in \mathbf{D}_{i^{\prime}} \cap \mathbf{D}_v^t}{\phi_{d, v}}, \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
         \label{equ 4-21}
@@ -212,23 +213,23 @@ VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边�
     其中$\phi_{d, v}$是信息$d$在车辆$v$中的感知开销。
 \end{definition}
 \begin{definition}
-信息$d$在车辆$v$中的传输开销${\omega}_{d, v} \in \mathbb{Q}^{+}$被定义为信息上传时消耗的传输功率。
+信息$d$在车辆$v$中的传输开销${\omega}_{d, v} \in \mathbb{Q}^{+}$定义为信息上传时消耗的传输功率。
 \begin{equation}
     {\omega}_{d, v}= \pi_v^t \operatorname{g}_{d, v, e}^t, \forall d \in \mathbf{D}_v^t
 \end{equation}
 其中$\pi_v^t$和$\operatorname{g}_{d, v, e}^t$分别为传输功率和传输时间。
 \end{definition}
 \begin{definition}
-视图$i$的传输开销$\Omega_{i} \in \mathbb{Q}^{+}$被定义为视图$i$所需的信息总传输开销。
+视图$i$的传输开销$\Omega_{i} \in \mathbb{Q}^{+}$定义为视图$i$所需的信息总传输开销。
 	\begin{equation}
         \Omega_{i} = \sum_{\forall v \in \mathbf{V}_{e}^{t}} \sum_{\forall d \in \mathbf{D}_{i^{\prime}} \cap \mathbf{D}_v^t} {\omega}_{d, v}, \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
        	\label{equ 4-23}
     \end{equation}
 \end{definition}
 
-最后，本章给出了视图开销的正式定义，其综合了冗余度、感知开销和传输开销。
+最后，给出视图开销的正式定义，其综合了冗余度、感知开销和传输开销。
 \begin{definition}
-视图的开销$\operatorname{CV}_{i} \in (0, 1)$被定义为视图$i$的归一化冗余度、归一化感知开销和归一化传输开销的加权平均和。
+视图的开销$\operatorname{CV}_{i} \in (0, 1)$定义为视图$i$的归一化冗余度、归一化感知开销和归一化传输开销的加权平均和。
 	\begin{equation}
 	    \operatorname{CV}_{i} = w_3  \hat{\Xi_{i}} +  w_4 \hat{\Phi_{i}} + w_5 \hat{\Omega_{i}}, \forall i \in \mathbf{I}_{e}^t, \forall e \in \mathbf{E}
 	\end{equation}
@@ -238,7 +239,7 @@ $\hat{\Xi_{i}}$、$\hat{\Phi_{i}}$和$\hat{\Omega_{i}}$ 的加权系数分别表
 同样地，$w_3+w_4+w_5=1$。
 进一步，VCPS开销定义如下：
 \begin{definition}
-VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节点中每个视图模型的CV的平均值。
+VCPS 开销$\mathscr{C} \in (0, 1)$定义为$\mathbf{T}$调度期间边缘节点中每个视图模型的CV的平均值。
 	\begin{equation}
 		\mathscr{C}=\frac{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} \sum_{\forall i \in \mathbf{I}_e^t}  \operatorname{CV}_{i}}{\sum_{\forall t \in \mathbf{T}} \sum_{\forall e \in \mathbf{E}} |\mathbf{I}_e^t| }
 	\end{equation}
@@ -254,7 +255,7 @@ VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节
 	\mathbf{B} = \left \{ b_v^t \vert \forall v \in \mathbf{V}, \forall t \in \mathbf{T}\right \}
 \end{numcases}
 其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先级，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
-本章提出了一个双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题表示为
+本章提出了一个双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题的形式化定义如下：
 \begin{align}
 	\mathcal{P}4.1: & \max_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{Q}, \min_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{C} \notag \\
 	\text { s.t. }
@@ -267,7 +268,7 @@ VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节
 $\mathcal{C}4.3$要求边缘节点$e$分配的V2I带宽之和不能超过其容量$b_e$。
 基于CV的定义，视图的利润定义如下：
 \begin{definition}
-视图的利润$\operatorname{PV}_{j} \in (0, 1)$被定义为视图$i$的CV的补充。
+视图的利润$\operatorname{PV}_{j} \in (0, 1)$定义为视图$i$的CV的补集。
 	\begin{equation}
 		\mathscr{P}= 1 - \operatorname{CV}_{i}
 	\end{equation}
