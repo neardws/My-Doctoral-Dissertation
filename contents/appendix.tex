@@ -53,50 +53,50 @@
 
 \section{多类M/G/1优先队列排队时延上界分析}\label{appendix e}
 
-在车辆$v$中类型为$\operatorname{type}_d$的信息排队时间的方差由公式\ref{equ e.1}得到，其中$\alpha_{d, v}^t$、$\beta_{d, v}^t$和$\gamma_{d, v}^t$分别是信息$d$的传输时间的平均值和有限二和三阶矩。
+在车辆$v$中类型为$\operatorname{type}_d$的信息排队时间的方差由公式\ref{equ e.1}得到，其中$\alpha_{d, v}^t$、$\beta_{d, v}^t$和$\gamma_{d, v}^t$分别是信息$d$传输时间的平均值、二阶矩和三阶矩。
 \begin{align}
 	{Var}(\operatorname{q}_{d, v}^t) &= \frac{\beta_{d, v}^t}{(1- \rho_{d, v}^{t})^2} + \frac{\alpha_{d, v}^t \sum\limits_{\forall d^* \in D_{d, v}^t} \lambda_{d^*, v}^t \beta_{d^*, v}^t}{(1- \rho_{d, v}^{t})^3} + \frac{\lambda_{d, v}^{t} \gamma_{d, v}^t + \sum\limits_{\forall d^* \in D_{d, v}^t} \lambda_{d^*, v}^t \gamma_{d^*, v}^t}{3(1- \rho_{d, v}^{t})^2(1-\rho_{d, v}^{t} - \lambda_{d, v}^{t}  \alpha_{d, v}^t)} \notag \\ 
 	& + \frac{(\lambda_{d, v}^{t} \beta_{d, v}^t + \sum\limits_{\forall d^* \in D_{d, v}^t} \lambda_{d^*, v}^t \beta_{d^*, v}^t) \sum\limits_{\forall d^* \in D_{d, v}^t} \lambda_{d^*, v}^t \beta_{d^*, v}^t }{2(1- \rho_{d, v}^{t})^3(1-\rho_{d, v}^{t} - \lambda_{d, v}^{t}  \alpha_{d, v}^t)} - \beta_{d, v}^t \notag \\
 	& + \frac{(\lambda_{d, v}^{t} \beta_{d, v}^t + \sum\limits_{\forall d^* \in D_{d, v}^t} \lambda_{d^*, v}^t \beta_{d^*, v}^t)^2}{4(1- \rho_{d, v}^{t})^2(1-\rho_{d, v}^{t} - \lambda_{d, v}^{t}  \alpha_{d, v}^t)^2}
 \label{equ e.1}
 \end{align}
-根据切比雪夫不等式，我们有以下不等式
+根据切比雪夫不等式，有以下不等式：
 \begin{equation}
 	\operatorname{Pr}(|\operatorname{q}_{d, v}^t - \operatorname{\bar{q}}_{d, v}^t| > j \sqrt{{Var}(\operatorname{q}_{d, v}^t)}) \leq \frac{1}{j^2}, j \in \mathbb{R}^{+}
 \end{equation}
-因此，在99\%的置信度下，排队时间的上界可以通过以下方式得到
+因此，在99\%的置信度下，排队时间的上界可以通过以下方式得到：
 \begin{equation}
 	\sup_{\operatorname{Pr}}{\operatorname{q}_{d, v}^t} \leq \operatorname{\bar{q}}_{d, v}^t + 10  \sqrt{{Var}(\operatorname{q}_{d, v}^t)}
 \end{equation}
 
-为了更好地分析$D_v^t$中不同元素的平均排队时间和上传优先级之间的关系，公式\ref{equ 3-6}被改写为如下：
+为了更好地分析$D_v^t$中不同元素的平均排队时间和上传优先级之间的关系，公式\ref{equ 2-6}被改写为如下：
 \begin{equation}
 \overline{\mathrm{q}}_{d, v}^t=\frac{\rho_{d, v}^t \alpha_{d, v}^t}{1-\rho_{d, v}^t}+\frac{\lambda_{d, v}^t \beta_{d, v}^t+\sum_{\forall d^* \in D_{d, v}^t}^t \lambda_{d^*, v}^t \beta_{d^*, v}^t}{2\left(1-\rho_{d, v}^t\right)\left(1-\rho_{d, v}^t-\lambda_{d, v}^t \alpha_{d, v}^t\right)}
 \end{equation}
 假设有$n$种信息，信息${d^1}$具有最高的上传优先级，即$D_{d^1, v}^t = \emptyset$。
-那么，信息${d^1}$的平均排队时间可以通过以下方式计算
+那么，信息${d^1}$的平均排队时间可以通过以下方式计算：
 \begin{equation}
 \operatorname{\bar{q}}_{d^{1}, v}^t=\frac{\lambda_{d^1, v}^t \beta_{d^1, v}^t}{2}
 \end{equation}
 其中$\lambda_{d^1, v}^t$和$\beta_{d^1, v}^t$分别为信息$d^1$的感应频率和传输时间的二阶矩。
 另一方面，信息${d^n}$的上传优先级最低。
-由于要求$\rho_v^t < 1$以保证队列的稳定性和排队时间的有限性，我们有
+由于要求$\rho_v^t < 1$以保证队列的稳定性和排队时间的有限性，可得到：
 \begin{equation}
 \rho_{d, v}^t=\sum_{\forall d^* \in D_{d, v}^t} \lambda_{d^*, v}^t \alpha_{d^*, v}^t<\sum_{\forall d \subseteq D_v^t} \lambda_{d, v}^t \alpha_{d, v}^t=\rho_v^t<1
 \end{equation}
 同样地, $\rho_{d, v}^t+\lambda_{d, v}^t \alpha_{d, v}^t<1$。
-当 $n$ 趋于无穷大时，由于$\lim _{n \rightarrow \infty}(1-\rho_{d^n, v}^t) \rightarrow 0$，类似地，$\lim _{n \rightarrow \infty}(1-\rho_{d^n, v}^t-\lambda_{d^n, v}^t \alpha_{d^n, v}^t) \rightarrow 0$，所以信息${d^n}$的平均排队时间可以得到
+当 $n$ 趋于无穷大时，由于$\lim _{n \rightarrow \infty}(1-\rho_{d^n, v}^t) \rightarrow 0$，类似地，$\lim _{n \rightarrow \infty}(1-\rho_{d^n, v}^t-\lambda_{d^n, v}^t \alpha_{d^n, v}^t) \rightarrow 0$，所以信息${d^n}$的平均排队时间可以得到：
 \begin{equation}
 \begin{aligned}
 	\lim _{n \rightarrow \infty}\left(\mathrm{\bar{q}}_{d^n, v}^t\right)&=\frac{\lambda_{d^n, v}^t \beta_{d^n, v}^t+\sum_{\forall d^* \in D_{d^n, v}^t} \lambda_{d^*, v}^t \beta_{d^*, v}^t}{2\left(1-\rho_{d^n, v}^t\right)\left(1-\rho_{d^n, v}^t-\lambda_{d^n, v}^t \alpha_{d^n, v}^t\right)} + \frac{\rho_{d^n, v^t}^t \alpha_{d^n, v}^t}{1-\rho_{d^n, v}^t}\rightarrow \infty
 \end{aligned}
 \end{equation}
-其中，$\lambda_{d^n, v}^t$、$\alpha_{d^n, v}^t$和$\beta_{d^n, v}^t$分别为信息$d^n$的感应频率、传输时间的平均值和二阶矩。
+其中，$\lambda_{d^n, v}^t$、$\alpha_{d^n, v}^t$和$\beta_{d^n, v}^t$分别为信息$d^n$的感应频率、传输时间平均值和传输时间二阶矩。
 
 
 \section{定理\ref{theorem 4-1}的证明}
 \label{appendix f}
-\begin{proof} 根据公式\ref{equ 4-16}，可以得到
+\begin{proof} 根据公式\ref{equ 4-16}，可以得到：
 \begin{align}
 &{F}_{e}\left(\mathcal{{S}}^{\prime}_{e}, \mathcal{S}_{-e}\right) - {F}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) \notag \\
 		&={U}_{e}\left(\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(-\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) - \left( {U}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(-\mathcal{S}_{e}, \mathcal{S}_{-e}\right) \right) \notag \\
@@ -109,11 +109,11 @@
 \section{引理\ref{lemma 4-1}的证明}
 \label{appendix g}
 \begin{proof}
-假定 $\mathcal{S}^{*}$ 是博弈 $\mathcal{G}$ 的一个纳什均衡，可以得到
+假定 $\mathcal{S}^{*}$ 是博弈 $\mathcal{G}$ 的一个纳什均衡，可以得到：
 \begin{equation}
 	U_{e}\left(\mathcal{S}_{e}^{*}, \mathcal{S}_{-e}^{*}\right) - U_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}^{*}\right) \geq 0, \quad \forall \mathcal{S}_{e} \in \mathbf{S}_{e}, \forall e \in \mathbf{E}
 \end{equation}
-根据严格势博弈的定义，可以得到
+根据严格势博弈的定义，可以得到：
 \begin{equation}
 	F_{e}\left(\mathcal{S}_{e}^{*}, \mathcal{S}_{-e}^{*}\right) - F_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}^{*}\right) \geq 0, \quad \forall \mathcal{S}_{e} \in \mathbf{S}_{e}, \forall e \in \mathbf{E}
 \end{equation}
@@ -136,7 +136,7 @@
 假定路径 $\rho=\left(\mathcal{S}^{0}, \mathcal{S}^{1}, \ldots, \mathcal{S}^{i}, \ldots\right)$ 是一条 $\epsilon$改进路径，且该路径是无限的。
 基于$\epsilon$改进路径的定义，可得$U_{e}\left(\mathcal{S}^{i+1}\right) > U_{e}\left(\mathcal{S}^{i}\right) + \epsilon, \exists \epsilon \in \mathbb{R}_{+}, \forall i$。
 因此，可得$F_{e}\left(\mathcal{S}^{i+1}\right) > F_{e}\left(\mathcal{S}^{i}\right) + \epsilon^{\prime}, \exists \epsilon^{\prime} \in \mathbb{R}_{+}, \forall i$，其中 $\epsilon^{\prime}$ 是一个足够小常量。
-可以进一步推出
+可以进一步推出：
 \begin{align}
 	&F_{e}\left(\mathcal{S}^{i}\right) > F_{e}\left(\mathcal{S}^{0}\right) + i   \epsilon^{\prime}, \forall i \\
 	&\lim _{i \rightarrow \infty} F\left(S^{i}\right) > \lim _{i \rightarrow \infty} \left \{ F_{e}\left(\mathcal{S}^{0}\right) + i   \epsilon^{\prime} \right\} =\infty
