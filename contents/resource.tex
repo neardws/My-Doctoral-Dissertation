@@ -152,7 +152,7 @@ V2I通信的带宽用$b$表示。
 如图\ref{fig 3-2}所示，每个任务$k_{v}^{t} \in \mathbf{K}_{e}^{t}$都可以在本地的边缘节点$e$中执行，或者迁移到其他边缘节点进行处理。
 任务卸载指示器用$q_{v, e}^{t}$表示，其表示车辆$v$的任务$k_{v}^{t}$在时间$t$是否被卸载到边缘节点$e$。
 每个任务至多只能卸载到一个边缘节点，即$\sum_{\forall e \in \mathbf{E}} q_{v, e}^{t} = 1$。
-那么，在边缘节点$e$中卸载的任务集可以用以下式表示
+那么，在边缘节点$e$中卸载的任务集可以用以下式表示：
 \begin{equation}
 	\mathbf{K}_{q_e}^{t} = \left\{ k_{v}^{t} | q_{v, e}^{t} = 1, \forall v \in \mathbf{V}_{e^{\prime}}^{t}, \forall e^{\prime} \in \mathbf{E} \right\}
 \end{equation}
@@ -522,7 +522,7 @@ $M$小批量中样本用$\left(\boldsymbol{o}^{i:i+N}, \boldsymbol{a}^{i:i+N-1},
 	\mathcal{L}(\widetilde{\mathbf{{P}}_{e}^{t}}, {\lambda}_{e}^{t} ) = \widetilde{g_3^{e}} -  {\lambda}_{e}^{t} (\sum_{\forall v \in \mathbf{V}_{e}^{t}} 2^{\widetilde{p_{v, e}^{t}}} - p_{e} )
 	\label{equ 3-41}
 \end{equation}
-此外，$\mathcal{P}3.6$的对偶问题可表示为
+此外，$\mathcal{P}3.6$的对偶问题可表示为:
 \begin{align}
 	\mathcal{P}3.9: & \min_{{\lambda}_{e}^{t}} \max_{\widetilde{\mathbf{{P}}_{e}^{t}}}  g_5 = \mathcal{L}(\widetilde{\mathbf{{P}}_{e}^{t}}, {\lambda}_{e}^{t} ) \notag \\
 	&\text { s.t. } \mathcal{C}3.12: \mathbf{\lambda}_{e}^{t} \geq 0  
@@ -644,15 +644,15 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 在此基础上，根据公式\ref{equ 3-9}、\ref{equ 3-10}、\ref{equ 3-11}和 \ref{equ 3-32}得到四个指标，即\textbf{平均处理时间}、\textbf{平均服务时间}、\textbf{平均服务率}（Average Service Ratio, ASR）和\textbf{累积奖励}。
 本章进一步设计了以下两个额外的度量来进行分析。
 \begin{itemize}
-	\item \textbf{平均实现势} : 它被定义为边缘奖励的总和（即实现的势）除以调度期间的边缘节点数，其计算公式为
+	\item \textbf{平均实现势} : 它被定义为边缘奖励的总和（即实现的势）除以调度期间的边缘节点数，其计算公式为：
 		\begin{equation}
 		 	 \operatorname{AAP} = \frac{1}{E}\sum_{\forall e \in \mathbf{E}} \sum_{\forall t \in \mathbf{T}} r_{e}^{t}
 		\end{equation}
-	\item \textbf{本地处理与迁移的比例} : 本地处理的任务的比例可通过下式计算
+	\item \textbf{本地处理与迁移的比例} : 本地处理的任务的比例可通过下式计算：
 		\begin{equation}
 			P_{\operatorname{local}} = \frac{K_{\operatorname{local}}}{K_{\operatorname{total}}}
 		\end{equation}
-		而迁移到其他边缘节点的任务的比例计算如下 
+		而迁移到其他边缘节点的任务的比例计算如下：
 		\begin{equation}
 			P_{\operatorname{migrated}} = \frac{K_{\operatorname{migrated}}}{K_{\operatorname{total}}}
 		\end{equation}

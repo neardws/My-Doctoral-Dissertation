@@ -137,13 +137,13 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
 其中$u_d$是信息$d$的更新间隔时间。
 
 
-在时间$t$，车辆$v$中比$d$有更高上传优先权的元素集合，用$\mathbf{D}_{d, v}^t = \{ d^* \mid p_{d^*, v}^{t} > p_{d, v}^{t} , \forall d^* \in \mathbf{D}_v^t \}$表示，其中$p_{d^*, v}^{t}$是信息$d^* \in \mathbf{D}_v^t$的上传优先级。
+在时间$t$，车辆$v$中比$d$有更高上传优先级的元素集合，用$\mathbf{D}_{d, v}^t = \{ d^* \mid p_{d^*, v}^{t} > p_{d, v}^{t} , \forall d^* \in \mathbf{D}_v^t \}$表示，其中$p_{d^*, v}^{t}$是信息$d^* \in \mathbf{D}_v^t$的上传优先级。
 因此，信息$d$前面的上传负载（即$v$在时间$t$时要在$d$之前上传的元素数量）通过以下方式计算得出 
 \begin{equation}
 	\rho_{d, v}^{t}=\sum_{\forall d^* \in \mathbf{D}_{d, v}^t} \lambda_{d^*, v}^t \alpha_{d^*, v}^t
 \end{equation}
 其中$\lambda_{d^*, v}^t$和$\alpha_{d^*, v}^t$分别为时间$t$内车辆$v$中信息$d^*$的感知频率和平均传输时间。
-根据Pollaczek-Khintchine公式\cite{takine2001queue}，车辆$v$中信息$d$的排队时间计算如下 
+根据Pollaczek-Khintchine公式\cite{takine2001queue}，车辆$v$中信息$d$的排队时间计算如下：
 \begin{equation}
     \operatorname{q}_{d, v}^t= \frac{1} {1 - \rho_{d, v}^{t}} 
         \left[ \alpha_{d, v}^t + \frac{ \lambda_{d, v}^{t} \beta_{d, v}^t + \sum\limits_{\forall d^* \in \mathbf{D}_{d, v}^t} \lambda_{d^*, v}^t \beta_{d^*, v}^t }{2\left(1-\rho_{d, v}^{t} - \lambda_{d, v}^{t} \alpha_{d, v}^t\right)}\right] 
@@ -295,7 +295,7 @@ VCPS 开销$\mathscr{C} \in (0, 1)$被定义为$\mathbf{T}$调度期间边缘节
 	{\bf\Pi} = \left \{ \pi_v^t \vert \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right \} \notag \\
 	\mathbf{B} = \left \{ b_v^t \vert \forall v \in \mathbf{V}, \forall t \in \mathbf{T}\right \}
 \end{numcases}
-其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先权，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
+其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先级，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
 本章提出了一个双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题表示为
 \begin{align}
 	\mathcal{P}4.1: & \max_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{Q}, \min_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{C} \notag \\
@@ -406,7 +406,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 \subsection{多智能体分布式策略执行}
 
 在MAMO中，车辆和边缘节点通过本地策略网络以分布式的方式决定动作。
-车辆$v$在时间$t$上对系统状态的局部观测表示为 
+车辆$v$在时间$t$上对系统状态的局部观测表示为：
 	\begin{equation}
 		\boldsymbol{o}_{v}^{t}=\left\{t, v, l_{v}^t, \mathbf{D}_{v}, \Phi_{v}, \mathbf{D}_{e}^{t}, \mathbf{D}_{\mathbf{I}_e^t}, \boldsymbol{w}^{t}\right\}
 	\end{equation} 
@@ -424,7 +424,7 @@ $\mathbf{D}_{\mathbf{I}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的�
 \noindent 其中$e$是边缘节点索引，$\operatorname{\mathbf{Dis}}_{\mathbf{V}, e}^{t}$代表车辆与边缘节点$e$之间的距离集合。
 因此，系统在时间$t$的状态可以表示为$\boldsymbol{o}^{t}=\boldsymbol{o}_{e}^{t} \cup \boldsymbol{o}_{1}^{t} \cup \ldots \cup \boldsymbol{o}_{v}^{t} \cup \ldots \cup \boldsymbol{o}_{v}^{t}$。
 
-车辆$v$的动作表示为 
+车辆$v$的动作表示为：
 \begin{equation}
 	\boldsymbol{a}_{v}^{t} = \{ \mathbf{C}_v^t,  \{ \lambda_{d, v}^{t}, p_{d, v}^{t} \mid \forall d \in \mathbf{D}_{v}^t \} , \pi_v^t   \}
 \end{equation}
@@ -447,7 +447,7 @@ $\mathbf{D}_{\mathbf{I}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的�
 \noindent 其中$\mathcal{N}_{e}^{t}$和$\epsilon_{e}$分别为边缘节点$e$的探索噪声和探索常数。
 此外，车辆和边缘节点的联合动作被表示为 $\boldsymbol{a}^{t}= \left\{\boldsymbol{a}_{e}^{t}, \boldsymbol{a}_{1}^{t}, \ldots, \boldsymbol{a}_{v}^{t}, \ldots, \boldsymbol{a}_{V}^{t}\right\}$。
 
-环境通过执行联合动作获得系统奖励向量，其表示为 
+环境通过执行联合动作获得系统奖励向量，其表示为：
 	\begin{equation}
 	\boldsymbol{r}^{t} = \begin{bmatrix}  r^{(1)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)  &  r^{(2)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right) \end{bmatrix} ^{T}
 	\end{equation}
@@ -456,7 +456,7 @@ $\mathbf{D}_{\mathbf{I}_e^t}$ 代表在时间$t$的边缘节点$e$中建模的�
 			r^{(1)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)={1}/{\left|\mathbf{I}_e^t\right|} \sum_{\forall i \in \mathbf{I}_e^t}\operatorname{QV}_{i} \notag \\
 			r^{(2)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)={1}/{\left|\mathbf{I}_e^t\right|} \sum_{\forall i \in \mathbf{I}_e^t} \operatorname{PV}_{j} 
 	\end{numcases}
-因此，车辆$v$在第$i$个目标中的奖励是由基于奖励分配的差分奖励 \cite{foerster2018counterfactual} 得到的，其为系统奖励和没有其行动所取得的奖励之间的差值，可以表示为 
+因此，车辆$v$在第$i$个目标中的奖励是由基于奖励分配的差分奖励 \cite{foerster2018counterfactual} 得到的，其为系统奖励和没有其行动所取得的奖励之间的差值，可以表示为：
 \begin{equation}
 r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right)-r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}-s}^{t},\boldsymbol{a}_{e}^{t} \mid \boldsymbol{o}^{t}\right), \forall i \in \{1, 2\}
 \label{equ 4-40}
@@ -536,7 +536,7 @@ $\boldsymbol{a}_{\boldsymbol{\mathbf{V}}-v}^{m+1}$ 是没有车辆$v$的下一�
 $\boldsymbol{a}_{\boldsymbol{\mathbf{V}}}^{m+1}$ 是下一时刻车辆动作。
 和${a}_{e}^{m+1}$表示下一时刻边缘节点动作，该动作可由目标边缘策略网络根据其对下一时刻系统状态的局部观测获得，即${a}_{e}^{m+1} = \mu_{\mathbf{E}}^{\prime}(\boldsymbol{o}_{e}^{m+1}, \boldsymbol{a}_{\mathbf{V}}^{m+1} \mid \theta_{\mathbf{E}}^{\mu^{\prime}})$。
 
-车辆评论家网络和边缘评论家网络的损失函数是通过分类分布的时间差分（Temporal Difference, TD）学习得到的，其表示为 
+车辆评论家网络和边缘评论家网络的损失函数是通过分类分布的时间差分（Temporal Difference, TD）学习得到的，其表示为：
 \begin{equation}
 	\mathcal{L}\left(\theta_{\mathbf{V}}^{Q}\right)=\frac{1}{M} \sum_{m} \frac{1}{S} \sum_{v} {Y_v^{m}}
 \end{equation}
