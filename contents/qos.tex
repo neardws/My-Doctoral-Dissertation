@@ -1,5 +1,6 @@
 \chapter[面向车载信息物理融合的质量-开销均衡优化关键技术]{面向车载信息物理融合的质量-开销均衡优化关键技术}
-
+\removelofgap
+\removelotgap
 本章将研究面向车载信息物理融合的质量-开销均衡优化关键技术。
 具体内容安排如下：
 \ref{section 4-1} 节是本章的引言，介绍了车联网中车载信息物理融合系统的研究现状及存在的不足，同时阐述本章的主要贡献。
@@ -24,14 +25,14 @@
 
 本章节介绍了协同感知与V2I上传场景。如图\ref{fig 4-1}所示，车辆配备各种车载感知器，如超声波雷达、激光雷达、光学相机和毫米波雷达，可以对环境进行感知。通过车辆间协同地感知，可以获得异质信息，包括其他车辆、弱势道路参与者、停车场和路边基础设施的状态。这些信息可用于在边缘节点中建立视图模型，并进一步用于支撑各种ITS应用，如自动驾驶\cite{bai2022hybrid}、智慧路口控制系统\cite{hadjigeorgious2023real}，以及全息城市交通流管理\cite{wang2023city}。逻辑视图需要融合车联网中物理实体的不同模式信息，以更好地反映实时物理车辆环境，从而提高ITS的性能。然而，构建高质量的逻辑视图可能需要更高的感知频率、更多的信息上传量以及更高的能量消耗。
 
-本系统的工作流程如下：首先，车辆感知并排队上传不同物理实体的实时状态。接着，边缘节点将V2I带宽分配给车辆，同时，车辆确定传输功率。物理实体的视图是基于从车辆收到的异质信息进行融合建立的。需要注意的是，在该系统中，异质信息是由车辆以不同的感知频率感应到的，因此上传时的新鲜度会不同。虽然增加感知频率可以提高新鲜度，但会增加排队延迟和能源消耗。此外，多个车辆可能感知到特定物理实体的信息，若由所有车辆上传，则可能会浪费通信资源。因此，为了提高资源利用率，需要有效而经济地分配通信资源。在此基础上，为了最大化面向车载边缘计算的视图的VCPS质量并最小化VCPS开销，必须量化衡量边缘节点构建的视图的质量和开销，并设计高效经济的协同感知和上传的调度机制。
-
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig4-1-architerture.pdf}
-  \bicaption{协同感知与 V2I 上传场景}{Cooperative sensing and V2I uploading scenario}
+  \bicaption[协同感知与 V2I 上传场景]{协同感知与 V2I 上传场景}[Cooperative sensing and V2I uploading scenario]{Cooperative sensing and V2I uploading scenario}
   \label{fig 4-1}
 \end{figure} 
+
+本系统的工作流程如下：首先，车辆感知并排队上传不同物理实体的实时状态。接着，边缘节点将V2I带宽分配给车辆，同时，车辆确定传输功率。物理实体的视图是基于从车辆收到的异质信息进行融合建立的。需要注意的是，在该系统中，异质信息是由车辆以不同的感知频率感应到的，因此上传时的新鲜度会不同。虽然增加感知频率可以提高新鲜度，但会增加排队延迟和能源消耗。此外，多个车辆可能感知到特定物理实体的信息，若由所有车辆上传，则可能会浪费通信资源。因此，为了提高资源利用率，需要有效而经济地分配通信资源。在此基础上，为了最大化面向车载边缘计算的视图的VCPS质量并最小化VCPS开销，必须量化衡量边缘节点构建的视图的质量和开销，并设计高效经济的协同感知和上传的调度机制。
 
 \section{车载信息物理融合质量/开销模型}\label{section 4-3}
 \subsection{基本符号}
@@ -246,7 +247,7 @@ VCPS 开销$\mathscr{C} \in (0, 1)$定义为$\mathbf{T}$调度期间边缘节点
 \end{definition}
 
 \subsection{双目标优化问题}
-给定一个确定的解决方案$( \mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B} )$，其中$\mathbf{C}$表示确定的感知信息决策，$\bf\Lambda$表示确定的感知频率。$\mathbf{P}$表示确定的上传优先级，$\bf\Pi$表示确定的传输功率，$\mathbf{B}$表示确定的V2I带宽分配。
+给定一个确定的解决方案$( \mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B} )$，其中$\mathbf{C}$表示确定的感知信息决策，$\bf\Lambda$表示确定的感知频率。$\mathbf{P}$表示确定的上传优先级，$\bf\Pi$表示确定的传输功率，$\mathbf{B}$表示确定的V2I带宽分配，其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先级，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
 \begin{numcases}{}
 	\mathbf{C} = \left \{ c_{d, v}^t \vert \forall d \in \mathbf{D}_{v}, \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right  \} \notag \\
 	{\bf\Lambda} = \left \{ \lambda_{d, v}^{t} \vert \forall d \in \mathbf{D}_v^t  , \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right \} \notag \\ 
@@ -254,8 +255,7 @@ VCPS 开销$\mathscr{C} \in (0, 1)$定义为$\mathbf{T}$调度期间边缘节点
 	{\bf\Pi} = \left \{ \pi_v^t \vert \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right \} \notag \\
 	\mathbf{B} = \left \{ b_v^t \vert \forall v \in \mathbf{V}, \forall t \in \mathbf{T}\right \}
 \end{numcases}
-其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先级，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
-本章提出了一个双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化，该问题的形式化定义如下：
+本章提出了双目标优化问题，旨在同时实现VCPS质量的最大化和VCPS 开销的最小化:：
 \begin{align}
 	\mathcal{P}4.1: & \max_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{Q}, \min_{\mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B}} \mathscr{C} \notag \\
 	\text { s.t. }
@@ -303,7 +303,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig4-2-solution-model.pdf}
-  \bicaption{基于多目标的多智能体深度强化学习模型}{Multi-agent multi-objective deep reinforcement learning model}
+  \bicaption[基于多目标的多智能体深度强化学习模型]{基于多目标的多智能体深度强化学习模型}[Multi-agent multi-objective deep reinforcement learning model]{Multi-agent multi-objective deep reinforcement learning model}
   \label{fig 4-2}
 \end{figure}
 
@@ -312,6 +312,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 \SetKwInOut{KwOut}{输出}
 
 \begin{algorithm}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \renewcommand{\algorithmcfname}{算法}
 	\caption{基于多目标的多智能体深度强化学习}
 	\KwIn{折扣因子 $\gamma$、批大小 $M$、回放经验缓存 $\mathcal{B}$、学习率$\alpha$和$\beta$、目标网络参数更新周期 $t_{\operatorname{tgt}}$、分布式行动者网络参数更新周期 $t_{\operatorname{act}}$、随机行动数量$N$}
@@ -337,6 +338,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 \end{algorithm}
 
 \begin{algorithm}[t]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \renewcommand{\algorithmcfname}{算法}
 	\caption{分布式行动者}
 	\KwIn{车辆探索常数 $\epsilon_{v}$、边缘节点探索常数$\epsilon_{e}$、车辆本地观测 $\boldsymbol{o}_{v}^{t}$、边缘节点本地观测 $\boldsymbol{o}_{e}^{t}$}

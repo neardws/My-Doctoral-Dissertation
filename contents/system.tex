@@ -1,4 +1,6 @@
 \chapter[面向车载信息物理融合的超视距碰撞预警原型系统设计及实现]{面向车载信息物理融合的超视距碰撞预警原型系统\\设计及实现}
+\removelofgap
+\removelotgap
 本章将研究面向车载信息物理融合的超视距碰撞预警原型系统设计及实现。
 内容安排如下：
 \ref{section 5-1} 节是本章的引言，介绍了车联网碰撞预警系统研究现状和目前研究的不足以及本章的主要贡献。
@@ -50,7 +52,7 @@ CCW 和 ECW 均未考虑对视图进行修正。
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\columnwidth]{Fig5-1-example.pdf}
-	\bicaption{超视距碰撞预警场景}{None-light-of-sight collision warning scenario}
+	\bicaption[超视距碰撞预警场景]{超视距碰撞预警场景}[None-light-of-sight collision warning scenario]{None-light-of-sight collision warning scenario}
 	\label{fig 5-1}
 \end{figure}
 
@@ -80,7 +82,7 @@ CCW 和 ECW 均未考虑对视图进行修正。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.8\columnwidth]{Fig5-2-delay.pdf}
+  \includegraphics[width=0.7\columnwidth]{Fig5-2-delay.pdf}
   \bicaption[不同系统架构下的传输时延]{不同系统架构下的传输时延，云计算和车载边缘计算中数据包传输的平均时延分别为120${ms}$和77${ms}$}[Transmission delay under different system architectures]{Transmission delay under different system architectures where average delay of packets transmission in cloud and fog computing is 120 ms and 77 ms, respectively}
   \label{fig 5-2}
 \end{figure}
@@ -119,13 +121,13 @@ $\operatorname{sgn}(t)$ 是一个符号函数，其定义为：
 \end{numcases}
 
 本章采用回归模型来估计稳定分布的四个参数。
-首先，给定大小为$n$的观测数据随机样本，记为$x_1, x_2, \ldots, x_n$，那么特征函数$\hat{\phi}(t)$可定义为
+首先，给定大小为$n$的观测数据随机样本，记为$x_1, x_2, \ldots, x_n$，那么特征函数$\hat{\phi}(t)$可定义为：
 \begin{align}
 	\hat{\phi}(t)&\!=\!\frac{1}{n} \sum_{j=1}^{n} \exp \left(i t x_{j}\right) \notag \\
 	&\!=\!\frac{1}{n} \sum_{j=1}^{n}\left[\cos \left(t x_{j}\right)+\sin \left(t x_{j}\right) i\right] \notag \\
 	&\!=\!\frac{1}{n} \sum_{j=1}^{n} \cos \left(t x_{j}\right)+i \frac{1}{n} \sum_{j=1}^{n} \sin \left(t x_{j}\right)
 \end{align}
-当 $\alpha \neq 1$, 可以得到
+当 $\alpha \neq 1$, 可以得到：
 \begin{align}
 	\phi(t) 
 	&\!=\!E \exp (i t X) \notag \\ 
@@ -136,11 +138,11 @@ $\operatorname{sgn}(t)$ 是一个符号函数，其定义为：
 	&\!+\!\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \sin \left[\mu t\!+\!\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right] i 
 \label{equ 5-5}
 \end{align}
-假设分布围绕中心$0$对称（即$\beta = 0$，$\mu = 0$），容易得到
+假设分布围绕中心$0$对称（即$\beta = 0$，$\mu = 0$），容易得到：
 \begin{equation}
 	-\ln |\phi(t)|^{2}=2 \sigma^{\alpha}|t|^{\alpha}
 \end{equation}
-进一步可得
+进一步可得：
 \begin{align} 
 	\ln \left(-\ln | \phi(t)^{2}\right)
 	&= \ln \left(2 \sigma^{\alpha}|t|^{\alpha}\right) \notag \\ 
@@ -154,12 +156,12 @@ $\operatorname{sgn}(t)$ 是一个符号函数，其定义为：
 \left(\alpha^{*}, b^{*}\right) &=\underset{(\alpha, b)}{\arg \min } \sum_{k=1}^{K}\left(f\left(t_{k}\right)-y_{k}\right)^{2} \notag \\ &=\underset{(\alpha, b)}{\arg \min } \sum_{k=1}^{K}\left[\ln \left(-\ln \left|\phi\left(t_{k}\right)\right|^{2}\right)-\left(\alpha \omega_{k}+b\right)\right]^{2}  
 \end{align}
 然后，用最小平方法得到估计值$\hat{\alpha}$和$\hat{\sigma}$，即
-$E_{(\alpha, b)}=\sum_{k=1}^{K}\left(f\left(t_{k}\right)-y_{k}\right)^{2}$，其中估计参数可通过求解下式获得。
+$E_{(\alpha, b)}=\sum_{k=1}^{K}\left(f\left(t_{k}\right)-y_{k}\right)^{2}$，其中估计参数可通过求解下式获得：
 \begin{numcases}{}
 	\frac{\partial E_{(\alpha, b)}}{\partial \alpha} =2 \left(\alpha \sum_{k=1}^{K} \omega_{k}^{2}-\sum_{k=1}^{K}\left(f\left(t_{k}\right)-b\right) \omega_{k}\right) =0 \notag \\
 	\frac{\partial E_{(\alpha, b)}}{\partial b} =2\left(K b-\sum_{k=1}^{K}\left(f\left(t_{k}\right)-\alpha \omega_{k}\right)\right) =0 
 \end{numcases}
-因此，估计值 $\hat{\alpha}$ 和 $\hat{\sigma}$ 可以表示为
+因此，估计值 $\hat{\alpha}$ 和 $\hat{\sigma}$ 可以表示为：
 \begin{numcases}{}
 	\hat{\alpha}={ \sum_{k=1}^{K} f\left(t_{k}\right)\left(\omega_{k}-\bar{\omega}\right)}/{\sum_{k=1}^{K} \omega_{k}^{2}-\frac{1}{K}\left(\sum_{k=1}^{K} \omega_{k}\right)^{2}} \notag \\
 	\hat{\sigma}=\sqrt[\hat{\alpha}]{ (\exp \hat{b}) / 2}
@@ -177,7 +179,7 @@ ${\hat{b}=\frac{1}{K} \sum_{k=1}^{K}\left(f\left(t_{k}\right)-\hat{\alpha} \omeg
 \begin{equation}
 	\operatorname{Im} \phi(t)=\exp \left(-\sigma^{\alpha}|t|^{\alpha}\right) \sin \left[\mu t+\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)\right]
 \end{equation}
-进一步，可得
+进一步，可得：
 \begin{equation}
 	\arctan \left(\frac{\operatorname{Im} \phi(t)}{\operatorname{Re} \phi(t)}\right)=\mu t+\sigma^{\alpha}|t|^{\alpha} \beta \tan (\alpha \pi / 2) \operatorname{sgn}(t)
 \end{equation}
@@ -208,8 +210,8 @@ $\bar{d}=\frac{1}{L} \sum_{l=1}^{L} d_{l}$。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.8\columnwidth]{Fig5-3-delay-fitting.pdf}
-  \bicaption{V2I应用层传输时延的概率密度函数}{Probability density function of application-layer V2I transmission delay}
+  \includegraphics[width=0.7\columnwidth]{Fig5-3-delay-fitting.pdf}
+  \bicaption[V2I应用层传输时延的概率密度函数]{V2I应用层传输时延的概率密度函数}[Probability density function of application-layer V2I transmission delay]{Probability density function of application-layer V2I transmission delay}
   \label{fig 5-3}
 \end{figure}
 
@@ -287,20 +289,11 @@ $\mathbf{ID}_{t}$ 可通过上一时刻的值$\mathbf{ID}_{t-1}$进行初始化�
 预估的数据包接收时间为 $t_r$，如果 $t - t_r > \gamma$，则边缘节点认为数据包已丢失。
 否则存在以下两种情况：车辆 $v$ 尚未发送数据包，或由于无线通信时延导致数据包暂未收到。
 
-\subsection{工作流程}
-
-本章节介绍基于视图修正的碰撞预警算法的具体流程，如算法5.1所示。
-首先，基于V2I传输时延拟合模型估计数据包传输时延，并根据车辆速度和加速度更新其实时状态。
-其次，检测丢失的数据包，并使用边缘节点中的历史记录更新它们的状态。
-再次，使用模拟的传输时延来校准车辆轨迹以获得更加准确实时的逻辑视图。
-进一步，基于修正的视图预测所有车辆未来的轨迹。
-最后，通过计算每对车辆的车头时距并通过车头时距阈值来检测潜在碰撞。
-VCCW具体步骤如下：
-
 \SetKwInOut{KwIn}{输入}
 \SetKwInOut{KwOut}{输出}
 
 \begin{algorithm}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \renewcommand{\algorithmcfname}{算法}
 	\caption{基于视图修正的碰撞预警}
 	\KwIn{车辆ID集合$\mathbf{ID}_{t}$、收到的数据包$\mathbf{M}_{t}$、历史记录${\mathbf{H}_{t}}$、车辆轨迹预测时间 $t_{\operatorname{pre}}$、碰撞预警距离阈值$\operatorname{dis}_{\operatorname{col}}$、车头时距阈值$\imath$}
@@ -343,6 +336,16 @@ VCCW具体步骤如下：
 	}
 	\label{algorithm 5-1}
 \end{algorithm}
+
+\subsection{工作流程}
+
+本章节介绍基于视图修正的碰撞预警算法的具体流程，如算法5.1所示。
+首先，基于V2I传输时延拟合模型估计数据包传输时延，并根据车辆速度和加速度更新其实时状态。
+其次，检测丢失的数据包，并使用边缘节点中的历史记录更新它们的状态。
+再次，使用模拟的传输时延来校准车辆轨迹以获得更加准确实时的逻辑视图。
+进一步，基于修正的视图预测所有车辆未来的轨迹。
+最后，通过计算每对车辆的车头时距并通过车头时距阈值来检测潜在碰撞。
+VCCW具体步骤如下：
 
 \textbf{1）车辆ID集合更新：}
 在时间 $t$ 初始化车辆ID集合 $\mathbf{ID}_{t}$ 和收到的数据包 $\mathbf{M}_{t}$ 的 ID集合 $\mathbf{ID}_{\mathbf{M}_{t}}$。
@@ -387,6 +390,7 @@ VCCW具体步骤如下：
 每个实验的持续时间为100 s，V2I通信范围设置为500 m。
 
 \begin{table}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \centering
 \bicaption{不同场景的交通特征}{Traffic characteristics of different scenarios}
 \setlength{\tabcolsep}{9.5mm}{
@@ -433,6 +437,9 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 
 \subsection{实验结果与分析}
 
+\textbf{1) 不同交通场景的影响:}
+图 \ref{fig 5-4} 比较了五个具有不同交通特征的场景中三种算法的性能。图 \ref{fig 5-4}(a)比较了三种算法的查准率。结果显示，VCCW在所有场景下的查准率最高。这是由于VCCW对边缘视图进行了修正，从而车辆状态更接近实时状态。因此，基于修正视图的碰撞预警可以提供更准确的服务。同样的结论也可以从图\ref{fig 5-4}(b)中得到，比较了三种算法的查全率。图\ref{fig 5-4}(c)比较了三种算法的F1值。结果表明，在所有交通场景下，VCCW都可以实现最高的F1值。
+
 \begin{figure}[h]
      \centering
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-5a-different-scenarios.pdf}}
@@ -441,9 +448,6 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
      \bicaption[不同交通场景下的性能对比]{不同交通场景下的性能对比，其中不场景的交通特征列于表\ref{table 6-1}中。（a）查准率（b）查全率（c）F1值}[Performance comparison under different scenarios]{Performance comparison under different scenarios, the traffic characteristics of which are listed in Table. \ref{table 6-1}. (a) Precision (b) Recall (c) F1 score}
      \label{fig 5-4}
 \end{figure}
-
-\textbf{1) 不同交通场景的影响:}
-图 \ref{fig 5-4} 比较了五个具有不同交通特征的场景中三种算法的性能。图 \ref{fig 5-4}(a)比较了三种算法的查准率。结果显示，VCCW在所有场景下的查准率最高。这是由于VCCW对边缘视图进行了修正，从而车辆状态更接近实时状态。因此，基于修正视图的碰撞预警可以提供更准确的服务。同样的结论也可以从图\ref{fig 5-4}(b)中得到，比较了三种算法的查全率。图\ref{fig 5-4}(c)比较了三种算法的F1值。结果表明，在所有交通场景下，VCCW都可以实现最高的F1值。
 
 \textbf{2) 不同车头时距阈值的影响:}
 图\ref{fig 5-5}比较了三种算法在不同车头时距阈值下的性能。其中，车头时距阈值从1秒增加至5秒。图\ref{fig 5-5}(a)比较了三种算法的查准率。可以看出，VCCW在不同车头时距阈值下都取得了最高的查准率。随着车头时距阈值的增加，查准率逐渐提高。这是因为随着车头时距阈值的增加，预测的碰撞预警数量也随之增加。因此，预测成功在整体预测数量中的比例也随之增加。图\ref{fig 5-5}(b)比较了三种算法的查全率。同样地，随着车头时距阈值的增加，查全率逐渐降低。图\ref{fig 5-5}(c)比较了三种算法的F1值。结果显示，与CCW和ECW相比，VCCW实现了最高的F1值。需要注意的是，ECW的性能明显高于CCW，这是因为ECW可以利用分布式车载边缘计算架构带来的更低的数据包传输时延，使得边缘构建的视图与云端构建的视图相比更加实时。
@@ -472,10 +476,12 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 \section{原型系统实现}\label{section 5-5}
 
 本章节基于C-V2X 通信设备搭建硬件在环试验平台，并对C-V2X 端到端传输时延和丢包率等通信特征进行统计与分析。
-进一步，搭建了基于无人小车的试验平台，并在其中部署了基于视图修正的碰撞预警算法。
-最后，在真实复杂车联网通信环境下，基于无人小车和真实车辆，实现了超视距碰撞预警系统，并验证了所提原型系统的可行性与有效性。
+进一步，搭建了基于智能小车的试验平台，并在其中部署了基于视图修正的碰撞预警算法。
+最后，在真实复杂车联网通信环境下，基于智能小车和真实车辆，实现了超视距碰撞预警系统，并验证了所提原型系统的可行性与有效性。
 
 \subsection{硬件在环试验平台}
+
+基于 C-V2X 设备的硬件在环试验平台框架如图 \ref{fig 5-7} 所示。本系统中考虑了两辆车，每辆车配备一个 OBU，并有一个配备 RSU 的边缘节点。同时，一台具有一定计算能力的 PC 通过以太网与 RSU 相连，作为计算单元提供服务。车载平板电脑作为车机界面，通过 Wi-Fi 与 OBU 进行通信，并进行碰撞预警消息的可视化。基于 C-V2X 的硬件在环试验平台如图 \ref{fig 5-8} 所示。具体地，本平台采用的 OBU 和 RSU 均具备 LTE-V2X PC5 和 5G UU 双模通信能力，符合 3GPP R15 LTE-V2X 协议规范，并具有 GNSS 天线，可接收 GPS 卫星信号。在室内场景下，由于建筑物遮挡等原因，OBU 和 RSU 很难接收到 GNSS 信号，而 GNSS 数据报文中时间戳数据对于不同设备间的时间同步是至关重要的。因此，在室外廊桥上部署了 GNSS 接收天线，并通过有线方式连接 GNSS 信号转发系统。室内发射天线将 GNSS 信号进行转发，解决了室内 GNSS 信息弱甚至缺失的问题。
 
 \begin{figure}[h]
 \centering
@@ -491,8 +497,6 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
   \label{fig 5-8}
 \end{figure}
 
-基于 C-V2X 设备的硬件在环试验平台框架如图 \ref{fig 5-7} 所示。本系统中考虑了两辆车，每辆车配备一个 OBU，并有一个配备 RSU 的边缘节点。同时，一台具有一定计算能力的 PC 通过以太网与 RSU 相连，作为计算单元提供服务。车载平板电脑作为车机界面，通过 Wi-Fi 与 OBU 进行通信，并进行碰撞预警消息的可视化。基于 C-V2X 的硬件在环试验平台如图 \ref{fig 5-8} 所示。具体地，本平台采用的 OBU 和 RSU 均具备 LTE-V2X PC5 和 5G UU 双模通信能力，符合 3GPP R15 LTE-V2X 协议规范，并具有 GNSS 天线，可接收 GPS 卫星信号。在室内场景下，由于建筑物遮挡等原因，OBU 和 RSU 很难接收到 GNSS 信号，而 GNSS 数据报文中时间戳数据对于不同设备间的时间同步是至关重要的。因此，在室外廊桥上部署了 GNSS 接收天线，并通过有线方式连接 GNSS 信号转发系统。室内发射天线将 GNSS 信号进行转发，解决了室内 GNSS 信息弱甚至缺失的问题。
-
 \begin{figure}[h]
 \centering
   \includegraphics[width=0.9\columnwidth]{Fig5-10-delays.pdf}
@@ -503,9 +507,10 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 基于硬件在环试验平台，采集了不同数据包大小下C-V2X从OBU到RSU的端到端传输时延数据。具体地，以10 Hz的频率分别发送1000个数据包，单个数据包大小从100 Bytes增加至7000 Bytes以采集传输时延。图\ref{fig 5-9}比较了不同数据包大小下的C-V2X端到端时延。虽然传输时延具有一定的波动性，但最小数据包（100 Bytes）和最大数据包（7000 Bytes）的平均传输时延仍然最小（6.271 ms）和最大（9.570 ms）。当数据包大小从3000 Bytes增加到4000 Bytes时，数据包传输时延出现了明显的跳跃式增长。在C-V2X通信环境中，超过3000 Bytes的数据包需要重新分包，导致传输时延显著增加。
 
 \begin{table}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \centering
 \bicaption{不同数据包大小下C-V2X通信特征}{Different characteristics of C-V2X communications under different packet sizes}
-\setlength{\tabcolsep}{4.5mm}{
+\setlength{\tabcolsep}{5.4mm}{
 \begin{tabular}{ccccccc}
 \toprule
 \begin{tabular}[c]{@{}c@{}}数据包大小\\（Bytes）\end{tabular}&\begin{tabular}[c]{@{}c@{}}平均时延\\（ms）\end{tabular}&\begin{tabular}[c]{@{}c@{}}最大时延\\（ms）\end{tabular}&\begin{tabular}[c]{@{}c@{}}最小时延\\（ms）\end{tabular}&\begin{tabular}[c]{@{}c@{}}时延\\方差\end{tabular}&\begin{tabular}[c]{@{}c@{}}丢包率\\（\%）\end{tabular}\\
@@ -528,19 +533,19 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 
 \subsection{超视距碰撞预警原型系统}
 
-本章基于无人小车搭建了试验平台，如图\ref{fig 5-10}所示。无人小车配备NVIDIA Jetson AGX Xavier边缘计算单元，在Ubuntu 18.04操作系统上运行，并配备激光雷达、双目视觉传感器等传感器设备。同时，无人小车搭载了OBU，可以通过V2I通信将自身车辆状态信息上传至位于路侧的边缘节点。进一步，在基于安卓系统的平板电脑和基于Qt5平台的笔记本电脑上开发了车端应用和边缘设备软件，并实现并部署了基于视图修正的碰撞预警算法。基于无人小车试验平台，在真实复杂车联网环境中实现了超视距碰撞预警原型系统，如图\ref{fig 5-11}所示。
+本章基于智能小车搭建了试验平台，如图\ref{fig 5-10}所示。智能小车配备NVIDIA Jetson AGX Xavier边缘计算单元，在Ubuntu 18.04操作系统上运行，并配备激光雷达、双目视觉传感器等传感器设备。同时，智能小车搭载了OBU，可以通过V2I通信将自身车辆状态信息上传至位于路侧的边缘节点。进一步，在基于安卓系统的平板电脑和基于Qt5平台的笔记本电脑上开发了车端应用和边缘设备软件，并实现并部署了基于视图修正的碰撞预警算法。基于智能小车试验平台，在真实复杂车联网环境中实现了超视距碰撞预警原型系统，如图\ref{fig 5-11}所示。
 
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig5-11-unmanned-vehicle-platform.pdf}
-  \bicaption[基于无人小车的试验平台]{基于无人小车的试验平台}[Experimental platform based on unmanned vehicles]{Experimental platform based on unmanned vehicles}
+  \bicaption[基于智能小车的试验平台]{基于智能小车的试验平台}[Experimental platform based on unmanned vehicles]{Experimental platform based on unmanned vehicles}
   \label{fig 5-10}
 \end{figure}
 
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig5-12-outdoor.pdf}
-  \bicaption[基于无人小车的超视距碰撞预警原型系统]{基于无人小车的超视距碰撞预警原型系统}[Non-light-of-sight collision warning prototype system based on unmanned vehicles]{Non-light-of-sight collision warning prototype system based on unmanned vehicles}
+  \bicaption[基于智能小车的超视距碰撞预警原型系统]{基于智能小车的超视距碰撞预警原型系统}[Non-light-of-sight collision warning prototype system based on unmanned vehicles]{Non-light-of-sight collision warning prototype system based on unmanned vehicles}
   \label{fig 5-11}
 \end{figure}
 
@@ -551,9 +556,9 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 	\label{fig 5-12}
 \end{figure}
 
-本系统旨在在两车之间有可能发生碰撞时触发警告信息，从而提高车辆的安全性。具体地，在三叉路口的基础设施上部署了RSU，通过网线将其与笔记本电脑相连并被视为边缘节点。边缘节点接收无人小车上传的状态信息，并使用基于视图修正的碰撞预警算法进行评估是否存在潜在碰撞风险。如果存在，则通过V2I通信将碰撞预警消息发送至无人小车并在车机界面中进行可视化。图\ref{fig 5-11}中左上和右上角分别展示了无人小车1和无人小车2的自身视角以及车机界面。可以看到，无人小车分别位于三叉路口中的两条支路上，由于地势的差异（无人小车1位于上坡路段，无人小车2位于下坡路段），两车无法通过基于视距的传感设备感知到彼此，因而具有潜在碰撞风险。当两辆车同时驶向路口时，边缘节点通过V2I通信接收车辆信息，并基于所提算法判断当前存在碰撞风险。随后，无人小车接收到预警信息，并在车机界面通过红色边框效果进行展示。
+本系统旨在在两车之间有可能发生碰撞时触发警告信息，从而提高车辆的安全性。具体地，在三叉路口的基础设施上部署了RSU，通过网线将其与笔记本电脑相连并被视为边缘节点。边缘节点接收智能小车上传的状态信息，并使用基于视图修正的碰撞预警算法进行评估是否存在潜在碰撞风险。如果存在，则通过V2I通信将碰撞预警消息发送至智能小车并在车机界面中进行可视化。图\ref{fig 5-11}中左上和右上角分别展示了智能小车1和智能小车2的自身视角以及车机界面。可以看到，智能小车分别位于三叉路口中的两条支路上，由于地势的差异（智能小车1位于上坡路段，智能小车2位于下坡路段），两车无法通过基于视距的传感设备感知到彼此，因而具有潜在碰撞风险。当两辆车同时驶向路口时，边缘节点通过V2I通信接收车辆信息，并基于所提算法判断当前存在碰撞风险。随后，智能小车接收到预警信息，并在车机界面通过红色边框效果进行展示。
 
-进一步，在真实车辆部署中实现了超视距碰撞原型系统，如图\ref{fig 5-12}所示，两辆汽车（即V1和V2）正在向十字路口移动，并相互靠近。每辆车都配备了一个OBU，其与一个基于安卓的平板电脑相连。本章开发了一个基于安卓系统的应用程序，用于收集车辆的实时状态，包括GPS坐标、速度、加速度、方向和时间戳等。车辆通过V2I通信向边缘节点更新其状态，根据从不同车辆收到的信息，边缘节点执行基于视图修正的碰撞预警算法。一旦检测到存在碰撞风险，预警信息就会被触发，并通过I2V通信传送给相应的车辆。随后，车辆中搭载的平板电脑上会显示一个停车标志，并伴随着振动和警告音。
+进一步，在真实车辆中部署并实现了超视距碰撞原型系统，如图\ref{fig 5-12}所示，两辆汽车（即V1和V2）正在向十字路口移动，并相互靠近。每辆车都配备了一个OBU，其与一个基于安卓的平板电脑相连。本章开发了一个基于安卓系统的应用程序，用于收集车辆的实时状态，包括GPS坐标、速度、加速度、方向和时间戳等。车辆通过V2I通信向边缘节点更新其状态，根据从不同车辆收到的信息，边缘节点执行基于视图修正的碰撞预警算法。一旦检测到存在碰撞风险，预警信息就会被触发，并通过I2V通信传送给相应的车辆。随后，车辆中搭载的平板电脑上会显示一个停车标志，并伴随着振动和警告音。
 
 \section{本章小结}\label{section 5-6}
 

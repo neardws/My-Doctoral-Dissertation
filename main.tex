@@ -30,9 +30,6 @@
 %*** 写作时，使用这个命令只渲染你想查看的部分，提升工作效率，定稿时注释掉整行
 %\includeonly{contents/experiment,contents/analysis,}
 
-% 默认行间距 20 pt
-\linespread{1.3}
-
 \begin{document}
 
 \input{contents/cover}
@@ -79,6 +76,15 @@
 \mainmatter %%% 主体部分(绪论开始，结论为止)
 %* 子文件的多少和内容由你决定（最好以章为单位），基本原则是提速预览、脉络清晰、管理容易。
 
+% 设置字号为小四
+\renewcommand{\normalsize}{\fontsize{12pt}{20pt}\selectfont}
+% 设置小四正文行间距为 20 磅
+\setstretch{1.312}
+
+%% 设置字号为五号
+%\renewcommand{\normalsize}{\fontsize{10pt}{20pt}\selectfont}
+%% 设置五号正文行间距为 20 磅
+%\setstretch{2}
 
 \include{contents/introduction}
 \include{contents/architecture}

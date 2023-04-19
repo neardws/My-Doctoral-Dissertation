@@ -1,4 +1,6 @@
 \chapter[面向车载信息物理融合的通信与计算资源协同优化关键技术]{面向车载信息物理融合的通信与计算资源协同优化\\关键技术}
+\removelofgap
+\removelotgap
 本章将研究面向车载信息物理融合的通信与计算资源协同优化关键技术。
 本章内容安排如下：
 \ref{section 3-1} 节是本章的引言，介绍了车联网中资源分配与任务卸载研究现状、目前研究的不足，以及本章的主要贡献。
@@ -71,7 +73,7 @@
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig3-1-noma-architecture.pdf}
-  \bicaption{协同通信与计算卸载场景}{Cooperative transmission and computation offloading scenario}
+  \bicaption[协同通信与计算卸载场景]{协同通信与计算卸载场景}[Cooperative transmission and computation offloading scenario]{Cooperative transmission and computation offloading scenario}
   \label{fig 3-1}
 \end{figure} 
 
@@ -110,7 +112,7 @@ V2I通信的带宽用$b$表示。
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig3-2-system-model.pdf}
-  \bicaption{V2I 传输与任务卸载模型}{V2I transmission and task offloading model}
+  \bicaption[V2I 传输与任务卸载模型]{V2I 传输与任务卸载模型}[V2I transmission and task offloading model]{V2I transmission and task offloading model}
   \label{fig 3-2}
 \end{figure}
 
@@ -230,7 +232,7 @@ $\mathcal{C}3.2$要求分配的总体计算资源不能超过边缘节点的计�
 \begin{figure}[h]
 \centering
   \includegraphics[width=1\columnwidth]{Fig3-3-solution-model.pdf}
-  \bicaption{基于博弈理论的多智能体深度深度强化学习算法模型}{Multi-agent game-theoretic deep reinforcement learning model}
+  \bicaption[基于博弈理论的多智能体深度深度强化学习算法模型]{基于博弈理论的多智能体深度深度强化学习算法模型}[Multi-agent game-theoretic deep reinforcement learning model]{Multi-agent game-theoretic deep reinforcement learning model}
   \label{fig 3-3}
 \end{figure} 
 
@@ -275,7 +277,14 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 \label{theorem 4-1}
 \end{theorem}
 \noindent 其中${U}_{e}\left(-\mathcal{S}_{e}, \mathcal{S}_{-e}\right)$是边缘节点$e$的策略无效时的效用值。
-\begin{proof} 见附录 \ref{appendix f}。
+\begin{proof} 根据公式\ref{equ 4-16}，可以得到：
+\begin{align}
+&{F}_{e}\left(\mathcal{{S}}^{\prime}_{e}, \mathcal{S}_{-e}\right) - {F}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) \notag \\
+		&={U}_{e}\left(\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(-\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) - \left( {U}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(-\mathcal{S}_{e}, \mathcal{S}_{-e}\right) \right) \notag \\
+		&={U}_{e}\left(\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) + {U}_{e}\left(-\mathcal{S}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(-\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) \notag \\
+		&={U}_{e}\left(\mathcal{S}^{\prime}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right)
+\end{align}
+因此，定理\ref{theorem 4-1}得证。
 \end{proof}
 \noindent 在博弈模型$\mathcal{G}$中，边缘节点试图在利益冲突的情况下通过最大化其效用来实现纳什均衡 \cite{chew2016potential}。
 \begin{definition}
@@ -292,16 +301,30 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 	其中 $\mathcal{NE}$ 表示博弈模型的NE集合。
 \label{lemma 4-1}
 \end{lemma}
-\begin{proof} 见附录 \ref{appendix g}。
+\begin{proof}
+假定 $\mathcal{S}^{*}$ 是博弈 $\mathcal{G}$ 的一个纳什均衡，可以得到：
+\begin{equation}
+	U_{e}\left(\mathcal{S}_{e}^{*}, \mathcal{S}_{-e}^{*}\right) - U_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}^{*}\right) \geq 0, \quad \forall \mathcal{S}_{e} \in \mathbf{S}_{e}, \forall e \in \mathbf{E}
+\end{equation}
+根据严格势博弈的定义，可以得到：
+\begin{equation}
+	F_{e}\left(\mathcal{S}_{e}^{*}, \mathcal{S}_{-e}^{*}\right) - F_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}^{*}\right) \geq 0, \quad \forall \mathcal{S}_{e} \in \mathbf{S}_{e}, \forall e \in \mathbf{E}
+\end{equation}
+因此，$\mathcal{S}^{*}$ 也是博弈 $\mathcal{G}^{F}$ 的纳什均衡，且 $\operatorname{NE}(\mathcal{G}^{F}) \subseteq \operatorname{NE}(\mathcal{G})$。
+同样地，$\operatorname{NE}(\mathcal{G}) \subseteq \operatorname{NE}(\mathcal{F})$。
 \end{proof}
-\noindent 最后, 本章基于引理\ref{lemma 4-1}证明博弈模型 $\mathcal{G}$ 具有纳什均衡的存在性。
+
+最后, 本章基于引理\ref{lemma 4-1}证明博弈模型 $\mathcal{G}$ 具有纳什均衡的存在性。
 \begin{theorem}
 	给定势函数 $F_{e}(\mathcal{S})$ 如公式 \ref{equ 3-16}，博弈 $\mathcal{G}$ 至少有一个纯策略的NE。
 \label{theorem 4-2}
 \end{theorem}
-\begin{proof} 见附录 \ref{appendix h}。
+\begin{proof}
+策略空间 $\mathbb{S}$ 是封闭和有界的。 
+因此，势函数 $F_{e}(\mathcal{S})$ 在空间 $\mathbb{S}$ 内至少有一个最大点，也就对应于博弈 $\mathcal{G}^{F}$ 的纳什均衡。 
+然后，根据引理 \ref{lemma 4-1}，博弈 $\mathcal{G}$ 至少有一个纯策略纳什均衡。
 \end{proof}
-\noindent 另一方面，由于策略空间$\mathbb{S}$有限，NE可以在有限的步骤中收敛。
+\noindent 由于策略空间$\mathbb{S}$有限，NE可以在有限的步骤中收敛。
 本章建立了$\epsilon$改进路径和$\epsilon$平衡点\cite{chew2016potential}，其为一个近似于真实NE的策略，然后证明NE的收敛性。
 \begin{definition} 
 	路径 $\rho=\left(\mathcal{S}^{0}, \mathcal{S}^{1}, \mathcal{S}^{2}, \ldots\right)$ 是 $\epsilon$改进路径 \cite{chew2016potential}，当其向前进任何一步 $i$，边缘节点 $e$ 的效能都提升了$\epsilon$，即 $U_{e}\left(\mathcal{S}^{i+1}\right) > U_{e}\left(\mathcal{S}^{i}\right) + \epsilon, \exists \epsilon \in \mathbb{R}_{+}, \forall i$。
@@ -316,7 +339,17 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 对于博弈$\mathcal{G}$，每条$\epsilon$改进路径的步数都是有限的，其终点是$\epsilon$均衡，其是对原始NE的改进。
 \label{theorem 4-3}
 \end{theorem}
-\begin{proof} 见附录 \ref{appendix i}。
+\begin{proof}
+由于博弈$\mathcal{G}$的策略空间$\mathbb{S}$是封闭且有界的，$\exists F^{\max} \in \mathbb{R}$ 且 $F^{\max} < \infty$，可得$F^{\max} = \sup _{\mathcal{S} \in \mathbb{S}} F_{e}(S)$。
+假定路径 $\rho=\left(\mathcal{S}^{0}, \mathcal{S}^{1}, \ldots, \mathcal{S}^{i}, \ldots\right)$ 是一条 $\epsilon$改进路径，且该路径是无限的。
+基于$\epsilon$改进路径的定义，可得$U_{e}\left(\mathcal{S}^{i+1}\right) > U_{e}\left(\mathcal{S}^{i}\right) + \epsilon, \exists \epsilon \in \mathbb{R}_{+}, \forall i$。
+因此，可得$F_{e}\left(\mathcal{S}^{i+1}\right) > F_{e}\left(\mathcal{S}^{i}\right) + \epsilon^{\prime}, \exists \epsilon^{\prime} \in \mathbb{R}_{+}, \forall i$，其中 $\epsilon^{\prime}$ 是一个足够小常量。
+可以进一步推出：
+\begin{align}
+	&F_{e}\left(\mathcal{S}^{i}\right) > F_{e}\left(\mathcal{S}^{0}\right) + i   \epsilon^{\prime}, \forall i \\
+	&\lim _{i \rightarrow \infty} F\left(S^{i}\right) > \lim _{i \rightarrow \infty} \left \{ F_{e}\left(\mathcal{S}^{0}\right) + i   \epsilon^{\prime} \right\} =\infty
+\end{align}
+这与 $F^{\max} < \infty$ 是相互矛盾的，也就证明路径 $\rho$ 必须是有限的，并且终止于 $\epsilon$均衡点。
 \end{proof}
 
 \textbf{2) 资源分配:} 第二个子问题$\mathcal{P}3.2$涉及传输功率分配$\mathbf{P}^{t}$和计算资源分配$\mathbf{C}^{t}$，其表述如下：
@@ -436,6 +469,7 @@ MAGT的主要组成部分设计如下：
 \SetKwInOut{KwOut}{输出}
 
 \begin{algorithm}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \renewcommand{\algorithmcfname}{算法}
 	\caption{基于博弈理论的多智能深度强化学习}
 \KwIn{折扣因子 $\gamma$、批大小 $M$、样本长度 $N$、回放经验缓存 $\mathcal{B}$、探索常数 $\epsilon$、学习率$\alpha$和$\beta$、目标网络参数更新周期 $t_{\operatorname{tgt}}$、分布式行动者网络参数更新周期 $t_{\operatorname{act}}$}
@@ -588,6 +622,7 @@ V2I通信的通信范围为$u_e =$ 500 m\cite{zhu2021decentralized}。
 系统模型和算法的主要参数详见表\ref{table 3-1}和表\ref{table 3-2}。
 
 \begin{table}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \centering
 \bicaption{系统模型参数}{Parameters of system model}
 \setlength{\tabcolsep}{15mm}{
@@ -612,6 +647,7 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 \end{table}
 
 \begin{table}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \centering
 \bicaption{MAGT模型参数}{Parameters of MAGT}
 \setlength{\tabcolsep}{18.5mm}{

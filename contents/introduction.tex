@@ -1,15 +1,17 @@
 \chapter{绪\hskip\ccwd{}论}
+
 \section{引言}\label{section 1-1}
 
-随着国民经济和社会的高速发展，以及人们对美好生活的不懈追求，汽车已成为人们日常生活中不可或缺的交通工具之一。据统计，截至2021年底，我国民用汽车保有量高达30151万辆 \cite{gou2022zhong}。然而，汽车数量的急剧增长也给人类社会和自然环境带来了许多挑战。据世卫组织数据，全球每年约有130万人因道路交通事故死亡，另外约有2000至5000万人因事故受到非致命伤害，如致残等 \cite{shi2022dao}。同时，日益严峻的城市交通拥堵问题也给经济发展造成了巨大损失。此外，汽车也是空气污染物排放的主要贡献者之一，仅在2021年，全国汽车污染物排放总量就超过了1401.9万吨 \cite{shen2022zhong}。近年来，随着传感模式、通信技术和计算范式的发展，传统汽车正在向智能化、网联化和协同化方向迅猛发展。以智能网联汽车（Intelligent Connected Vehicle, ICV）为抓手，车联网（Vehicle-to-Everything, V2X）驱动的智能交通系统（Intelligent Transportation System, ITS）正致力于实现更加安全、高效和可持续发展的下一代交通运输。
+随着国民经济和社会的高速发展，以及人们对美好生活的不懈追求，汽车已成为人们日常生活中不可或缺的交通工具之一。据统计，截至2021年底，我国民用汽车保有量高达30151万辆 \cite{gou2022zhong}。然而，汽车数量的急剧增长也给人类社会和自然环境带来了许多挑战。据世卫组织数据，全球每年约有130万人因道路交通事故死亡，另外约有2000至5000万人因事故受到非致命伤害，如致残等 \cite{shi2022dao}。同时，日益严峻的城市交通拥堵问题也给经济发展造成了巨大损失。此外，汽车也是空气污染物排放的主要贡献者之一，仅在2021年，全国汽车污染物排放总量就超过了1401.9万吨 \cite{shen2022zhong}。近年来，随着传感模式、通信技术和计算范式的发展，传统汽车正在向智能化、网联化和协同化方向迅猛发展。以智能网联汽车（Intelligent Connected Vehicle, ICV）为抓手，车联网（Internet of Vehicles, IoV）驱动的智能交通系统（Intelligent Transportation System, ITS）正致力于实现更加安全、高效和可持续发展的下一代交通运输。
 
 近年来，车联网及其推动的智能网联汽车和智能交通系统已上升为我国的重要战略。2019年9月，国务院发布了《交通强国建设纲要》，提出要加强智能网联汽车的研发，通过新基建形成自主可控的车联网核心技术和生态产业链 \cite{zhong2019jiao}。2020年2月，国家发改委等11个部委联合发布了《智能汽车创新发展战略》，明确指出发展智能网联汽车对我国具有重要战略意义，并将突破关键核心技术作为首要战略任务 \cite{guo2020zi}。2022年8月，科技部发文支持建设包括智能港口、智能矿山和自动驾驶在内的十个新一代智能示范应用场景\cite{ke2022ke}。同时，车联网商业化也是业界关注的热点领域。2019年7月，华为发布了首款采用第五代移动通信（The 5th Generation Mobile Communication, 5G）技术的车载通信模组 MH5000，并与一汽、上汽、广汽等18家车企共同成立“5G汽车生态圈”，加速5G技术在汽车产业的商业进程。2020年10月，超过100家包括传统汽车制造商、芯片模组与硬件制造商、地图与定位服务提供商在内的相关企业，在中国上海开展了蜂窝车联网（Cellular-Vehicle-to-Everything, C-V2X）“新四跨”（跨芯片模组、跨终端、跨整车和跨安全平台）应用示范活动。截至2023年2月，已有包括一汽、上汽、广汽、通用、比亚迪和蔚来等十余家车企推出了C-V2X量产车型。
 
 国内外许多一流高校和科研机构围绕车联网、车路协同、无人驾驶、智能交通系统等领域展开了深入探索与研究。清华大学汽车安全与节能国家重点实验室的李克强院士团队在智能网联汽车“中国方案”技术体系的提出和推动方面做出了重要贡献\cite{wang2023design, li2017dynamical, zheng2016stability}。中科院复杂系统管理与控制国家重点实验室的王飞跃院士团队在智能交通的信息物理融合方面取得了显著进展\cite{li2023sharing, liu2021cyber, lv2021guest}。无线移动通信国家重点实验室的陈山枝博士团队致力于C-V2X标准的制定和关键技术的研究，极大推动了车联网的产业化进程\cite{chen2023cellular, chen2020a, chen2017vehicle}。西安电子科技大学综合业务网理论与关键技术国家重点实验室的毛国强教授团队在车联网的高效数据分发、实时感知、ITS应用等方面取得了具有国际影响力的科研成果\cite{zhang2022new, hao2022dhcloc, yue2022towards}。深圳大学Victor C.M Leung（梁中明）教授团队专注于车联网边缘缓存、任务卸载和资源分配等领域的研究，并取得了系列重要科研成果\cite{sun2023federated, ju2023joint, wang2022efficient}。长安大学赵祥模教授团队在高速公路场景下智能车路协同体系架构以及相关运行安全性与适应性评估技术方面做出了重要贡献\cite{fang2022a, fang2022on, jing2022integrated}。
 
-国际上，加拿大滑铁卢大学Sherman Shen（沈学民）教授团队在车联网安全\cite{chen2022adaptive}、车路协同\cite{liu2022real}和资源优化\cite{li2022cost}等领域取得了重要的研究突破。瑞典奥斯陆大学Yan Zhang（张彦）教授团队在车联网边缘计算\cite{dai2022adaptive}、内容缓存\cite{zhang2022digital}和资源分配\cite{sun2022dynamic}等领域取得了突出的贡献。香港理工大学Jiannong Cao（曹建农）教授团队在车联网边缘计算\cite{yang2022delegating}、计算卸载\cite{dai2023a}和数据分发\cite{yang2020efficient}等领域取得了重要的研究成果。澳大利亚悉尼大学Abbas Jamalipour教授团队在面向下一代网络中车联网通信\cite{qi2022energy}、感知\cite{iranmanesh2022a}和计算\cite{alam2022multi}等方面取得了重要的研究突破。美国休斯敦大学Zhu Han（韩竹）教授团队在车联网中安全\cite{khan2023federated}、无线资源分配\cite{zhang2023mean}以及博弈论应用\cite{kang2021joint}等领域展开了深入研究并取得了系列重要成果。加拿大卡尔顿大学F.Richard Yu（于非）教授团队在智能网联汽车中网络安全\cite{alladi2023ambient, liang2023a, bai2022detection}等领域进行了深入研究，并取得了重要的科研成果。香港理工大学Song Guo（郭嵩）教授团队在车联网边缘智能\cite{wang2922imitation, ren2021blockchain, wang2022design}等领域做出了突出贡献。日本东北大学Nei Kato教授团队在车联网中安全\cite{tang2020future}、智能反射面\cite{zhu2022intelligent}和边缘计算\cite{liu2020smart}等领域进行了全面深入的研究，并获得了系列重要科研成果。香港中文大学Guoliang Xing（刑国良）教授团队在自动驾驶\cite{he2021vi}和信息物理融合系统（Cyber-Physical System, CPS）\cite{shi2022vips}等领域取得了重要研究成果。
+国际上，加拿大滑铁卢大学Sherman Shen（沈学民）教授团队在车联网安全\cite{chen2022adaptive}、车路协同\cite{liu2022real}和资源优化\cite{li2022cost}等领域取得了重要的研究突破。瑞典奥斯陆大学Yan Zhang（张彦）教授团队在车联网边缘计算\cite{dai2022adaptive}、内容缓存\cite{zhang2022digital}和资源分配\cite{sun2022dynamic}等领域做出了突出的贡献。香港理工大学Jiannong Cao（曹建农）教授团队在车联网边缘计算\cite{yang2022delegating}、计算卸载\cite{dai2023a}和数据分发\cite{yang2020efficient}等领域取得了重要的研究成果。澳大利亚悉尼大学Abbas Jamalipour教授团队在面向下一代网络中车联网通信\cite{qi2022energy}、感知\cite{iranmanesh2022a}和计算\cite{alam2022multi}等方面取得了重要的研究突破。美国休斯敦大学Zhu Han（韩竹）教授团队在车联网中安全\cite{khan2023federated}、无线资源分配\cite{zhang2023mean}以及博弈论应用\cite{kang2021joint}等领域展开了深入研究并取得了系列重要成果。加拿大卡尔顿大学F.Richard Yu（于非）教授团队在智能网联汽车中网络安全\cite{alladi2023ambient, liang2023a, bai2022detection}等领域进行了深入研究，并取得了重要的科研成果。香港理工大学Song Guo（郭嵩）教授团队在车联网边缘智能\cite{wang2922imitation, ren2021blockchain, wang2022design}等领域做出了突出贡献。日本东北大学Nei Kato教授团队在车联网中安全\cite{tang2020future}、智能反射面\cite{zhu2022intelligent}和边缘计算\cite{liu2020smart}等领域进行了全面深入的研究，并获得了系列重要科研成果。香港中文大学Guoliang Xing（刑国良）教授团队在自动驾驶\cite{he2021vi}和信息物理融合系统（Cyber-Physical System, CPS）\cite{shi2022vips}等领域取得了重要研究成果。
 
-“信息物理融合系统”一词是由美国国家科学基金会的 Helen Gill 在2006年提出\cite{lee2016introduction}。自2011年Li等人\cite{li2011human}首次将信息物理融合系统应用于车联网中以来，车载信息物理融合系统（Vehicular Cyber-Physical System, VCPS）\cite{xia2019zi} 已成为国内外学术界热门的研究领域之一。车载信息物理融合系统利用智能网联汽车的多模态感知能力、V2X通信技术以及端边云的计算、存储和通信资源，形成一个集智能网联汽车、车联网、边缘计算、云计算等多种技术于一体的综合系统，并实现感知、计算、传输和控制的一体化。然而，车联网具有网络异构高动态、节点资源动态分布、ITS应用需求多元、真实环境复杂等特点，实现车载信息物理融合系统仍然面临巨大挑战。首先，未来车联网是一个多计算范式、服务架构共存的高动态网络，融合不同范式并最大化其协同效应，在此基础上，融合异质感知信息并评估其质量是 VCPS 的架构基础与驱动核心。其次，车联网中节点资源异构且受限，实现异构资源协同优化以最大化资源利用率是进一步优化 VCPS 服务质量的技术支持。再次，多元化ITS应用对VCPS的质量/开销需求具有差异性，实现VCPS质量-开销均衡是实现高质量低成本可扩展VCPS的理论保障。最后，在真实复杂性车联网通信环境中，设计和实现基于VCPS的典型应用是验证VCPS的必要手段。因此，本文将结合车联网高异构、高动态、分布式特征和智能交通系统的多样化应用需求，从架构融合与质量设计、异构资源协同优化、质量-开销均衡，以及原型系统实现方面进行理论、技术和系统上的综合创新。
+2006年，美国国家科学基金会启动了信息物理融合系统研究计划\cite{nfs2006cps}，为CPS领域的发展提供了重要支持和契机，自此以后，CPS领域在全球范围内得到了广泛的关注和发展\cite{lee2016introduction}。
+2011年，Li等人\cite{li2011human}首次将信息物理融合系统应用于车联网中，车载信息物理融合系统（Vehicular Cyber-Physical System, VCPS）\cite{xia2019zi} 已成为国内外学术界热门的研究领域之一。车载信息物理融合系统利用智能网联汽车的多模态感知能力、车联网通信技术以及端边云的计算、存储和通信资源，形成一个集智能网联汽车、车联网、边缘计算、云计算等多种技术于一体的综合系统，并实现感知、计算、传输和控制的一体化。然而，车联网具有网络异构高动态、节点资源动态分布、ITS应用需求多元、真实环境复杂等特点，实现车载信息物理融合系统仍然面临巨大挑战。首先，未来车联网是一个多计算范式、服务架构共存的高动态网络，融合不同范式并最大化其协同效应，在此基础上，融合异质感知信息并评估其质量是 VCPS 的架构基础与驱动核心。其次，车联网中节点资源异构且受限，实现异构资源协同优化以最大化资源利用率是进一步优化 VCPS 服务质量的技术支持。再次，多元化ITS应用对VCPS的质量/开销需求具有差异性，实现VCPS质量-开销均衡是实现高质量低成本可扩展VCPS的理论保障。最后，在真实复杂性车联网通信环境中，设计和实现基于VCPS的典型应用是验证VCPS的必要手段。因此，本文将结合车联网高异构、高动态、分布式特征和智能交通系统的多样化应用需求，从架构融合与质量设计、异构资源协同优化、质量-开销均衡，以及原型系统实现方面进行理论、技术和系统上的综合创新。
 
 \section{研究背景}\label{section 1-2}
 
@@ -18,22 +20,23 @@
 \begin{figure}[h]
 	\centering
 \includegraphics[width=1\columnwidth]{Fig1-1-V2X.pdf}
-	\bicaption{从传统“车联网”到V2X车联网}{From traditional `connected cars' to V2X communications}
+	\bicaption[车联网演进方向]{车联网演进方向}[Evolution direction of the Internet of Vehicles]{Evolution direction of the Internet of Vehicles}
 	\label{fig 1-1}
 \end{figure}
 
-车联网是物联网（Internet of Things, IoT）技术在汽车领域的应用形式。早在2G/3G移动网络时代，车联网已应用于利用全球导航卫星系统（Global Navigation Satellite System, GNSS）的定位信息为车辆提供防盗和救援服务。如今，智能网联汽车（如宝马、比亚迪、福特、通用、蔚来以及特斯拉等）都支持空中下载（Over-the-Air, OTA）技术对车机系统进行在线更新。如图 \ref{fig 1-1} 所示，随着汽车朝着智能化、网联化、协同化方向发展，传统的面向信息服务的“车联网”已经转变为与万物互联互通的V2X车联网。具体而言，V2X车联网是指多种通讯方式的融合，包括车辆间通讯（Vehicle-to-Vehicle, V2V）、车辆与行人通讯（Vehicle-to-Pedestrian, V2P）、车辆与基础设施通讯（Vehicle-to-Infrastructure, V2I）以及车辆与云端通讯（Vehicle-to-Cloud, V2C）。车联网利用实时数据分发，实现人、车、路等交通要素的协同配合，最终实现“聪明的车、智慧的路、协同的云”。此外，车联网还能促进基于单车智能的自动驾驶技术发展，通过车联网通信协助自动驾驶发现潜在危险，提升道路安全。随着我国车联网产业在政策规划、标准体系建设、关键技术研发、应用示范和基础设施建设等多方面的稳步发展，车联网的内涵和外延也在不断发展演进。依托快速落地的新型基础设施建设，车联网不仅广泛服务于智能网联汽车的辅助驾驶、自动驾驶等不同应用，还拓展服务于智慧矿山、智慧港口等企业生产环节以及智慧交通、智慧城市等社会治理领域\cite{zhong2021che}。
+车联网是物联网（Internet of Things, IoT）技术在汽车领域的应用形式。早在2G/3G移动网络时代，车联网已应用于利用全球导航卫星系统（Global Navigation Satellite System, GNSS）的定位信息为车辆提供防盗和救援服务。如今，智能网联汽车（如宝马、比亚迪、福特、通用、蔚来以及特斯拉等）都支持空中下载（Over-the-Air, OTA）技术对车机系统进行在线更新。如图 \ref{fig 1-1} 所示，随着汽车朝着智能化、网联化、协同化方向发展，传统的面向信息服务的“车联网”已经转变为与万物互联互通的V2X（Vehicle-to-Everything）车联网。具体而言，V2X车联网是指多种通讯方式的融合，包括车辆间通讯（Vehicle-to-Vehicle, V2V）、车辆与行人通讯（Vehicle-to-Pedestrian, V2P）、车辆与基础设施通讯（Vehicle-to-Infrastructure, V2I）以及车辆与云端通讯（Vehicle-to-Cloud, V2C）。车联网利用实时数据分发，实现人、车、路等交通要素的协同配合，最终实现“聪明的车、智慧的路、协同的云”。此外，车联网还能促进基于单车智能的自动驾驶技术发展，通过车联网通信协助自动驾驶发现潜在危险，提升道路安全。随着我国车联网产业在政策规划、标准体系建设、关键技术研发、应用示范和基础设施建设等多方面的稳步发展，车联网的内涵和外延也在不断发展演进。依托快速落地的新型基础设施建设，车联网不仅广泛服务于智能网联汽车的辅助驾驶、自动驾驶等不同应用，还拓展服务于智慧矿山、智慧港口等企业生产环节以及智慧交通、智慧城市等社会治理领域\cite{zhong2021che}。
 
 \begin{figure}[h]
 	\centering
-\includegraphics[width=1\columnwidth]{Fig1-2-V2X-evolution.pdf}
-	\bicaption{3GPP C-V2X 标准演进}{3GPP C-V2X standard evolution}
+\includegraphics[width=0.95\columnwidth]{Fig1-2-V2X-evolution.pdf}
+	\bicaption[3GPP C-V2X 标准演进]{3GPP C-V2X 标准演进}[3GPP C-V2X standard evolution]{3GPP C-V2X standard evolution}
 	\label{fig 1-2}
 \end{figure}
 
 在车联网通信标准方面，电气和电子工程师协会（Institute of Electrical and Electronics Engineers, IEEE）在2003年提出了专用短距通信技术（Dedicated Short-Range Communication, DSRC）。2010年，IEEE发布了名为无线接入车载环境（Wireless Access in Vehicular Environments, WAVE）的协议栈，其中包括IEEE 802.11p、IEEE 1609.1/.2/.3/.4协议族和SAE J2735消息集字典 \cite{wu2013vehicular}。同时，基于长期演进（Long-Term Evolution, LTE）的V2X通信已形成一个完善的技术标准体系和产业链\cite{chen2016lte}。此外，IMT-2020（5G）推进组成立了C-V2X工作组，加速基于5G的V2X通信的演进。如图 \ref{fig 1-2} 所示，国际标准组织第三代合作伙伴计划（The 3rd Generation Partnership Project, 3GPP）在2018年启动基于5G新空口（New Radio, NR）的V2X标准研究，并在2020年完成了Rel-16版本的5G NR-V2X标准\cite{saad2021advancements}，Rel-17版本进一步优化了功率控制、资源调度等相关技术。5G 汽车协会（5G Automotive Association, 5GAA)、下一代移动通信网络（Next Generation Mobile Network, NGMN）联盟以及5G Americas对IEEE 802.11p和C-V2X进行了技术对比，表\ref{table 1_1}显示C-V2X在传输时延、范围、速率以及可靠性等方面具有显著优势。目前，我国LTE-V2X产业蓬勃发展，与DSRC技术路线之争取得了重大进展。我国已建成基于LTE-V2X技术的完备产业链，芯片、模组、车载终端（Onboard Unit, OBU）、路侧设备（Roadside Unit, RSU）等均已成熟且经过了“三跨”“四跨”“新四跨”以及大规模测试，满足了商用部署条件。
 
 \begin{table}[h]\small
+\setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
 \centering
 \bicaption[C-V2X和IEEE 802.11p技术对比]{C-V2X和IEEE 802.11p技术对比\cite{cheng2021feng}}[Technical comparisons of C-V2X and IEEE 802.11p]{Technical comparisons of C-V2X and IEEE 802.11p \cite{cheng2021feng}}
 \label{table 1_1}
@@ -97,7 +100,7 @@ IEEE 802.11p &
 \begin{figure}[h] 
 	\centering
 	\includegraphics[width=1\columnwidth]{Fig1-3-intersection.pdf}
-	\bicaption{基于车载信息物理融合的智慧全息路口}{Intelligent holographic intersection based vehicular cyber-physical fusion}
+	\bicaption[基于车载信息物理融合的智慧全息路口]{基于车载信息物理融合的智慧全息路口}[Intelligent holographic intersection based vehicular cyber-physical fusion]{Intelligent holographic intersection based vehicular cyber-physical fusion}
 	\label{fig 1-3}
 \end{figure}
 
@@ -121,22 +124,22 @@ IEEE 802.11p &
 
 越来越多的研究人员聚焦于车载信息物理融合系统的预测、调度和控制技术，旨在有效提高 VCPS 系统的整体性能和可靠性。在预测技术方面，Zhang等人 \cite{zhang2021a} 提出了一种基于 VCPS 架构的车辆速度曲线预测方法，其协同 VCPS 中的不同控制单元来完成速度曲线预测。Albaba等人 \cite{albaba2021driver} 则结合深度Q网络（DQN）和层次博弈论，对高速公路驾驶场景中的驾驶员行为进行预测，其中k级推理被用来模拟驾驶员的决策过程。Zhang等人 \cite{zhang2020data} 提出了变道行为预测模型和加速预测模型。在此基础上，对车辆状态进行预测，并通过动态路由算法实现车辆之间的协同合作，以优化资源利用率和降低能源消耗。Zhou等人 \cite{zhou2021wide} 提出了一种基于宽-注意力和深度-组合模型用于交通流量预测。其中，宽-注意力模块和深度-组合模块分别用于提取全局关键特征和推广局部关键特征。在调度技术方面，Li等人 \cite{li2020cyber} 考虑了车辆移动性，并开发了一个基于物理比率-K干扰模型的广播方案，以确保通信的可靠性。Lian等人 \cite{lian2021cyber} 提出了一种基于既定地图模型路径规划的调度方法，以优化路径利用效率。在控制技术方面，Hu等人 \cite{hu2017cyber} 提出了一种燃油最优控制器，基于车队头车状态优化车辆速度和无级变速箱齿轮比。Dai等人 \cite{dai2016a} 提出了一种自主交叉路口控制机制，以确定车辆通过交叉路口的优先权。Lv等人 \cite{lv2018driving} 提出了一种自适应算法，用于三种典型驾驶方式下控制车辆加速。上述研究集中于支持 VCPS 的不同技术，如轨迹预测、路径调度和车辆控制等，虽然促进了各种 ITS 应用的实施，但是均建立在车联网中高质量物理元素建模信息可用的假设基础上，并未对车载信息物理融合质量进行定量分析。
 
-部分研究工作侧重于利用深度强化学习（Deep Reinforcement Learning, DRL）优化 VCPS 中车辆感知和信息融合。Dong等人 \cite{dong2020spatio} 提出了一种基于 DQN 的方法，以融合在本地环境中获得的信息，从而做出可靠的车道变更决策。Zhao等人 \cite{zhao2020social} 设计了一个基于近似策略优化（Proximal Policy Optimization, PPO）的社会意识激励机制，以得出最佳的长期车辆感知策略。Mika等人 \cite{mlika2022deep} 提出了一个基于深度确定性策略梯度（Deep Deterministic Policy Gradient, DDPG）的解决方案，通过调度资源块和广播覆盖来优化信息时效性。然而，上述算法不能直接应用于 VCPS 中的协同感知和异构信息融合，并且，当考虑到多辆车场景时，上述算法并不适用。另一方面，部分研究对 VCPS 中的信息质量进行了评估。Liu等人 \cite{liu2014temporal} 提出了一种用于 VCPS 中时态数据传播的调度算法，其在实时数据传播和及时信息感知之间取得了平衡。Dai等人 \cite{dai2019temporal} 提出了一种进化多目标算法，以提高信息质量和改善数据到达率。Liu等人 \cite{liu2014scheduling} 提出了两种在线算法，通过分析传播特性来调度不同一致性要求下的时态数据传播。Rager等人 \cite{rager2017scalability} 开发了一个刻画真实网络随机性的框架，对随机数据负载进行建模以提高信息质量。Yoon等人 \cite{yoon2021performance} 提出了一个车联网中的合作感知框架，考虑到通信损耗和车辆随机运动，以获得车辆的精确运动状态。上述研究主要聚焦于 VCPS 中数据及时性、准确性或一致性方面的信息质量评估。然而，这些研究仅考虑了同质数据项层面的质量评估，没有针对车载信息物理融合进行质量评估。
+部分研究工作侧重于利用深度强化学习（Deep Reinforcement Learning, DRL）优化 VCPS 中车辆感知和信息融合。Dong等人 \cite{dong2020spatio} 提出了一种基于 DQN 的方法，融合本地环境信息并实现可靠的车道变更决策。Zhao等人 \cite{zhao2020social} 设计了一个基于近似策略优化（Proximal Policy Optimization, PPO）的社会意识激励机制，以得出最佳的长期车辆感知策略。Mika等人 \cite{mlika2022deep} 提出了一个基于深度确定性策略梯度（Deep Deterministic Policy Gradient, DDPG）的解决方案，通过调度资源块和广播覆盖来优化信息时效性。然而，上述算法不能直接应用于 VCPS 中的协同感知和异构信息融合，并且，当考虑到多辆车场景时，上述算法并不适用。另一方面，部分研究对 VCPS 中的信息质量进行了评估。Liu等人 \cite{liu2014temporal} 提出了一种用于 VCPS 中时态数据传播的调度算法，其在实时数据传播和及时信息感知之间取得了平衡。Dai等人 \cite{dai2019temporal} 提出了一种进化多目标算法，以提高信息质量和改善数据到达率。Liu等人 \cite{liu2014scheduling} 提出了两种在线算法，通过分析传播特性来调度不同一致性要求下的时态数据传播。Rager等人 \cite{rager2017scalability} 开发了一个刻画真实网络随机性的框架，对随机数据负载进行建模以提高信息质量。Yoon等人 \cite{yoon2021performance} 提出了一个车联网中的合作感知框架，考虑到通信损耗和车辆随机运动，以获得车辆的精确运动状态。上述研究主要聚焦于 VCPS 中数据及时性、准确性或一致性方面的信息质量评估。然而，这些研究仅考虑了同质数据项层面的质量评估，没有针对车载信息物理融合进行质量评估。
 
 \subsection{车联网资源分配与任务卸载研究与现状}
 
-车联网中的资源分配一直是学术界的研究热点 \cite{noor-a-rahim2022a}，大量研究人员针对车联网中通信资源分配进行了深入研究。He等人 \cite{he2022meta} 设计了一种动态车联网资源管理框架，其采用马尔可夫决策过程（Markov Decision Process, MDP）和分层强化学习相结合的方法，可以显著提高资源管理性能。Lu等人 \cite{lu2021user} 提出了一种基于用户行为的虚拟网络资源管理方法，以进一步优化车联网通信。Peng等人 \cite{peng2020deep} 提出了一种针对车联网的资源管理方案，通过应用 DDPG 方法解决了多维资源优化问题，实现了资源快速分配，并满足了车联网服务质量(Quality of Service, QoS)要求。Wei等人 \cite{wei2022multi} 针对车联网云计算中的资源分配问题，从提供者和用户双重视角出发，提出了一种改进的 NSGA-II 算法来实现多目标优化。Peng等人 \cite{peng2021multi} 研究了无人机辅助车联网中的多维资源管理问题，并提出了一种基于多智能体深度确定性策略梯度(Multi-Agent Deep Deterministic Policy Gradient, MADDPG)的分布式优化方法，实现了车辆资源联合分配。为了进一步提高频谱利用率和支持更多车辆接入，部分研究将非正交多址接入（Non-Orthogonal Multiple Access, NOMA）技术融入车联网中。Patel等人 \cite{patel2021performance} 评估了基于 NOMA 的车联网通信容量，其数值结果显示，NOMA 通信容量比传统的正交多址接入（Orthogonal Multiple Access，OMA）高出约20\%。Zhang等人 \cite{zhang2021centralized} 利用基于图的匹配方法和非合作博弈（Non-Cooperative Game，NCG）分布式功率控制，为NOMA车联网开发了一个集中的两阶段资源分配策略。Zhu等人 \cite{zhu2021decentralized} 提出了一种考虑随机任务到达和信道波动的最优功率分配策略，以最大化长期的功率消耗和延迟。Liu等人 \cite{liu2019energy} 在基于 NOMA 的车联网中，提出了基于交替方向乘子法（Alternating Direction Method of Multipliers，ADMM）的功率分配算法。然而，上述研究主要是基于单边缘节点的情况，无法处理不同边缘节点之间的相互干扰情况。因此，仍然需要探索更加复杂的多边缘节点环境下的资源分配策略，以提高车联网的性能和可靠性。
+车联网中的资源分配一直是学术界的研究热点 \cite{noor-a-rahim2022a}，大量研究人员针对车联网中通信资源分配进行了深入研究。He等人 \cite{he2022meta} 设计了一种动态车联网资源管理框架，其采用马尔可夫决策过程（Markov Decision Process, MDP）和分层强化学习相结合的方法，可以显著提高资源管理性能。Lu等人 \cite{lu2021user} 提出了一种基于用户行为的虚拟网络资源管理方法，以进一步优化车联网通信。Peng等人 \cite{peng2020deep} 提出了一种针对车联网的资源管理方案，通过应用 DDPG 方法解决了多维资源优化问题，实现了资源快速分配，并满足了车联网服务质量(Quality of Service, QoS)要求。Wei等人 \cite{wei2022multi} 针对车联网云计算中的资源分配问题，从提供者和用户双重视角出发，提出了一种改进的 NSGA-II 算法来实现多目标优化。Peng等人 \cite{peng2021multi} 研究了无人机辅助车联网中的多维资源管理问题，并提出了一种基于多智能体深度确定性策略梯度(Multi-Agent Deep Deterministic Policy Gradient, MADDPG)的分布式优化方法，实现了车辆资源联合分配。为了进一步提高频谱利用率和支持更多车辆接入，部分研究将非正交多址接入（Non-Orthogonal Multiple Access, NOMA）技术融入车联网中。Patel等人 \cite{patel2021performance} 评估了基于 NOMA 的车联网通信容量，其数值结果显示，NOMA 通信容量比传统的正交多址接入（Orthogonal Multiple Access, OMA）高出约20\%。Zhang等人 \cite{zhang2021centralized} 利用基于图的匹配方法和非合作博弈（Non-Cooperative Game, NCG）分布式功率控制，为NOMA车联网开发了一个集中的两阶段资源分配策略。Zhu等人 \cite{zhu2021decentralized} 提出了一种考虑随机任务到达和信道波动的最优功率分配策略，以最大化长期的功率消耗和延迟。Liu等人 \cite{liu2019energy} 在基于 NOMA 的车联网中，提出了基于交替方向乘子法（Alternating Direction Method of Multipliers, ADMM）的功率分配算法。然而，上述研究主要是基于单边缘节点的情况，无法处理不同边缘节点之间的相互干扰情况。因此，仍然需要探索更加复杂的多边缘节点环境下的资源分配策略，以提高车联网的性能和可靠性。
 
 
 随着车载边缘计算的发展，大量研究专注于 VEC 中的任务卸载和资源分配。其中，Liu等人\cite{liu2021rtds}提出了一种多周期任务卸载的实时分布式方法，通过评估 VEC 中的移动性感知通信模型、资源感知计算模型和截止时间感知奖励模型。Shang等人\cite{shang2021deep}研究了节能的任务卸载，并开发了一种基于深度学习的算法来最小化能耗。为了最小化执行延迟、能源消耗和支付成本的加权和，Liu等人\cite{liu2022a}提出了一种结合 ADMM 和粒子群优化（Particle Swarm Optimization, PSO）的任务卸载算法。Chen等人\cite{chen2020robust}设计了一种带有故障恢复功能的计算卸载方法，以减少能源消耗并缩短服务时间。为了实现超高可靠低时延通信（ultra-Reliable and Low-Latency Communication, uRLLC）服务需求下最大化吞吐量，Pan等人\cite{pan2022asynchronous}提出了一种基于异步联合 DRL 的计算卸载方案。Zhu等人\cite{zhu2022a}提出了一种用于智能反射面（Intelligent Reflecting Surface, IRS） 辅助下的 VEC 的动态任务调度算法，优化有限资源分配并考虑了车辆的移动模式、传输条件和任务大小以及并发传输之间的相互干扰。此外，部分研究聚焦于采用多智能体强化学习（Multi-Agent Deep Reinforcement Learning, MADRL）算法的任务卸载和资源分配。Alam等人\cite{alam2022multi}开发了一种基于 DRL 的多智能体匈牙利算法，用于 VEC 中的动态任务卸载以满足延迟、能耗和支付费用需求。Zhang等人\cite{zhang2021adaptive}提出了一种基于 MADDPG 的边缘资源分配方法，在严格延迟约束下最小化车辆任务卸载成本。为了同时满足严格延迟要求和最小带宽消耗，He等人\cite{he2021efficient}提出了一种多智能体行动者-评论家（Multi-Agent Actor-Critic, MAAC）算法，用于车辆带宽分配。然而，以上研究工作都没有考虑实时任务卸载和通信/计算资源分配的协同优化。
 
-部分研究专注于VEC的联合通信和计算资源分配。Cui等人\cite{cui2021reinforcement}提出了一种多目标的强化学习方法，通过协同通信和计算资源的分配来减少系统延迟。Han等人\cite{han2020reliability}设计了基于动态规划（Dynamic Programming，DP）的资源分配方法，实现了耦合车辆通信和计算资源的可靠性计算。Xu等人\cite{xu2021socially}采用契约理论为每个潜在的内容供应商和内容请求者分配通信和计算资源。少数研究者研究了联合任务卸载和资源分配。Dai等人\cite{dai2021asynchronous}提出了一个异步的DRL算法，实现了异构服务器数据驱动的任务卸载。此外，Dai等人 \cite{dai2022a}开发了一种概率计算卸载方法，根据边缘节点的计算分配概率进行计算卸载的独立调度。Nie等人\cite{nie2021semi}提出了一种MADRL算法，在无人机辅助VEC中联合优化资源分配和功率控制。然而，现有研究主要基于集中式调度，通信开销和调度复杂性较高，不适用于大规模的车联网。
+部分研究专注于VEC的联合通信和计算资源分配。Cui等人\cite{cui2021reinforcement}提出了一种多目标的强化学习方法，通过协同通信和计算资源的分配来减少系统延迟。Han等人\cite{han2020reliability}设计了基于动态规划（Dynamic Programming, DP）的资源分配方法，实现了耦合车辆通信和计算资源的可靠性计算。Xu等人\cite{xu2021socially}采用契约理论为每个潜在的内容供应商和内容请求者分配通信和计算资源。少数研究者研究了联合任务卸载和资源分配。Dai等人\cite{dai2021asynchronous}提出了一个异步的DRL算法，实现了异构服务器数据驱动的任务卸载。此外，Dai等人 \cite{dai2022a}开发了一种概率计算卸载方法，根据边缘节点的计算分配概率进行计算卸载的独立调度。Nie等人\cite{nie2021semi}提出了一种MADRL算法，在无人机辅助VEC中联合优化资源分配和功率控制。然而，现有研究主要基于集中式调度，通信开销和调度复杂性较高，不适用于大规模的车联网。
 
 \subsection{车载信息物理融合中质量/开销优化研究与现状}
 
 近年来，许多研究人员致力于提高车载信息物理融合中的 QoS，以提升 ITS 应用的用户体验。其中，Wang等人\cite{wang2016offloading}提出了一种组合优化方法，旨在减少移动数据流量的同时满足 VCPS 中面向 QoS 的服务需求。Jindal等人\cite{jindal2018sedative}提出了一种基于 SDN 和深度学习的 VCPS 网络流量控制方案，成功解决了网络流量管理问题。Zhu等人\cite{zhu2022joint}设计了一种基于双时间尺度 DRL 的方法，以优化基于车辆编队的 VCPS 中的车辆间距和通信效率，同时满足 V2I 通信的 QoS 要求。Wang等人\cite{wang2023a}提出了一种集群式车辆通信方法，通过公交车聚类和混合数据调度实现了从公交车到普通车辆的有效数据传播并满足了严格和个性化的 QoS 需求。此外，Chen等人\cite{chen2021qos}致力于解决 IRS 辅助车联网中的频谱共享问题，通过优化车辆的发送功率、多用户检测矩阵、频谱重用以及 IRS 反射系数等参数，提高车联网通信的服务质量。Lai等人\cite{lai2017a}提出了一种基于 SDN 的流媒体传输方法，根据用户移动信息、播放缓冲区状态和当前网络信号强度向 SDN 控制器提供流媒体传输策略，以实现最小延迟和更好的 QoS。Tian等人\cite{tian2022multiagent}则设计了一种基于 MADRL 的资源分配框架，以共同优化信道分配和功率控制，满足车联网中的异构 QoS 需求。同时，Zhang等人\cite{zhang2020hierarchical}研究了 MEC 车联网中联合分配频谱、计算和存储资源问题，并利用 DDPG 解决该问题，以满足 ITS 应用的 QoS 要求。Sodhro等人\cite{sodhro2020ai}建立了可靠和延迟容忍的无线信道模型和多层边缘计算驱动的框架，有效提升了车联网服务质量。
 
-另一方面，部分研究人员致力于降低 VCPS 中的各类开销。例如，Zhao等人\cite{zhao2021a}设计了一种基于 SDN 和无人机（Unmanned Aerial Vehicle, UAV）辅助的车辆计算卸载优化框架，其中采用了UAV辅助车辆计算成本优化算法以最小化系统成本。Zhang等人\cite{zhang2019hybrid}提出了一种基于蚁群优化和三个变异算子的算法，用于优化具有灵活时间窗口的多目标车辆路径，以最小化行驶成本和车辆固定成本。Ning等人\cite{ning2020when}则针对5G车联网中无线频谱有限的问题，构建了一个智能卸载框架，联合利用蜂窝频谱和未许可频谱来满足车辆需求，并在考虑时延限制的基础上使成本最小化。Tan等人\cite{tan2019twin}提出了一种基于人工智能（Artificial Intelligence，AI）的多时间尺度框架的联合通信、缓存和计算策略，其中考虑了车辆的移动性和硬服务截止期限约束，并实现了最大化网络成本效益。Hui等人\cite{hui2022collaboration}提出了一种协作自动驾驶方案，并通过联盟博弈机制来确定最佳车辆分簇，以最小化每个簇的计算成本和传输成本。虽然上述研究对 VCPS 系统中的开销进行了深入研究，但这些研究并未考虑车载信息物理融合系统构建的质量和开销。因此，需要进行对 VCPS 系统本身的评估与质量-开销均衡的深入研究。
+另一方面，部分研究人员致力于降低 VCPS 中的各类开销。例如，Zhao等人\cite{zhao2021a}设计了一种基于 SDN 和无人机（Unmanned Aerial Vehicle, UAV）辅助的车辆计算卸载优化框架，其中采用了UAV辅助车辆计算成本优化算法以最小化系统成本。Zhang等人\cite{zhang2019hybrid}提出了一种基于蚁群优化和三个变异算子的算法，用于优化具有灵活时间窗口的多目标车辆路径，以最小化行驶成本和车辆固定成本。Ning等人\cite{ning2020when}则针对5G车联网中无线频谱有限的问题，构建了一个智能卸载框架，联合利用蜂窝频谱和未许可频谱来满足车辆需求，并在考虑时延限制的基础上使成本最小化。Tan等人\cite{tan2019twin}提出了一种基于人工智能（Artificial Intelligence, AI）的多时间尺度框架的联合通信、缓存和计算策略，其中考虑了车辆的移动性和硬服务截止期限约束，并实现了最大化网络成本效益。Hui等人\cite{hui2022collaboration}提出了一种协作自动驾驶方案，并通过联盟博弈机制来确定最佳车辆分簇，以最小化每个簇的计算成本和传输成本。虽然上述研究对 VCPS 系统中的开销进行了深入研究，但这些研究并未考虑车载信息物理融合系统构建的质量和开销。因此，需要进行对 VCPS 系统本身的评估与质量-开销均衡的深入研究。
 
 \subsection{智能交通系统安全相关应用研究与现状}
 
@@ -152,7 +155,7 @@ IEEE 802.11p &
 
 本文针对异构车联网高动态物理环境、动态分布式车联网节点资源、智能交通系统多元应用需求，以及真实复杂性车联网通信环境所带来的挑战，从架构融合与指标设计、协同资源优化、质量-开销均衡，以及原型系统实现四个方面对车载信息物理融合系统展开研究。本文的研究目标如下：
 
-\circled{1} 针对车联网高异构、高动态、高分布式等特征，提出融合软件定义网络和移动边缘计算的车联网分层服务架构，并实现视图质量的量化评估，是车载信息物理融合系统的架构基础与驱动核心。首先，结合软件定义网络、网络功能虚拟化和网络切片（Network Slicing，NS）等关键思想，提出车联网分层服务架构，以支持 VCPS 的部署与实现。其次，提出基于多类 M/G/1 优先队列的感知信息排队模型。进一步，针对边缘视图对于感知信息的时效性、完整性以及一致性需求，设计 VCPS 质量指标，并形式化定义视图质量优化问题。最后，提出基于差分奖励的多智能体强化学习视图质量优化策略，实现高效实时的边缘视图构建。
+\circled{1} 针对车联网高异构、高动态、高分布式等特征，提出融合软件定义网络和移动边缘计算的车联网分层服务架构，并实现视图质量的量化评估，是车载信息物理融合系统的架构基础与驱动核心。首先，结合软件定义网络、网络功能虚拟化和网络切片（Network Slicing, NS）等关键思想，提出车联网分层服务架构，以支持 VCPS 的部署与实现。其次，提出基于多类 M/G/1 优先队列的感知信息排队模型。进一步，针对边缘视图对于感知信息的时效性、完整性以及一致性需求，设计 VCPS 质量指标，并形式化定义视图质量优化问题。最后，提出基于差分奖励的多智能体强化学习视图质量优化策略，实现高效实时的边缘视图构建。
 
 \circled{2} 针对车联网中异构节点资源、动态拓扑结构与无线通信干扰等特征，实现基于边缘协同的异构资源优化，是进一步优化 VCPS 服务质量的技术支撑。首先，面向 NOMA 车联网的车载边缘计算环境，考虑 V2I 通信中边缘内与边缘间干扰，提出 V2I 传输模型，并考虑边缘协作提出任务卸载模型。其次，形式化定义协同资源优化问题，并将其分解为任务卸载与资源分配两个子问题。最后，提出基于博弈理论的多智能体强化学习算法的资源优化策略，具体地，基于多智能体强化学习实现任务卸载博弈的纳什均衡，并基于凸优化理论提出最优资源分配方案，实现最大化资源利用效率。
 
@@ -170,13 +173,13 @@ IEEE 802.11p &
 面向多元智能交通系统应用需求，实现车载信息物理融合质量-开销均衡是车载信息物理融合的理论保障。
 因此，本文将进一步研究车载信息物理融合质量/开销模型及其均衡优化策略。
 最后，面向真实复杂性车联网通信环境，基于车载信息物理融合设计并实现具体系统原型是车载信息物理融合的验证手段。
-因此，本文将更进一步设计及实现基于车载信息物理融合的超视距碰撞预警原型系统，实现理论与系统的相互促进。
+因此，本文将更进一步设计及实现基于车载信息物理融合的超视距碰撞预警原型系统，实现理论与系统的相互促进和迭代。
 本文具体研究内容如下：
 
 \begin{figure}[h] 
 	\centering
 	\includegraphics[width=1\columnwidth]{Fig1-4-content.pdf}
-	\bicaption{主要研究内容}{Main research content}
+	\bicaption[主要研究内容及关系]{主要研究内容及关系}[Main research content and relationship]{Main research content and relationship}
 	\label{fig 1-4}
 \end{figure}
 
@@ -216,13 +219,13 @@ d) 针对真实复杂的车联网通信环境，考虑基于真实C-V2X通信设
 
 第一章，绪论。首先，介绍了车载信息物理融合系统的研究背景和国内外相关研究现状。其次，阐述了本文的研究目标与详细内容。最后，总结了本文的组织结构。
 
-第二章，基于分层车联网架构的车载信息物理融合质量指标设计与优化。首先，设计了融合软件定义网络和移动边缘计算的分层服务架构，并提出了分布式感知与异质信息融合场景。在此基础上，设计了 Age of View 指标, 并形式化定义了车载信息物理融合质量最大化问题。其次，提出了基于差分奖励的多智能体深度强化学习的视图质量优化策略。最后，构建了实验仿真模型并验证了所提指标与算法的优越性。
+第二章，基于分层车联网架构的车载信息物理融合质量指标设计与优化。首先，设计了融合软件定义网络和移动边缘计算的分层服务架构，并提出了分布式感知与异质信息融合场景。在此基础上，设计了 Age of View 指标, 并形式化定义了车载信息物理融合质量最大化问题。其次，提出了基于差分奖励的多智能体深度强化学习的视图质量优化策略。最后，构建了实验仿真模型并验证了所提指标与算法的优越性。本章相关研究已经发表在2019年《IEEE Communications Magazine》国际重要期刊（中科院 SCI 1区），并已经投稿于《IEEE Transactions on Intelligent Transportation Systems》国际重要期刊（中科院 SCI 1区）。
 
-第三章，面向车载信息物理融合的通信与计算资源协同优化关键技术。首先，提出了协同通信与计算卸载场景。其次，建立了V2I传输模型和任务卸载模型，在此基础上，形式化定义了协同资源优化问题。再次，提出了基于博弈理论的多智能体强化学习的资源优化策略。最后，建立了实验仿真模型并验证了所提算法的优越性。
+第三章，面向车载信息物理融合的通信与计算资源协同优化关键技术。首先，提出了协同通信与计算卸载场景。其次，建立了V2I传输模型和任务卸载模型，在此基础上，形式化定义了协同资源优化问题。再次，提出了基于博弈理论的多智能体强化学习的资源优化策略。最后，建立了实验仿真模型并验证了所提算法的优越性。本章相关研究已经发表在2021年《电子学报》国内重要期刊（CCF T1类）和2023年《Journal of Systems Architecture》国际重要期刊（中科院 SCI 2区）。
 
-第四章，面向车载信息物理融合的质量-开销均衡优化关键技术。首先，提出了协同感知与V2I上传场景。其次，建立了了VCPS系统质量和系统开销模型，在此基础上，形式化定义了最大化系统质量与最小化系统开销的双目标优化问题。再次，提出了基于多目标的多智能体深度强化学习的质量-开销均衡策略。最后，构建了实验仿真模型并验证了所提算法的优越性。
+第四章，面向车载信息物理融合的质量-开销均衡优化关键技术。首先，提出了协同感知与V2I上传场景。其次，建立了了VCPS系统质量和系统开销模型，在此基础上，形式化定义了最大化系统质量与最小化系统开销的双目标优化问题。再次，提出了基于多目标的多智能体深度强化学习的质量-开销均衡策略。最后，构建了实验仿真模型并验证了所提算法的优越性。本章相关研究已经投稿于《IEEE Transactions on Consumer Electronics》国际重要期刊（中科院 SCI 2区）。
 
-第五章，面向车载信息物理融合的超视距碰撞预警原型系统设计及实现。首先，提出了超视距碰撞预警场景。其次，设计了基于视图修正的车辆碰撞预警算法。再次，搭建了基于 C-V2X 设备的硬件在环试验平台。最后，在真实车联网环境中，实现了基于车载信息物理融合的超视距碰撞预警系统原型，验证了车载信息物理融合的可行性与有效性。
+第五章，面向车载信息物理融合的超视距碰撞预警原型系统设计及实现。首先，提出了超视距碰撞预警场景。其次，设计了基于视图修正的车辆碰撞预警算法。再次，搭建了基于 C-V2X 设备的硬件在环试验平台。最后，在真实车联网环境中，实现了基于车载信息物理融合的超视距碰撞预警系统原型，验证了车载信息物理融合的可行性与有效性。本章相关研究已经发表在2020年《Mobile Networks and Applications》国际重要期刊（中科院SCI 3区）。
 
 第六章，总结与展望。总结了全文研究内容，并讨论了后续研究计划。
 
