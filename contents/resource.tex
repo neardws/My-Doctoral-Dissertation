@@ -1,7 +1,7 @@
-\chapter[面向车载信息物理融合的通信与计算资源协同优化关键技术]{面向车载信息物理融合的通信与计算资源协同优化\\关键技术}
+\chapter[面向车载信息物理融合的通信与计算资源协同优化]{面向车载信息物理融合的通信与计算资源协同优化}
 \removelofgap
 \removelotgap
-本章将研究面向车载信息物理融合的通信与计算资源协同优化关键技术。
+本章将研究面向车载信息物理融合的通信与计算资源协同优化。
 本章内容安排如下：
 \ref{section 3-1} 节是本章的引言，介绍了车联网中资源分配与任务卸载研究现状、目前研究的不足，以及本章的主要贡献。
 \ref{section 3-2} 节阐述了协同通信与计算卸载场景。
@@ -26,8 +26,8 @@
 为提高系统的可靠性，部分研究设计了通信和计算资源的联合分配机制，以抵消VEC中V2I信道条件和动态可用计算资源的时变影响\cite{liu2021rtds, liu2022a, chen2020robust, liu2014temporal, liu2016cooperative}。
 然而，上述研究工作都没有研究实时任务卸载和通信/计算资源分配的协同效应。
 一些研究通过整合任务卸载和资源分配制定了联合优化模型 \cite{dai2021asynchronous, dai2022a}，但这些研究主要基于集中式调度，这可能会阻碍车联网系统可扩展性。
-为解决这个问题，一方面，引入了多智能体深度强化学习\cite{kumar2022multi}来求解车辆网资源优化问题\cite{alam2022multi, zhang2021adaptive, nie2021semi}。
-另一方面，部分研究结合了强化学习和博弈论 \cite{zheng2022stackelberg, albaba2021driver, rajeswaran2020a}来解决复杂的优化问题。
+一方面，部分研究引入了多智能体深度强化学习\cite{kumar2022multi}来解决车辆网中资源优化问题\cite{alam2022multi, zhang2021adaptive, nie2021semi}。
+另一方面，部分研究结合了强化学习和博弈论 \cite{zheng2022stackelberg, albaba2021driver, rajeswaran2020a}来解决更加复杂的优化问题。
 然而，这些解决方案都不能直接应用于车联网中联合实时任务卸载和异构资源分配。
 
 本章对 VCPS 中实时任务卸载和异构资源分配进行了联合研究并解决以下挑战。
@@ -40,24 +40,24 @@
 特别地，本章首先将任务卸载决策过程建模为严格势博弈（Exact Potential Game, EPG）\cite{chew2016potential}模型，并证明其在所设计的势函数下具有纳什均衡（Nash Equilibrium, NE）存在性和收敛性。
 在该博弈中，边缘节点是理性的玩家，其目标为实现自身利益最大化（最大化实时任务的服务率，即在任务截止时间前完成的任务数占总任务数的比例）。
 根据势博弈理论，NE可以基于所设计的势函数最大化每个边缘节点的势来实现。
-因此，势博弈中的势函数适合作为所提多智能体分布式深度确定性策略梯度（Multi-Agent Distributed Distributional Deep Deterministic Policy Gradient, MAGT）算法中边缘节点的奖励函数。
-然后，本章将资源分配问题分解为两个独立的凸优化问题，并提出了一个基于梯度的迭代方法和卡罗需-库恩-塔克（Karush-Kuhn-Tucher, KKT）条件的最优解。
+因此，势博弈中的势函数适合作为所提多智能体分布式深度确定性策略梯度算法中边缘节点的奖励函数。
+然后，本章将资源分配问题分解为两个独立的凸优化问题，并基于梯度的迭代方法和卡罗需-库恩-塔克（Karush-Kuhn-Tucher, KKT）条件得到最优解。
 
 基于以上分析，本章致力于研究车载信息物理融合中协同资源优化问题，并提出有效分布式算法进行实时任务卸载和异构资源分配。
 本章的主要贡献概述如下：
 第一，提出了协同通信与计算卸载场景，其中车辆共享相同频率的带宽资源与边缘节点通信，边缘节点为其分配不同的传输功率。
 车辆中的计算任务具有不同计算资源需求和完成期限，其可通过V2I通信上传到边缘节点进行进一步处理。
 边缘节点具有异质计算能力，并选择分配计算资源在本地执行任务，或者通过有线连接将任务迁移到邻近的边缘节点处理。
-第二，提出了一个协同资源优化（Cooperative Resource Optimization, CRO）问题，该问题联合卸载任务并分配通信和计算资源以最大化服务率。
-具体地，构建了一个V2I传输模型，其基于NOMA原则来建模边缘内和边缘间的干扰。
-然后，通过考虑异构边缘节点的合作，建立了一个任务卸载模型。
+第二，提出了协同资源优化（Cooperative Resource Optimization, CRO）问题，该问题联合卸载任务并分配通信和计算资源以最大化服务率。
+具体地，构建了V2I传输模型，其基于NOMA原则来建模边缘内和边缘间的干扰。
+然后，通过考虑异构边缘节点的合作，建立了任务卸载模型。
 第三，提出了基于博弈理论的多智能体深度强化学习来优化通信与计算资源。
 具体地，将CRO分解为两个子问题，即任务卸载和资源分配。
 一方面，将任务卸载子问题建模为边缘节点之间的非合作博弈，并进一步证明其为具有NE存在和收敛性的EPG。
 然后，通过MAGT算法实现纳什均衡，其中边缘节点作为独立的智能体，通过采用实现势作为奖励来评估任务卸载的动作。
 另一方面，将资源分配子问题划分为两个独立的凸问题，并分别通过基于梯度的迭代方法和KKT条件得出最优解。
 第四，基于现实世界的车辆轨迹建立了仿真模型，并设计了四个额外指标，包括平均处理时间（Average Processing Time, APT）、平均服务时间（Average Service Time, AST）、平均实现势（Average Achieved Potential, AAP）和本地处理与迁移的比例（Proportion of Locally Processing to Migration, PLPM）。
-进一步，实现了所提算法和四种有竞争力的解决方案，分别是最优资源分配和任务全迁移（Optimal Resource Allocation and Task Migration Only, ORM）、最优资源分配和任务仅本地处理（Optimal Resource Allocation and Task Local Processing Only, ORL）、分布式深度确定性策略梯度（Distributed Distributional Deterministic Policy Gradient, D4PG）\cite{barth2018distributed}，以及多智能体深度确定性策略梯度\cite{zhang2021adaptive}。仿真结果证明了所提算法的优越性。
+进一步，实现了所提算法和四种有竞争力的解决方案，分别是最优资源分配和任务全迁移（Optimal Resource Allocation and Task Migration Only, ORM）、最优资源分配和任务仅本地处理（Optimal Resource Allocation and Task Local Processing Only, ORL）、分布式深度确定性策略梯度（Distributed Distributional Deterministic Policy Gradient, D4PG）\cite{barth2018distributed}，以及多智能体深度确定性策略梯度\cite{zhang2021adaptive}。仿真实验结果证明了所提算法的优越性，与上述四种算法相比，MAGT取得了最高的平均任务完成率。
 
 \section{协同通信与计算卸载场景}\label{section 3-2}
 
@@ -84,7 +84,7 @@
 此外，边缘节点的功率分配随着时间的推移而变化，并且彼此的分配策略是未知的。
 因此，边缘节点必须通过考虑其他边缘节点功率分配的影响来确定车辆的传输功率。
 最后，由于任务的随机到达和车辆的时变分布，边缘节点的工作负载容易出现严重失衡。
-当一个边缘节点负担过重时，将额外的任务迁移到其他有多余计算资源的边缘节点以加快处理是有效的。
+当边缘节点负担过重时，将额外的任务迁移到其他有多余计算资源的边缘节点以加快处理是有效的。
 然而，边缘节点之间的任务迁移过程也会延长任务服务时间。
 
 进一步，本章提供一个例子来更好地说明上述问题。
@@ -93,9 +93,9 @@
 然后，在对车辆$v_2$和$v_3$的信号进行解码时，车辆$v_1$的信号被边缘节点$e_2$通过SIC进行消除。
 然而，车辆$v_1$的信号在V2I传输过程中可能受到车辆$v_2$的干扰，这种干扰被称为“边缘内干扰”，因为车辆$v_1$和$v_2$处于同一个边缘节点$e_2$的无线电覆盖范围内。
 另一方面，车辆$v_3$的信号可能受到车辆$v_1$的干扰，这种来自其他边缘节点的干扰被称为“边缘间干扰”。
-此外，如图\ref{fig 3-1}所示，边缘节点$e_1$和$e_3$的任务负载是不均匀的，因为在边缘节点$e_3$中有三个任务$k_1$、$k_2$和$k_3$，但在边缘节点$e_1$中只有一个任务$k_4$。
+此外，如图\ref{fig 3-1}所示，边缘节点$e_1$和$e_3$的任务负载是不均匀的，因为在边缘节点$e_3$中有三个任务$k_1$、$k_2$和$k_3$，但在边缘节点$e_1$中只有任务$k_4$。
 假设边缘节点$e_1$的计算资源明显多于边缘节点$e_3$的资源，那么任务$k_1$应该被迁移到边缘节点$e_1$，因而可以在更短的时间内得到服务。
-如上所述，通过设计一个有效的分布式调度机制来实现实时任务卸载和异构资源分配，优化系统的整体性能，这对边缘节点之间的协作通信和计算是非常关键且具有挑战性的。
+如上所述，通过设计有效的分布式调度机制来实现实时任务卸载和异构资源分配，优化系统的整体性能，这对边缘节点之间的协作通信和计算是非常关键且具有挑战性的。
 
 \section{协同资源优化问题定义}\label{section 3-3}
 
@@ -173,7 +173,7 @@ V2I通信的带宽用$b$表示。
 0, &$k_{v}^{t} \in \mathbf{K}_{e}^{t} \bigcap \mathbf{K}_{q_e}^{t}$ \notag \\
 {d_{k}  \operatorname{dis}_{e, e^{\prime}}^{t}}  \zeta  / {z},  &$k_{v}^{t} \in \mathbf{K}_{e}^{t} \bigcap \mathbf{K}_{q_{e^{\prime}}}^{t}$
 \end{numcases}
-\noindent 其中$\operatorname{dis}_{e, e^{\prime}} ^{t}$是边缘节点$e$和$e^{\prime}$之间的距离，$\zeta$是一个距离折扣常数。
+\noindent 其中$\operatorname{dis}_{e, e^{\prime}} ^{t}$是边缘节点$e$和$e^{\prime}$之间的距离，$\zeta$是距离折扣常数。
 任务$k_{v}^{t}$在边缘节点$e$中的处理时间用$n_{v, e}^t$表示，用以下公式表示：
 \begin{equation}
 n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\prime}}^{t} x_{v, e^{\prime}}^t
@@ -194,9 +194,9 @@ n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\pr
 	\Psi_{e}^{t} = \frac{\sum_{\forall k_{v}^{t} \in \mathbf{K}_{e}^{t}} \mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\} }{|\mathbf{K}_{e}^{t}|}
 	\label{equ 3-11}
 \end{equation}
-\noindent 其中，$|\mathbf{K}_{e}^{t}|$ 是边缘节点$e$覆盖范围内的车辆请求的任务数，$\mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\}$是一个指示函数，即如果 $\psi_{v, e}^{t} \leq t_{k}$，则$\mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\} =1$，否则，$\mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\} =0$。
+\noindent 其中，$|\mathbf{K}_{e}^{t}|$ 是边缘节点$e$覆盖范围内的车辆请求的任务数，$\mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\}$是指示函数，即如果 $\psi_{v, e}^{t} \leq t_{k}$，则$\mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\} =1$，否则，$\mathbb{I} \left\{ \psi_{v, e}^{t} \leq t_{k} \right\} =0$。
 
-给定一个确定的解决方案$(\mathbf{P}, \mathbf{Q}, \mathbf{C})$，其中$\mathbf{P}$表示确定的V2I传输功率分配，$\mathbf{Q}$表示确定的任务卸载决策，$\mathbf{C}$表示确定的计算资源分配，其表示为：
+给定解决方案$(\mathbf{P}, \mathbf{Q}, \mathbf{C})$，其中$\mathbf{P}$表示确定的V2I传输功率分配，$\mathbf{Q}$表示确定的任务卸载决策，$\mathbf{C}$表示确定的计算资源分配，其表示为：
 \begin{numcases}{}
 	\mathbf{P}= \left \{ p_{v, e}^{t} \mid \forall v \in \mathbf{V}_{e}^t, \forall e \in \mathbf{E}, \forall t \in \mathbf{T}\right \} \notag \\
 	\mathbf{Q}= \left \{ q_{v, e}^t \mid \forall v \in \mathbf{V}, \forall e \in \mathbf{E}, \forall t \in \mathbf{T} \right \} \notag \\ 
@@ -214,7 +214,7 @@ n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\pr
 \end{align}
 其中约束条件$\mathcal{C}3.1$保证边缘节点分配的总传输功率不能超过V2I通信的最大功率。
 $\mathcal{C}3.2$要求分配的总体计算资源不能超过边缘节点的计算能力。
-约束条件 $\mathcal{C}3.3$ 和 $\mathcal{C}3.4$ 规定任务卸载决策 $q_{v, e}^t$ 是一个 0-1 的整数变量，即每个任务只能卸载到一个边缘节点。
+约束条件 $\mathcal{C}3.3$ 和 $\mathcal{C}3.4$ 规定任务卸载决策 $q_{v, e}^t$ 是 0-1 的整数变量，即每个任务只能卸载到一个边缘节点。
 
 \section{基于博弈理论的多智能体强化学习算法设计}\label{section 3-4}
 
@@ -266,14 +266,14 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 	\end{equation}
 \end{definition}
 
-此外，本章通过给定一个势函数如公式\ref{equ 3-16}所示，证明该非合作博弈模型$\mathcal{G}$是一个具有NE存在和收敛性的EPG。
+此外，本章通过给定势函数如公式\ref{equ 3-16}所示，证明该非合作博弈模型$\mathcal{G}$是具有NE存在和收敛性的EPG。
 \begin{theorem}
 给定边缘节点 $e$的势函数如下：
 \begin{equation}
 	{F}_{e}\left(\mathcal{S}\right) = {U}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) - {U}_{e}\left(-\mathcal{S}_{e}, \mathcal{S}_{-e}\right)
 	\label{equ 3-16}
 \end{equation}
-该博弈 $\mathcal{G}$ 是一个严格势博弈。
+该博弈 $\mathcal{G}$ 是严格势博弈。
 \label{theorem 4-1}
 \end{theorem}
 \noindent 其中${U}_{e}\left(-\mathcal{S}_{e}, \mathcal{S}_{-e}\right)$是边缘节点$e$的策略无效时的效用值。
@@ -288,13 +288,13 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 \end{proof}
 \noindent 在博弈模型$\mathcal{G}$中，边缘节点试图在利益冲突的情况下通过最大化其效用来实现纳什均衡 \cite{chew2016potential}。
 \begin{definition}
-策略$\mathcal{S}^{*} \in \mathbb{S}$是一个纯策略的纳什均衡\cite{chew2016potential}当且仅当
+策略$\mathcal{S}^{*} \in \mathbb{S}$是纯策略的纳什均衡\cite{chew2016potential}当且仅当
 	\begin{equation}
 		U_{e}\left(\mathcal{S}_{e}^{*}, \mathcal{S}_{-e}^{*}\right) \geq U_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}^{*}\right), \quad \forall \mathcal{S}_{e} \in \mathbf{S}_{e}, \forall e \in \mathbf{E}
 	\end{equation}
 \end{definition}
 \begin{lemma}
-	给定一个势函数 $F_{e}(\mathcal{S})$ 如公式\ref{equ 3-16}所示，博弈 $\mathcal{G}$ 的NE 集合恰好和博弈$\mathcal{G}^{F}=\left\{\mathbf{E}, \mathbb{S}, \left\{{F}_{e}\right\}_{\forall e \in \mathbf{E}} \right\}$的NE集合一致。
+	给定势函数 $F_{e}(\mathcal{S})$ 如公式\ref{equ 3-16}所示，博弈 $\mathcal{G}$ 的NE 集合恰好和博弈$\mathcal{G}^{F}=\left\{\mathbf{E}, \mathbb{S}, \left\{{F}_{e}\right\}_{\forall e \in \mathbf{E}} \right\}$的NE集合一致。
 	\begin{equation}
 		\mathcal{NE}(\mathcal{G}) \equiv \mathcal{NE}\left(\mathcal{G}^{F}\right)
 	\end{equation}
@@ -325,12 +325,12 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 然后，根据引理 \ref{lemma 4-1}，博弈 $\mathcal{G}$ 至少有一个纯策略纳什均衡。
 \end{proof}
 \noindent 由于策略空间$\mathbb{S}$有限，NE可以在有限的步骤中收敛。
-本章建立了$\epsilon$改进路径和$\epsilon$平衡点\cite{chew2016potential}，其为一个近似于真实NE的策略，然后证明NE的收敛性。
+本章建立了$\epsilon$改进路径和$\epsilon$平衡点\cite{chew2016potential}，其为近似于真实NE的策略，然后证明NE的收敛性。
 \begin{definition} 
 	路径 $\rho=\left(\mathcal{S}^{0}, \mathcal{S}^{1}, \mathcal{S}^{2}, \ldots\right)$ 是 $\epsilon$改进路径 \cite{chew2016potential}，当其向前进任何一步 $i$，边缘节点 $e$ 的效能都提升了$\epsilon$，即 $U_{e}\left(\mathcal{S}^{i+1}\right) > U_{e}\left(\mathcal{S}^{i}\right) + \epsilon, \exists \epsilon \in \mathbb{R}_{+}, \forall i$。
 \end{definition}
 \begin{definition}
-	策略 $\mathcal{\hat{S}} \in \mathbb{S}$ 是一个 $\epsilon$均衡 \cite{chew2016potential} 当且仅当 $\exists \epsilon \in \mathbb{R}_{+}$，并且
+	策略 $\mathcal{\hat{S}} \in \mathbb{S}$ 是 $\epsilon$均衡 \cite{chew2016potential} 当且仅当 $\exists \epsilon \in \mathbb{R}_{+}$，并且
 	\begin{equation}
 		U_{e}\left(\mathcal{\hat{S}}_{e}, \mathcal{\hat{S}}_{-e}\right) \geq U_{e}\left(\mathcal{S}_{e}, \mathcal{\hat{S}}_{-e}\right) - \epsilon, \quad \forall \mathcal{S}_{e} \in \mathbf{S}_{e}, \forall e \in \mathbf{E}
 	\end{equation}
@@ -343,7 +343,7 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 由于博弈$\mathcal{G}$的策略空间$\mathbb{S}$是封闭且有界的，$\exists F^{\max} \in \mathbb{R}$ 且 $F^{\max} < \infty$，可得$F^{\max} = \sup _{\mathcal{S} \in \mathbb{S}} F_{e}(S)$。
 假定路径 $\rho=\left(\mathcal{S}^{0}, \mathcal{S}^{1}, \ldots, \mathcal{S}^{i}, \ldots\right)$ 是一条 $\epsilon$改进路径，且该路径是无限的。
 基于$\epsilon$改进路径的定义，可得$U_{e}\left(\mathcal{S}^{i+1}\right) > U_{e}\left(\mathcal{S}^{i}\right) + \epsilon, \exists \epsilon \in \mathbb{R}_{+}, \forall i$。
-因此，可得$F_{e}\left(\mathcal{S}^{i+1}\right) > F_{e}\left(\mathcal{S}^{i}\right) + \epsilon^{\prime}, \exists \epsilon^{\prime} \in \mathbb{R}_{+}, \forall i$，其中 $\epsilon^{\prime}$ 是一个足够小常量。
+因此，可得$F_{e}\left(\mathcal{S}^{i+1}\right) > F_{e}\left(\mathcal{S}^{i}\right) + \epsilon^{\prime}, \exists \epsilon^{\prime} \in \mathbb{R}_{+}, \forall i$，其中 $\epsilon^{\prime}$ 是足够小的常量。
 可以进一步推出：
 \begin{align}
 	&F_{e}\left(\mathcal{S}^{i}\right) > F_{e}\left(\mathcal{S}^{0}\right) + i   \epsilon^{\prime}, \forall i \\
@@ -377,17 +377,19 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 	&\text { s.t. } \mathcal{C}3.9: \sum_{\forall v \in \mathbf{V}_{e}^{t}} p_{v, e}^{t} \leq p_{e}  
 \end{align}
 然而，由于边缘内和边缘间的干扰，$\mathcal{P}3.4$是非凸的。
-然后，本章应用近似方法将$\mathcal{P}3.4$转换成一个凸问题。
+然后，本章应用近似方法将$\mathcal{P}3.4$转换成凸问题。
 特别地，$g_3^e$的下界可以通过公式\ref{equ 3.24}\cite{papandriopoulos2006low}得到。
 \begin{equation}
 	g_3^e \geq \overline{g_3^e} = \sum_{\forall k_{v}^{t} \in \mathbf{K}_{e}^{t}} {b \left( \xi_{v, e}^{t} \log _{2}\mathrm{SINR}_{v, e}^t + \omega_{v, e}^{t} \right) }
 	\label{equ 3.24}
 \end{equation}
 其中，$\xi_{v, e}^{t}$ 和 $\omega_{v, e}^{t}$ 是固定值并由下式给出：
-\begin{align}
-	\xi_{v, e}^{t} &= \overline{\mathrm{SINR}}_{v, e}^t \bigg/ ( 1 + \overline{\mathrm{SINR}}_{v, e}^t ) \\
-	\omega_{v, e}^{t} &= \log _{2} (1+ \overline{\mathrm{SINR}}_{v, e}^t) - \frac{\overline{\mathrm{SINR}}_{v, e}^t}{1 + \overline{\mathrm{SINR}}_{v, e}^t} \log _{2}\overline{\mathrm{SINR}}_{v, e}^t
-\end{align}
+\begin{equation}
+	\xi_{v, e}^{t} = \overline{\mathrm{SINR}}_{v, e}^t \bigg/ ( 1 + \overline{\mathrm{SINR}}_{v, e}^t )
+\end{equation}
+\begin{equation}
+	\omega_{v, e}^{t} = \log _{2} (1+ \overline{\mathrm{SINR}}_{v, e}^t) - \frac{\overline{\mathrm{SINR}}_{v, e}^t}{1 + \overline{\mathrm{SINR}}_{v, e}^t} \log _{2}\overline{\mathrm{SINR}}_{v, e}^t
+\end{equation}
 如果${\mathrm{SINR}}_{v, e}^t =\overline{\mathrm{SINR}}_{v, e}^t$，该下界是紧的。
 因此，$\mathcal{P}3.4$可以松弛后重新表达为：
 \begin{align}
@@ -395,7 +397,7 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 	&\text { s.t. } \mathcal{C}3.9: \sum_{\forall v \in \mathbf{V}_{e}^{t}} p_{v, e}^{t} \leq p_{e}  
 \end{align}
 尽管如此，$\mathcal{P}3.5$仍然是非凸的，因为目标在$\mathbf{P}_{e}^{t}$中不是凹的。
-给定一个新的变量$\widetilde{p_{v, e}^t} = \log _{2} {p}_{v, e}^t$，$\mathcal{P}3.5$可以被转化为如下形式：
+给定一个新变量$\widetilde{p_{v, e}^t} = \log _{2} {p}_{v, e}^t$，$\mathcal{P}3.5$可以被转化为如下形式：
 \begin{align}
 	\mathcal{P}3.6: & \max_{\widetilde{\mathbf{{P}}_{e}^{t}}}  \widetilde{g_3^{e}}= \sum_{\forall k_{v}^{t} \in \mathbf{K}_{e}^{t}} {b ( \xi_{v, e}^{t} \log _{2}\mathrm{\widetilde{SINR}}_{v, e}^t + \omega_{v, e}^{t} ) } \notag \\
 	&\text { s.t. } \mathcal{C}3.10: \sum_{\forall v \in \mathbf{V}_{e}^{t}} 2^{\widetilde{p_{v, e}^t}} \leq p_{e}  
@@ -405,7 +407,7 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 	\log _{2}\mathrm{\widetilde{SINR}}_{v, e}^t &= \widetilde{p_{v, e}^t} + \log _{2} |h_{v, e}^t| ^{2} - \log _{2} \left( \sum\limits_{\forall v^{\prime} \in \mathbf{V}_{h_{v, e}}^{t}} |h_{v^{\prime}, e}^t|^2 2^{\widetilde{p_{v^{\prime}, e}^{t}}} \right. \notag \\
 	&+ \left. \sum\limits_{\forall e^{\prime} \in \mathbf{E} / \{e\}} \sum\limits_{\forall v^{\prime} \in \mathbf{V}_{e^{\prime}}^{t}} |h_{v^{\prime}, e}^t|^2 2^{\widetilde{p_{v^{\prime}, e^{\prime}}^{t}}} + N_{0}\right)
 \end{align}
-\noindent $\mathcal{P}3.6$是一个标准的凹最大化问题，也是一个凸优化问题，因为每个约束条件都是凸型指数之和，而目标之和中的每项都是凹的。
+\noindent $\mathcal{P}3.6$是标准的凹最大化问题，也是凸优化问题，因为每个约束条件都是凸型指数之和，而目标之和中的每项都是凹的。
 
 \textbf{计算资源分配:} 其是关于$\mathbf{C}^{t}$变量的计算资源分配，其表述如下：
 \begin{align}
@@ -419,7 +421,7 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 \label{equ 3-29}
 \end{align}
 \noindent 其中${\mathbf{C}_e^t}$代表${\mathbf{C}^{t}}$中与边缘节点$e$相关的变量。
-$\mathcal{P}3.8$是一个凸优化问题，因为公式\ref{equ 3-29} 中的目标是凸的，而约束是线性的。
+$\mathcal{P}3.8$是凸优化问题，因为公式\ref{equ 3-29} 中的目标是凸的，而约束是线性的。
 
 \subsection{基于MAGT的任务卸载}
 MAGT模型由若干个分布式行动者、学习器、车载信息物理融合环境，以及经验回放缓存组成。
@@ -448,7 +450,7 @@ MAGT的主要组成部分设计如下：
 		r\left(\boldsymbol{a}^{t} \mid \boldsymbol{o}^{t}\right)= {U}_{e}\left(\mathcal{S}_{e}, \mathcal{S}_{-e}\right) = \sum_{\forall e \in \mathbf{E}} \Psi_{e}^{t}
 		\label{equ 3-32}
 	\end{equation}
-	此外，博弈$\mathcal{G}$ 的势函数被采纳为边缘节点在系统状态$\boldsymbol{o}^{t}$下的行动$\boldsymbol{a}_{e}^{t}$的奖励。
+	此外，博弈$\mathcal{G}$ 的势函数被采纳为边缘节点在系统状态$\boldsymbol{o}^{t}$下的动作$\boldsymbol{a}_{e}^{t}$的奖励。
 	\begin{equation}
 		r_{e}^{t} = r\left(\boldsymbol{a}^{t} \mid \boldsymbol{o}^{t}\right)-r\left(\boldsymbol{a}_{-e}^{t} \mid \boldsymbol{o}^{t}\right)
 		\label{equ 3-33}
@@ -476,14 +478,14 @@ MAGT的主要组成部分设计如下：
 \KwOut{任务卸载决策$q_{v, e^{\prime}}^t$、传输功率分配策略$p_{v, e}^{t, {(i+1)}}$、计算资源分配策略${c_{v, e}^{t}}^{\star}$}
 	初始化网络参数\\
 	初始化经验回放缓存 $\mathcal{B}$\\
-	\For{\songti{分布式行动体} $j = 1$ \songti{到} $J$}{
-			初始化一个随机过程 $\mathcal{N}$ 以进行探索\\
-			行动体从学习器中复制网络参数\\
+	\For{\songti{分布式行动者} $j = 1$ \songti{到} $J$}{
+			初始化随机过程 $\mathcal{N}$ 以进行探索\\
+			分布式行动者从学习器中复制网络参数\\
 			接收初始系统状态 $\boldsymbol{o}_{1}$\\
 			\For{\songti{时间片} $t = 1$ \songti{到} $T$}{
 				\For{\songti{边缘节点} $e=1$ \songti{到} $E$}{
 					接收本地观测 $\boldsymbol{o}_{e}^{t}$\\
-					选择一个动作 $\boldsymbol{a}_{e}^{t}=\boldsymbol{\mu}\left(\boldsymbol{o}_{e}^{t} \mid \theta^{\mu}_{j}\right)+\mathcal{N}_{t}$\\
+					选择动作 $\boldsymbol{a}_{e}^{t}=\boldsymbol{\mu}\left(\boldsymbol{o}_{e}^{t} \mid \theta^{\mu}_{j}\right)+\mathcal{N}_{t}$\\
 					基于梯度的迭代方法得到最优传输功率分配\\
 					基于KKT条件得到最优计算资源分配\\
 				}
@@ -517,7 +519,7 @@ MAGT的主要组成部分设计如下：
 \begin{equation}
 	\boldsymbol{a}_{e}^{t}={\mu}\left(\boldsymbol{o}_{e}^{t} \mid \theta^{\mu}_{j}\right)+\epsilon  \mathcal{N}_{t}
 \end{equation}
-\noindent 其中，$\mathcal{N}_{t}$为探索噪声，以增加边缘行动的多样性，$\epsilon$为探索常数。
+\noindent 其中，$\mathcal{N}_{t}$为探索噪声，以增加边缘动作的多样性，$\epsilon$为探索常数。
 然后，边缘节点的动作$\boldsymbol{a}^{t}$在车载信息物理融合环境中执行，每个边缘节点的奖励可以根据公式\ref{equ 3-33}得到。
 最后，包括当前系统状态$\boldsymbol{o}^{t}$、边缘节点动作$\boldsymbol{a}^{t}$、边缘节点奖励$\boldsymbol{r}^{t}$和下一时刻系统状态$\boldsymbol{o}^{t+1}$在内的交互经验被存储到经验回放缓存$\mathcal{B}$。
 迭代将继续进行，直到学习器完成训练过程。
@@ -570,9 +572,9 @@ $\mathcal{P}3.9$可以分解为两层优化问题，内层表示为固定${\lamb
 此外，内部对偶最大化可以通过寻找公式\ref{equ 3-41}中拉格朗日函数静止点来解决，即相对于$\widetilde{\mathbf{{P}}_{e}^{t}}$固定${\lambda}_{e}^{t}$。
 \begin{equation}
 \frac{\partial \mathcal{L}\left(\widetilde{\mathbf{{P}}_{e}^{t}}, \mathbf{\lambda}_{e}^{t} \right)}{\partial \widetilde{p_{v, e}^{t}}}= b  \xi_{v, e}^{t}  - p_{v, e}^{t}(\lambda_{e}^{t} +\sum\limits_{\forall v^{\prime} \in \mathbf{V}_{h_{v, e}}^{t}} b  \xi_{v, e}^{t} |h_{v, e}^t|^2 \frac{\mathrm{SINR}_{v^{\prime}, e}^t}{|h_{v^{\prime}, e}^t| ^{2} p_{v^{\prime}, e}^{t}}) =0
+\label{equ 3.53}
 \end{equation}
-其中，偏导数被转换回$\mathbf{P}_{e}^{t}$空间。
-因此，可以列出定点方程，车辆$v$的传输功率通过以下方式更新：
+再通过将公式\ref{equ 3.53}中传输功率变量转换回$\mathbf{P}_{e}^{t}$空间后，车辆$v$的传输功率通过以下方式更新：
 \begin{equation}
 p_{v, e}^{t, {(i+1)}}=\frac{b \xi_{v, e}^{t}}{\lambda_{e}^{t,(i)}+\sum\limits_{\forall v^{\prime} \in \mathbf{V}_{h_{v, e}}^{t}} b  \xi_{v, e}^{t}|h_{v, e}^t|^2 {I}_{v^{\prime}, e}^{t, (i)} }
 \end{equation}
@@ -606,7 +608,7 @@ p_{v, e}^{t, {(i+1)}}=\frac{b \xi_{v, e}^{t}}{\lambda_{e}^{t,(i)}+\sum\limits_{\
 在本章节中，通过使用Python 3.9.13和TensorFlow 2.8.0实现了仿真实验模型，以评估所提解决方案的性能。
 仿真实验模型基于Ubuntu 20.04服务器，其配备AMD Ryzen 9 5950X 16核处理器（时钟频率为3.4 GHz），两个NVIDIA GeForce RTX 3090图形处理单元，以及64 GB内存。
 本章考虑在大小为3平方千米的正方形区域内的一般情况，其中边缘节点如5G基站和RSU均匀分布在区域内，其中边缘节点数量$E=9$。
-在参考 \inlinecite{zhu2021decentralized}、 \inlinecite{liu2021rtds}、 \inlinecite{xu2021socially}和\inlinecite{zhou2019computation}的基础上，仿真实验参数设置如下：
+仿真实验参数设置如下：
 边缘节点的计算能力（即CPU时钟频率）服从$[3, 10]$ GHz的均匀分布\cite{zhou2019computation}。 
 V2I通信的通信范围为$u_e =$ 500 m\cite{zhu2021decentralized}。
 此外，利用现实的车辆轨迹作为交通输入，从滴滴GAIA数据集中提取2016年11月16日中国成都市青羊区3平方千米区域的数据。
@@ -671,7 +673,7 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 \begin{itemize}
 	\item \textbf{最优资源分配和任务全迁移}: 其分为两个阶段：资源分配和任务卸载。其中资源分配问题通过凸优化得到最优解，同时边缘节点倾向于将所有任务迁移到其他边缘节点。
 	\item \textbf{最优资源分配和任务仅本地处理}: 其中资源分配与ORM算法相同，同时每个边缘节点倾向于在本地执行所有任务。
-	\item \textbf{分布式深度确定性策略梯度} \cite{barth2018distributed}: 其通过实现一个以全局系统状态为输入的DDPG智能体，共同决定任务卸载决策、V2I传输功率分配和计算资源分配，其中效用函数被作为智能体的奖励。
+	\item \textbf{分布式深度确定性策略梯度} \cite{barth2018distributed}: 其通过实现以全局系统状态为输入的DDPG智能体，共同决定任务卸载决策、V2I传输功率分配和计算资源分配，其中效用函数被作为智能体的奖励。
 	\item \textbf{多智能体深度确定性策略梯度}\cite{zhang2021adaptive}: 其中资源分配与ORM算法相同，并在每个边缘节点中实现MADDPG，以独立确定任务卸载决策，其中效用函数被作为边缘节点的奖励。
 \end{itemize}
 
@@ -705,7 +707,7 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
   \label{fig 3-4}
 \end{figure} 
 
-\textbf{2) 交通场景的影响：} 图\ref{fig 3-5}比较了不同交通场景下五种算法的性能。如图所示，图\ref{fig 3-5}(a)比较了五种算法的ASR，结果显示，MAGT取得了最高的ASR。图\ref{fig 3-5}(b) 比较了五种算法的CR。可以看到，MAGT的CR高于ORM、ORL、D4PG和MADDPG。图\ref{fig 3-5}(c) 比较了五种算法的AAP。MAGT在所有场景下都能达到最高的AAP，这表明MAGT中采用势函数作为边缘节点奖励的优势。图\ref{fig 3-5}(d)和图\ref{fig 3-5}(e)分别比较了五种算法的AST和APT，其表明MAGT可以实现边缘节点之间的协同通信和计算，通过最小化任务的平均服务时间来提高整体服务率。正如预期，MAGT的APT是最低的。这可以从图\ref{fig 3-5}(f)中得到进一步验证，图中显示任务更有可能迁移到其他边缘节点以获得更快的处理。
+\textbf{2) 交通场景的影响：} 图\ref{fig 3-5}比较了不同交通场景下五种算法的性能。如图所示，图\ref{fig 3-5}(a)比较了五种算法的ASR，结果显示，MAGT取得了最高的ASR。图\ref{fig 3-5}(b) 比较了五种算法的CR。可以看到，MAGT的CR高于ORM、ORL、D4PG和MADDPG。图\ref{fig 3-5}(c) 比较了五种算法的AAP。MAGT在所有场景下都能达到最高的AAP，这表明MAGT中采用势函数作为边缘节点奖励的优势。图\ref{fig 3-5}(d)和图\ref{fig 3-5}(e)分别比较了五种算法的AST和APT，结果显示，MAGT的APT是最低的，其表明MAGT可以实现边缘节点之间的协同通信和计算，通过最小化任务的平均服务时间来提高整体服务率。这可以从图\ref{fig 3-5}(f)中得到进一步验证，图中显示任务更有可能迁移到其他边缘节点以获得更快的处理。
 
 \begin{figure}[h]
 \centering
@@ -737,7 +739,7 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 本章首先提出了协同通信与计算卸载场景，基于NOMA原则，考虑边缘内和边缘间干扰，建立了V2I传输模型，并构建了基于异构资源和边缘协同的任务卸载模型。
 在此基础上，形式化定义了CRO问题，其目标为最大化任务服务率。
 其次，本章提出了基于博弈理论的多智能体深度强化学习算法。
-具体地，将CRO分解为两个子问题，即任务卸载和资源分配。一方面，任务卸载子问题被建模为一个具有NE存在和收敛性的EPG，并通过MAGT算法，其中边缘节点作为智能体，在行动空间中决定任务卸载策略以实现NE。
+具体地，将CRO分解为两个子问题，即任务卸载和资源分配。一方面，任务卸载子问题被建模为具有NE存在和收敛性的EPG，并通过MAGT算法，其中边缘节点作为智能体，在动作空间中决定任务卸载策略以实现NE。
 特别地，博弈模型的势函数被作为边缘节点的奖励。
 另一方面，针对资源分配子问题，基于梯度的迭代方法和KKT条件，提出了最优分配方案。
 最后，基于不同时期提取的真实车辆轨迹建立了仿真实验模型，并进行了综合性能评估证，其证明了所提方案的优越性。
