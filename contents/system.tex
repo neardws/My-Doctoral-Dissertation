@@ -1,4 +1,4 @@
-\chapter[超视距碰撞预警原型系统设计及实现]{超视距碰撞预警原型系统设计及实现}
+\chapter[\hspace{0pt}超视距碰撞预警原型系统设计及实现]{{\CJKfontspec{SimHei}\zihao{3}\hspace{-5pt}超视距碰撞预警原型系统设计及实现}}
 \removelofgap
 \removelotgap
 本章将研究超视距碰撞预警原型系统设计及实现。
@@ -10,7 +10,7 @@
 \ref{section 5-5} 节搭建了基于C-V2X设备的硬件在环试验平台，并在真实车联网环境实现了超视距碰撞预警原型系统，并对所提算法与系统进行了可行性与有效性验证。
 \ref{section 5-6} 节总结了本章的研究工作。
 
-\section{引言}\label{section 5-1}
+\section[\hspace{-2pt}引言]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}引言}}\label{section 5-1}
 
 车辆碰撞预警系统作为 ITS 的典型安全应用，已得到学术界与工业界的广泛关注。
 现有大多数车辆碰撞预警系统都基于超声波雷达或激光雷达等测距传感器进行实现\cite{song2018real, wu2019series}，并取得了不错的效果，但是这些方案都存在非视距的问题。
@@ -33,7 +33,7 @@ CCW 和 ECW 均未考虑对视图进行修正。
 第三，基于 C-V2X 通信设备，搭建了硬件在环试验平台，并分析了不同数据包大小对 C-V2X 端到端传输时延的影响。
 进一步，在真实车联网环境中，实现了基于车载信息物理融合的超视距碰撞预警原型系统，验证了本系统的可行性与有效性。
 
-\section{超视距碰撞预警场景}\label{section 5-2}
+\section[\hspace{-2pt}超视距碰撞预警场景]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}超视距碰撞预警场景}}\label{section 5-2}
 
 本章将介绍超视距碰撞预警场景，如图 \ref{fig 5-1} 所示，具有短无线电覆盖范围的通信基础设施（如RSU、5G小基站）作为边缘节点，其在物理位置上更接近车辆并具有一定的计算能力。
 同时，具有广泛覆盖范围的通信基础设施（如 5G 蜂窝网络基站）作为云节点。
@@ -51,7 +51,7 @@ CCW 和 ECW 均未考虑对视图进行修正。
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\columnwidth]{Fig5-1-example.pdf}
+	\captionsetup{font={small, stretch=1.312}}\includegraphics[width=0.9\columnwidth]{Fig5-1-example.pdf}
 	\bicaption[超视距碰撞预警场景]{超视距碰撞预警场景}[None-light-of-sight collision warning scenario]{None-light-of-sight collision warning scenario}
 	\label{fig 5-1}
 \end{figure}
@@ -71,14 +71,14 @@ CCW 和 ECW 均未考虑对视图进行修正。
 车辆$v_1$在逻辑车辆视图和真实交通视图之间的位置误差约为40 * 1000 / 3600 m/s * 1.3 $\approx$ 14 m，换言之，$d \approx$ 14 m。
 从上述例子可以看出，如何在车联网中实现信息物理融合即构建实时准确的视图以支持不同的智能交通系统应用是迫切需要解决且极具挑战的问题。
 
-\section{基于车载信息物理融合系统优化的碰撞预警算法}\label{section 5-3}
+\section[\hspace{-2pt}基于车载信息物理融合系统优化的碰撞预警算法]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}基于车载信息物理融合系统优化的碰撞预警算法}}\label{section 5-3}
 
 本章节提出了基于车载信息物理融合系统优化的碰撞预警算法，其通过拟合传输时延和检测丢包来修正边缘节点构建的逻辑视图，以提高碰撞预警的服务质量。
 首先，基于真实车联网环境测试数据对V2I应用层传输时延进行拟合，得到基于稳定分布的V2I时延模型。
 其次，基于数据传输频率和车辆位置的历史信息，设计了丢包检测机制。
 最后，阐述了基于车载信息物理融合系统优化的碰撞预警算法的详细工作流程。
 
-\subsection{应用层V2I时延拟合模型}
+\subsection[\hspace{-2pt}应用层V2I时延拟合模型]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}应用层V2I时延拟合模型}}
 
 本章根据真实车联网环境的现场测试数据分析了V2I通信的应用层传输时延。
 在现场测试中，配备OBU的车辆通过V2I通信与RSU通信。
@@ -202,7 +202,7 @@ $E_{(c, \mu)}=\sum_{l=1}^{L}\left(\varphi\left(t_{l}\right)-q_{l}\right)^{2}$，
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.7\columnwidth]{Fig5-3-delay-fitting.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=0.7\columnwidth]{Fig5-3-delay-fitting.pdf}
   \bicaption[V2I应用层传输时延的概率密度函数]{V2I应用层传输时延的概率密度函数}[Probability density function of application-layer V2I transmission delay]{Probability density function of application-layer V2I transmission delay}
   \label{fig 5-3}
 \end{figure}
@@ -243,7 +243,7 @@ x_{j}^{(p)}=\left(x_{j}^{(p-1)}-\mu_{p-1}\right) / \sigma_{p-1}, p = 1,2,\ldots
 因此，有95\%的置信度，平均值的真值位于$71.9384$和$73.5301$的区间内。
 可以看出，所得到的分布具有左偏度（$\beta = 1$）且与均值的离散程度较大（$\sigma = 13.3685$）。
 
-\subsection{数据包丢失检测机制}
+\subsection[\hspace{-2pt}数据包丢失检测机制]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}数据包丢失检测机制}}
 
 本章提出了一种基于历史信息的数据包丢失检测机制，其中历史信息包括数据传输频率和车辆位置。
 首先，根据车辆的上传频率，边缘节点获取需要更新状态的车辆ID集合。
@@ -329,14 +329,14 @@ $\mathbf{ID}_{t}$ 可通过上一时刻的值$\mathbf{ID}_{t-1}$进行初始化�
 	\label{algorithm 5-1}
 \end{algorithm}
 
-\subsection{工作流程}
+\subsection[\hspace{-2pt}工作流程]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}工作流程}}
 
 本章节介绍基于车载信息物理融合系统优化的碰撞预警算法的具体流程，如算法5.1所示。
 首先，基于V2I传输时延拟合模型估计数据包传输时延，并根据车辆速度和加速度更新其实时状态。
 其次，检测丢失的数据包，并使用边缘节点中的历史记录更新它们的状态。
 再次，使用模拟的传输时延来校准车辆轨迹以获得更加准确实时的逻辑视图。
 进一步，基于修正的视图预测所有车辆未来的轨迹。
-最后，通过计算每对车辆的车头时距并通过车头时距阈值来检测潜在碰撞。
+最后，通过计算每对车辆的车头时距并通过车头时距阈值来检测潜在碰撞 。
 VOCW具体步骤如下：
 
 \textbf{1）车辆ID集合更新：}
@@ -370,9 +370,9 @@ VOCW具体步骤如下：
 前车的车头通过道路上的某一点和后车的车头通过同一点之间的时间被定义为车头时距\cite{vogel2003comparison}。
 因此，边缘节点计算两车间的车头时距 ${h}_{v, v^{\prime}} = |t - t^{\prime}|$，如果${h}_{v, v^{\prime}} < \imath$，其中$\imath$是车头时距阈值，碰撞预警信息将被触发，即$w_{v}^{t} = w_{v^{\prime}}^{t^{\prime}} = 1$。
 
-\section{实验设置与结果分析}\label{section 5-4}
+\section[\hspace{-2pt}实验设置与结果分析]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}实验设置与结果分析}}\label{section 5-4}
 
-\subsection{实验设置}
+\subsection[\hspace{-2pt}实验设置]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}实验设置}}
 
 首先，本章在仿真实验中使用了收集自德国科隆市约400平方公里区域约120万辆真实出租车轨迹的数据集\cite{uppoor2013generation}。
 本章选取了5个具有不同交通特征的路口来进行碰撞预警仿真实验，不同场景的具体交通特征如表\ref{table 6-1}所示。
@@ -383,6 +383,7 @@ VOCW具体步骤如下：
 
 \begin{table}[h]\small
 \setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
+\captionsetup{font={small, stretch=1.512}}
 \centering
 \bicaption{不同场景的交通特征}{Traffic characteristics of different scenarios}
 \setlength{\tabcolsep}{9.5mm}{
@@ -427,13 +428,14 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 \end{equation}
 其可进一步评估碰撞预警系统在查准率和查全率方面的均衡。
 
-\subsection{实验结果与分析}
+\subsection[\hspace{-2pt}实验结果与分析]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}实验结果与分析}}
 
 \textbf{1) 不同交通场景的影响:}
 图 \ref{fig 5-4} 比较了五个具有不同交通特征的场景中三种算法的性能。图 \ref{fig 5-4}(a)比较了三种算法的查准率。结果显示，VOCW在所有场景下的查准率最高。这是由于VOCW对边缘视图进行了修正，从而车辆状态更接近实时状态。因此，基于修正视图的碰撞预警可以提供更准确的服务。同样的结论也可以从图\ref{fig 5-4}(b)中得到，比较了三种算法的查全率。图\ref{fig 5-4}(c)比较了三种算法的F1值。结果表明，在所有交通场景下，VOCW都可以实现最高的F1值。
 
 \begin{figure}[h]
      \centering
+     \captionsetup{font={small, stretch=1.312}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-5a-different-scenarios.pdf}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-5b-different-scenarios.pdf}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-5c-different-scenarios.pdf}}
@@ -446,6 +448,7 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 
 \begin{figure}[h]
      \centering
+     \captionsetup{font={small, stretch=1.312}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-6a-different-headways.pdf}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-6b-different-headways.pdf}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-6c-different-headways.pdf}}
@@ -455,6 +458,7 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 
 \begin{figure}[h]
      \centering
+     \captionsetup{font={small, stretch=1.312}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-7a-different-packet-loss-rate.pdf}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-7b-different-packet-loss-rate.pdf}}
      \subfloat[][]{\includegraphics[width=0.33\columnwidth]{Fig5-7c-different-packet-loss-rate.pdf}}
@@ -465,33 +469,33 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 \textbf{3) 不同丢包率的影响:}
 图\ref{fig 5-6} 比较了三种算法在不同丢包率下的性能，丢包率从0\%增加至6\%。值得注意的是，随着丢包率的增加，所有算法的查全率均下降。这主要是因为随着丢包率的增加，边缘节点或云端仅能接收到不完整的车辆状态信息，因此碰撞预警系统将更难成功预测所有潜在碰撞风险。图\ref{fig 5-6}(a)、图\ref{fig 5-6}(b)和图\ref{fig 5-6}(c)分别比较了三种算法的查准率、查全率和F1值。结果表明，VOCW在所有情况下实现了最高的查准率、查全率和F1值。同时，CCW和ECW的性能明显比VOCW更差，这是因为它们都没有实现对视图的修正，因此无线传输中的丢包对它们的影响更大。
 
-\section{原型系统实现}\label{section 5-5}
+\section[\hspace{-2pt}原型系统实现]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}原型系统实现}}\label{section 5-5}
 
 本章节基于C-V2X 通信设备搭建硬件在环试验平台，并对C-V2X 端到端传输时延和丢包率等通信特征进行统计与分析。
 进一步，搭建了基于智能小车的试验平台，并在其中部署了基于车载信息物理融合系统优化的碰撞预警算法。
 最后，在真实复杂车联网通信环境下，基于智能小车和真实车辆，实现了超视距碰撞预警系统，并验证了所提原型系统的可行性与有效性。
 
-\subsection{硬件在环试验平台}
+\subsection[\hspace{-2pt}硬件在环试验平台]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}硬件在环试验平台}}
 
 基于 C-V2X 设备的硬件在环试验平台框架如图 \ref{fig 5-7} 所示。本系统中考虑了两辆车，每辆车配备一个 OBU，并边缘节点配备一个 RSU。同时，一台具有一定计算能力的 PC 通过以太网与 RSU 相连，作为计算单元提供服务。车载平板电脑作为车机界面，通过 Wi-Fi 与 OBU 进行通信，并进行碰撞预警消息的可视化。基于 C-V2X 的硬件在环试验平台如图 \ref{fig 5-8} 所示。具体地，本平台采用的 OBU 和 RSU 均具备 LTE-V2X PC5 和 5G UU 双模通信能力，符合 3GPP R15 LTE-V2X 协议规范，并具有 GNSS 天线，可接收 GPS 卫星信号。在室内场景下，由于建筑物遮挡等原因，OBU 和 RSU 很难接收到 GNSS 信号，而 GNSS 数据报文中时间戳数据对于不同设备间的时间同步是至关重要的。因此，在室外廊桥上部署了 GNSS 接收天线，并通过有线方式连接 GNSS 信号转发系统。室内发射天线将 GNSS 信号进行转发，解决了室内 GNSS 信息弱甚至缺失的问题。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig5-8-hardware-in-the-loop-architecture.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig5-8-hardware-in-the-loop-architecture.pdf}
   \bicaption[硬件在环平台框架]{硬件在环平台框架}[Hardware-in-the-loop platform framework]{Hardware-in-the-loop platform framework}
   \label{fig 5-7}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig5-9-C-V2X-hardware-in-loop.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig5-9-C-V2X-hardware-in-loop.pdf}
   \bicaption[基于 C-V2X 的硬件在环试验平台]{基于 C-V2X 设备的硬件在环试验平台}[Hardware-in-the-loop platform based on C-V2X]{Hardware-in-the-loop platform based on C-V2X}
   \label{fig 5-8}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.85\columnwidth]{Fig5-10-delays.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=0.85\columnwidth]{Fig5-10-delays.pdf}
   \bicaption[不同数据包大小下的C-V2X端到端时延比较]{不同数据包大小下的C-V2X端到端时延比较}[C-V2X end-to-end delay comparison under different packet data size]{C-V2X end-to-end delay comparison under different packet data sizes}
   \label{fig 5-9}
 \end{figure}
@@ -500,6 +504,7 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 
 \begin{table}[h]\small
 \setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
+\captionsetup{font={small, stretch=1.512}}
 \centering
 \bicaption{不同数据包大小下C-V2X通信特征}{Different characteristics of C-V2X communications under different packet sizes}
 \setlength{\tabcolsep}{5.4mm}{
@@ -523,51 +528,51 @@ $\left| \mathbf{W}_{d} - \mathbf{W}_{p} \right|$是应该被触发但未被碰�
 
 针对采集的不同大小数据包的C-V2X端到端传输时延，本章进行了分析并统计了以下指标：平均时延、最大时延、最小时延、时延方差以及丢包率。其中，平均时延、最大时延和最小时延的单位为毫秒。时延方差表示了传输时延数据的离散程度。丢包率表示丢包数量占整体数据包数量的比例。不同数据包大小下的C-V2X通信特征显示在表\ref{table 6-2}中，可以看到随着数据包大小的增加，平均传输时延从6.271毫秒增加至9.570毫秒，同时，最小时延从5.396 ms增加至8.258ms。另一方面，可以得到不同数据包大小的时延方差均值为0.355，且其方差为0.0028。显然，不同数据包大小对于传输时延离散程度的影响是一致的。值得注意的是，当数据包大小增加至4000 Bytes及以上时，丢包率具有显著增长，从100$\sim$3000 Bytes大小数据包平均丢包率0.02\%增长至9.4\%（4000$\sim$7000 Bytes）。这是因为当数据包超过单个数据包的传输大小限制时，进行了数据重新分包传输，增加了传输次数，导致了传输过程中的丢包概率增加。
 
-\subsection{超视距碰撞预警原型系统}
+\subsection[\hspace{-2pt}超视距碰撞预警原型系统]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}超视距碰撞预警原型系统}}
 
 本章基于智能小车搭建了试验平台，如图\ref{fig 5-10}所示。智能小车配备NVIDIA Jetson AGX Xavier边缘计算单元，在Ubuntu 18.04操作系统上运行，并配备激光雷达、双目视觉传感器等传感器设备。同时，智能小车搭载了OBU，可以通过V2I通信将自身车辆状态信息上传至位于路侧的边缘节点。进一步，在基于安卓系统的平板电脑和基于Qt5平台的笔记本电脑上开发了车端应用和边缘设备软件，并实现并部署了基于车载信息物理融合系统优化的碰撞预警算法。基于智能小车试验平台，在真实复杂车联网环境中实现了超视距碰撞预警原型系统，如图\ref{fig 5-11}所示。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig5-11-unmanned-vehicle-platform.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig5-11-unmanned-vehicle-platform.pdf}
   \bicaption[基于智能小车的试验平台]{基于智能小车的试验平台}[Experimental platform based on intelligent vehicles]{Experimental platform based on intelligent vehicles}
   \label{fig 5-10}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig5-12-outdoor.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig5-12-outdoor.pdf}
   \bicaption[基于智能小车的超视距碰撞预警原型系统]{基于智能小车的超视距碰撞预警原型系统}[Non-light-of-sight collision warning prototype system based on intelligent vehicles]{Non-light-of-sight collision warning prototype system based on intelligent vehicles}
   \label{fig 5-11}
 \end{figure}
 
 \begin{figure}[h] 
 	\centering
-	\includegraphics[width=1\columnwidth]{Fig5-12-1.pdf}
+	\captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig5-12-1.pdf}
 	\bicaption[封闭小区场景中超视距碰撞预警原型系统实现]{封闭小区场景中超视距碰撞预警原型系统实现}[Implementation of non-light-of-sight collision warning prototype system in a closed community environment]{Implementation of non-light-of-sight collision warning prototype system in a closed community environment}
 	\label{fig 5-12-1}
 \end{figure}
 
 \begin{figure}[h] 
 	\centering
-	\includegraphics[width=1\columnwidth]{Fig5-12-2.pdf}
+	\captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig5-12-2.pdf}
 	\bicaption[城市道路场景中超视距碰撞预警原型系统实现]{城市道路场景中超视距碰撞预警原型系统实现}[Implementation of non-light-of-sight collision warning prototype system on urban roads]{Implementation of non-light-of-sight collision warning prototype system on urban roads}
 	\label{fig 5-12-2}
 \end{figure}
 
 本系统旨在在两车之间有可能发生碰撞时触发警告信息，从而提高车辆的安全性。具体地，在三叉路口的基础设施上部署了RSU，通过网线将其与笔记本电脑相连并被视为边缘节点。边缘节点接收智能小车上传的状态信息，并使用基于车载信息物理融合系统优化的碰撞预警算法进行评估是否存在潜在碰撞风险。如果存在，则通过V2I通信将碰撞预警消息发送至智能小车并在车机界面中进行可视化。图\ref{fig 5-11}中左上和右上角分别展示了智能小车1和智能小车2的自身视角以及车机界面。可以看到，智能小车分别位于三叉路口中的两条支路上，由于地势的差异（智能小车1位于上坡路段，智能小车2位于下坡路段），两车无法通过基于视距的传感设备感知到彼此，因而具有潜在碰撞风险。当两辆车同时驶向路口时，边缘节点通过V2I通信接收车辆信息，并基于所提算法判断当前存在碰撞风险。随后，智能小车接收到预警信息，并在车机界面通过红色边框效果进行展示。
 
-进一步，在封闭小区和开放城市道路场景下分别部署并实现了超视距碰撞预警原型系统，如图\ref{fig 5-12-1}和图\ref{fig 5-12-2}所示。两辆汽车（即V1和V2）正在向十字路口移动，并相互靠近。每辆车都配备了一个OBU，它与基于安卓系统的平板电脑相连。开发了基于安卓系统的应用程序，用于收集车辆的实时状态，包括GPS坐标、速度、加速度、方向和时间戳等。车辆通过V2I通信向边缘节点更新其状态，边缘节点根据从不同车辆收到的信息执行基于车载信息物理融合系统优化的碰撞预警算法。一旦检测到存在碰撞风险，预警信息就会被触发，并通过I2V通信传送给相应的车辆。随后，车辆搭载的平板电脑会显示停车标志，并伴随着振动和警告音。
+进一步，在封闭小区和开放城市道路场景下分别部署并实现了超视距碰撞预警原型系统，如图\ref{fig 5-12-1}和图\ref{fig 5-12-2}所示。系统中有两辆汽车（V1和V2），它们正在向十字路口行驶，并且彼此靠近。每辆车都配备了一个OBU，其通过与基于安卓系统的平板电脑连接，与平板电脑上运行的安卓应用程序进行通信。该应用程序负责实时收集车辆的状态信息，包括GPS坐标、速度、加速度、方向和时间戳等。车辆通过V2I通信向边缘节点更新其状态信息。边缘节点根据来自不同车辆的信息执行基于车载信息物理融合系统优化的碰撞预警算法。该算法利用车辆的状态信息进行分析和计算，以检测是否存在碰撞风险。一旦检测到潜在的碰撞风险，预警信息就会被触发，并通过V2I通信传递给相应的车辆。一旦车辆接收到碰撞预警信息，搭载的平板电脑将显示停车标志，并伴随着振动和警告音。这样，驾驶员将收到明显的警示，以便采取紧急制动等措施，从而避免潜在的碰撞风险。通过该超视距碰撞预警原型系统，车辆能够及时获得来自其他车辆的预警信息，提高交通安全性，减少碰撞事故的发生。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.7\columnwidth]{Fig5-2-delay.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=0.7\columnwidth]{Fig5-2-delay.pdf}
   \bicaption[不同系统架构下的传输时延]{不同系统架构下的传输时延，云计算和车载边缘计算中数据包传输的平均时延分别为120${ms}$和77${ms}$}[Transmission delay under different system architectures]{Transmission delay under different system architectures where average delay of packets transmission in cloud and fog computing is 120 ms and 77 ms, respectively}
   \label{fig 5-2}
 \end{figure}
 
 为了进一步验证所提算法和系统的性能，部署并实现了基于云计算的超视距碰撞预警原型，并获得了车载边缘计算和云计算两种不同的架构中600个数据包传输延迟。具体地，在现场测试实验中，将车辆上传到边缘节点的频率设置为1Hz，并收集并分析了通过V2I通信传输到边缘节点和通过V2C通信传输到云节点的数据包传输时延。如图\ref{fig 5-2}所示，云计算架构中数据包传输的平均延迟为120毫秒，而车载边缘计算架构中的平均延迟为77毫秒。显然，车载边缘计算架构中的数据包传输延迟比基于云计算的延迟更低。这些结果最终证明了支持低延迟和安全关键服务的车载边缘计算启用的碰撞预警系统的优越性。
 
-\section{本章小结}\label{section 5-6}
+\section[\hspace{-2pt}本章小结]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}本章小结}}\label{section 5-6}
 
 本章提出了超视距碰撞预警场景，其中车辆周期性上传自身状态信息，边缘节点基于车辆信息构建逻辑视图以反映车辆实时状态，并在此基础上，为车辆提供碰撞预警服务。此外，本章提出了一种基于车载信息物理融合系统优化的碰撞预警算法，通过结合传输延迟估计和数据包丢失检测，校准逻辑视图以构建更加实时准确的逻辑视图。具体地，通过现场测试获得的V2I传输数据，推导基于稳定分布的传输时延拟合模型来估计传输时延，同时根据历史信息检测数据包丢失。建立了基于真实车辆轨迹的仿真模型，仿真结果表明所提VOCW算法相比于基于云和基于边缘的碰撞预警算法，在碰撞预警的查准率、查全率，以及F1值方面具有优势。最后，本章搭建了基于C-V2X的硬件在环试验平台，对C-V2X端到端传输性能进行了分析，并在真实复杂车联网环境中实现了超视距碰撞预警原型系统，验证了所提系统的可行性与有效性。

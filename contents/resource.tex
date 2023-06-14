@@ -1,4 +1,4 @@
-\chapter[面向车载信息物理融合的通信与计算资源协同优化]{面向车载信息物理融合的通信与计算资源协同优化}
+\chapter[\hspace{0pt}面向车载信息物理融合的通信与计算资源协同优化]{{\CJKfontspec{SimHei}\zihao{3}\hspace{-5pt}面向车载信息物理融合的通信与计算资源协同优化}}
 \removelofgap
 \removelotgap
 本章将研究面向车载信息物理融合的通信与计算资源协同优化。
@@ -10,7 +10,7 @@
 \ref{section 3-5} 节搭建了仿真实验环境并进行了性能验证。
 \ref{section 3-6} 节总结了本章的研究工作。
 
-\section{引言}\label{section 3-1}
+\section[\hspace{-2pt}引言]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}引言}}\label{section 3-1}
 
 车联网的快速发展为新兴智能交通系统的发展铺平了道路，如协同自动驾驶\cite{bagheri20215g}和车载信息物理融合系统\cite{mugabarigira2023context}。
 然而，实现车载信息物理融合系统需要大量的数据传输和密集的任务计算。
@@ -59,7 +59,7 @@
 第四，基于现实世界的车辆轨迹建立了仿真模型，并设计了四个额外指标，包括平均处理时间（Average Processing Time, APT）、平均服务时间（Average Service Time, AST）、平均实现势（Average Achieved Potential, AAP）和本地处理与迁移的比例（Proportion of Locally Processing to Migration, PLPM）。
 进一步，实现了所提算法和四种有竞争力的解决方案，分别是最优资源分配和任务全迁移（Optimal Resource Allocation and Task Migration Only, ORM）、最优资源分配和任务仅本地处理（Optimal Resource Allocation and Task Local Processing Only, ORL）、分布式深度确定性策略梯度（Distributed Distributional Deterministic Policy Gradient, D4PG）\cite{barth2018distributed}，以及多智能体深度确定性策略梯度\cite{zhang2021adaptive}。仿真实验结果证明了所提算法的优越性，与上述四种算法相比，MAGT取得了最高的平均任务完成率。
 
-\section{协同通信与计算卸载场景}\label{section 3-2}
+\section[\hspace{-2pt}协同通信与计算卸载场景]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}协同通信与计算卸载场景}}\label{section 3-2}
 
 本章提出了协同通信与计算卸载场景，如图\ref{fig 3-1}所示，路侧基础设施包括5G基站和RSU（如$e_1$$\sim$$e_3$）配备了不同的计算单元（即CPU芯片），作为边缘节点以处理移动车辆卸载的计算任务。
 计算任务由车辆随机产生，且其可能包含不同的待计算数据。
@@ -72,7 +72,7 @@
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-1-noma-architecture.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-1-noma-architecture.pdf}
   \bicaption[协同通信与计算卸载场景]{协同通信与计算卸载场景}[Cooperative transmission and computation offloading scenario]{Cooperative transmission and computation offloading scenario}
   \label{fig 3-1}
 \end{figure} 
@@ -91,13 +91,13 @@
 如图\ref{fig 3-1}所示，车辆$v_1$和$v_2$通过V2I通信上传计算任务。
 由于边缘节点$e_2$和车辆$v_1$之间的V2I信道条件优于车辆$v_2$和$v_3$，通过将其他信号视为噪声来进行车辆$v_1$的信号优先解码。
 然后，在对车辆$v_2$和$v_3$的信号进行解码时，车辆$v_1$的信号被边缘节点$e_2$通过SIC进行消除。
-然而，车辆$v_1$的信号在V2I传输过程中可能受到车辆$v_2$的干扰，这种干扰被称为“边缘内干扰”，因为车辆$v_1$和$v_2$处于同一个边缘节点$e_2$的无线电覆盖范围内。
-另一方面，车辆$v_3$的信号可能受到车辆$v_1$的干扰，这种来自其他边缘节点的干扰被称为“边缘间干扰”。
+然而，车辆$v_1$的信号在V2I传输过程中可能受到车辆$v_2$的干扰，这种干扰被称为\qthis{边缘内干扰}，因为车辆$v_1$和$v_2$处于同一个边缘节点$e_2$的无线电覆盖范围内。
+另一方面，车辆$v_3$的信号可能受到车辆$v_1$的干扰，这种来自其他边缘节点的干扰被称为\qthis{边缘间干扰}。
 此外，如图\ref{fig 3-1}所示，边缘节点$e_1$和$e_3$的任务负载是不均匀的，因为在边缘节点$e_3$中有三个任务$k_1$、$k_2$和$k_3$，但在边缘节点$e_1$中只有任务$k_4$。
 假设边缘节点$e_1$的计算资源明显多于边缘节点$e_3$的资源，那么任务$k_1$应该被迁移到边缘节点$e_1$，因而可以在更短的时间内得到服务。
 如上所述，通过设计有效的分布式调度机制来实现实时任务卸载和异构资源分配，优化系统的整体性能，这对边缘节点之间的协作通信和计算是非常关键且具有挑战性的。
 
-\section{协同资源优化问题定义}\label{section 3-3}
+\section[\hspace{-2pt}协同资源优化问题定义]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}协同资源优化问题定义}}\label{section 3-3}
 
 离散时间片的集合用$\mathbf{T}=\{1, \ldots, t, \ldots, T\}$表示，其中$T$是时间片的数量。
 车辆的集合用$\mathbf{V}=\{1, \ldots, v, \ldots, V\}$表示，车辆$v \in \mathbf{V}$在$t$时的位置用$l_{v}^{t}$表示。
@@ -111,12 +111,12 @@ V2I通信的带宽用$b$表示。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-2-system-model.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-2-system-model.pdf}
   \bicaption[V2I 传输与任务卸载模型]{V2I 传输与任务卸载模型}[V2I transmission and task offloading model]{V2I transmission and task offloading model}
   \label{fig 3-2}
 \end{figure}
 
-\subsection{V2I 传输模型}
+\subsection[\hspace{-2pt}V2I 传输模型]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}V2I 传输模型}}
 
 本章节构建了V2I传输模型，如图\ref{fig 3-2}所示， 其中边缘内和边缘间干扰的干扰是基于NOMA原则建模的。
 本章将边缘节点$e$在时间$t$分配的车辆$v$的传输功率表示为$p_{v, e}^{t}$，分配的功率之和不能超过边缘节点$e$的V2I通信的最大功率，即$\sum_{\forall v \in {V}_{e}^{t}} p_{v, e}^{t} \leq p_{e}$。
@@ -149,7 +149,8 @@ V2I通信的带宽用$b$表示。
 \end{equation}
 其中$d_k$是任务$k_{v}^{t}$的数据大小，$b$是V2I通信的带宽。
 
-\subsection{任务卸载模型}
+\subsection[\hspace{-2pt}任务卸载模型]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}任务卸载模型}}
+
 边缘节点$e$在时间$t$覆盖范围内车辆上传的任务集合用$\mathbf{K}_{e}^{t} = \{ k_{v}^{t}| \forall v \in \mathbf{V}_{e}^{t} \}$表示。 
 如图\ref{fig 3-2}所示，每个任务$k_{v}^{t} \in \mathbf{K}_{e}^{t}$都可以在本地的边缘节点$e$中执行，或者迁移到其他边缘节点进行处理。
 任务卸载指示器用$q_{v, e}^{t}$表示，其表示车辆$v$的任务$k_{v}^{t}$在时间$t$是否被卸载到边缘节点$e$。
@@ -181,7 +182,7 @@ n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\pr
 \end{equation}
 任务$k_{v}^{t}$的处理时间由有线传输时间和执行时间组成，其取决于任务卸载决策。
 
-\subsection{协同资源优化问题}
+\subsection[\hspace{-2pt}问题定义与分析]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}问题定义与分析}}
 
 任务$k_v^t \in \mathbf{K}_{e}^{t}$的服务时间由上传时间和处理时间组成，其表示为：
 \begin{equation}
@@ -216,7 +217,34 @@ n_{v, e}^t= w_{v, e}^{t} + \sum_{\forall e^{\prime} \in \mathbf{E}} q_{v, e^{\pr
 $\mathcal{C}3.2$要求分配的总体计算资源不能超过边缘节点的计算能力。
 约束条件 $\mathcal{C}3.3$ 和 $\mathcal{C}3.4$ 规定任务卸载决策 $q_{v, e}^t$ 是 0-1 的整数变量，即每个任务只能卸载到一个边缘节点。
 
-\section{基于博弈理论的多智能体强化学习算法设计}\label{section 3-4}
+本章进一步将$\operatorname{CRO}$归约为0-1多背包问题，并分析其解的存在性。
+首先，本章考虑$\operatorname{CRO}$的一种特例，记为$\operatorname{CRO}^*$，其为每一个任务均匀分配V2I传输功率和计算资源。
+同时，记$x = \mathbf{Q}$，且 $f(x) = f_1$。
+因此，$\operatorname{CRO}^*$问题可表示为：
+\begin{align}
+	\operatorname{CRO}^*:&\max_{x} f(x) \notag \\
+		\text { s.t. }
+    &\mathcal{C}3.3 \sim \mathcal{C}3.4
+\end{align}
+其次，0-1多背包问题是众所周知的NP-hard问题\cite{cormen2022introduction}，其可重述如下。
+假设当前有一个给定的物品集合，其表示为$\mathcal{Q}$。
+对于物品 $\varrho \in \mathcal{Q}$，其价值记为 $\mathcal{v}_\varrho$。
+背包集合记为$\mathcal{E}$，对于背包 $\varepsilon \in \mathcal{E}$，其容量记为$\mathcal{c}_\varepsilon$。
+0-1多背包问题的目标是选择物品集合中的一些物品，使得它们的总价值最大化。在选择物品时，每个物品要么完全放入某一个背包（取值为1），要么完全不放入背包（取值为0）。
+再次，本章构建从$\operatorname{CRO}^*$到0-1背包问题的映射。特别地，任务$k_v^t$等价于物品 $\varrho$，其是否放入背包的决策等价于任务卸载决策$q_{v, e}^t$。
+物品$\varrho$的价值$\mathcal{v}_\varrho$等价于该任务是否能在任务截止时间前完成，其可表示为：
+\begin{numcases}{\mathcal{v}_\varrho =}
+0, &$\psi_{v, e}^{t} > t_{k}$ \notag \\
+1, &$\psi_{v, e}^{t} \leq t_{k}$
+\end{numcases}
+边缘节点$e$ 等价于背包 $\varepsilon$，其容量$\mathcal{c}_\varepsilon$等价于$|\mathbf{K}_{e}^{t}|$。
+同时，约束条件$\mathcal{C}3.3$和$\mathcal{C}3.4$要求物品$\varrho$只能放入一个背包。
+通过以上映射策略，当且仅当获得$\operatorname{CRO}^*$的最优解时，可以使得0-1多背包问题的价值最大化，反之亦然。
+假设$x^*$是0-1多背包问题的最优解，通过在容量约束下安排物品的放入背包方式来最大化背包价值。然后，通过以上映射策略，等同于最大化所有任务的服务率。反过来，假设所有任务的卸载策略$x^*$是$\operatorname{CRO}^*$的最优解，然后基于以上映射，可以创建物品放入背包的方式。假设放入方式不是最优的，这意味着服务率没有最大化。这与$x^*$是$\operatorname{CRO}^*$的最优解的假设相矛盾。
+因此，问题$\operatorname{CRO}^*$归约为了0-1多背包问题，其显然是有解的。
+进一步考虑V2I传输功率分配和计算资源分配，显然，原问题$\operatorname{CRO}$也是具有解存在性。
+
+\section[\hspace{-2pt}基于博弈理论的多智能体强化学习算法设计]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}基于博弈理论的多智能体强化学习算法设计}}\label{section 3-4}
 
 本章节提出了基于博弈理论的多智能体强化学习算法，如图\ref{fig 3-3}所示，CRO通过解耦可被分解为两个独立子问题，即任务卸载（$\mathcal{P}3.1$）和资源分配（$\mathcal{P}3.2$）。
 特别地，$\mathcal{P}3.1$被建模为边缘节点之间的非合作博弈，并被证明为具有NE存在和收敛性的EPG。
@@ -231,12 +259,13 @@ $\mathcal{C}3.2$要求分配的总体计算资源不能超过边缘节点的计�
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-3-solution-model.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-3-solution-model.pdf}
   \bicaption[基于博弈理论的多智能体深度深度强化学习算法模型]{基于博弈理论的多智能体深度深度强化学习算法模型}[Multi-agent game-theoretic deep reinforcement learning model]{Multi-agent game-theoretic deep reinforcement learning model}
   \label{fig 3-3}
 \end{figure} 
 
-\subsection{问题分解}
+\subsection[\hspace{-2pt}问题分解]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}问题分解}}
+
 在本节中，首先将CRO分解为单个时间片的多个问题。
 由于$\mathbf{P}^{t}$、$\mathbf{Q}^{t}$和$\mathbf{C}^{t}$在时间$t$的变量是相互独立的，并且变量不重叠，四个约束条件是可分离的，所以CRO可以分解为两个子问题，其表述如下：
 
@@ -423,7 +452,7 @@ ${U}_{e}\left(\mathcal{S}\right)$表示边缘节点$e$的效用函数，其定�
 \noindent 其中${\mathbf{C}_e^t}$代表${\mathbf{C}^{t}}$中与边缘节点$e$相关的变量。
 $\mathcal{P}3.8$是凸优化问题，因为公式\ref{equ 3-29} 中的目标是凸的，而约束是线性的。
 
-\subsection{基于MAGT的任务卸载}
+\subsection[\hspace{-2pt}基于MAGT的任务卸载]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}基于MAGT的任务卸载}}
 MAGT模型由若干个分布式行动者、学习器、车载信息物理融合环境，以及经验回放缓存组成。
 MAGT的主要组成部分设计如下：
 
@@ -552,7 +581,8 @@ $M$小批量中样本用$\left(\boldsymbol{o}^{i:i+N}, \boldsymbol{a}^{i:i+N-1},
 \end{equation}
 其中$\theta_{j}^{\mu}$表示第$j$个分布式行动者中的本地策略网络参数。
 	
-\subsection{基于凸优化的资源分配}
+\subsection[\hspace{-2pt}基于凸优化的资源分配]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}基于凸优化的资源分配}}
+
 \textbf{1) 传输功率分配:} 为了解决凸优化问题$\mathcal{P}3.6$，本章首先利用拉格朗日对偶法\cite{boyd2004convex}，在$\mathcal{P}3.6$中引入拉格朗日乘数$\lambda_{e}^{t}$，拉格朗日函数如下：
 \begin{equation}
 	\mathcal{L}(\widetilde{\mathbf{{P}}_{e}^{t}}, {\lambda}_{e}^{t} ) = \widetilde{g_3^{e}} -  {\lambda}_{e}^{t} (\sum_{\forall v \in \mathbf{V}_{e}^{t}} 2^{\widetilde{p_{v, e}^{t}}} - p_{e} )
@@ -601,9 +631,9 @@ p_{v, e}^{t, {(i+1)}}=\frac{b \xi_{v, e}^{t}}{\lambda_{e}^{t,(i)}+\sum\limits_{\
 	{c_{v, e}^{t}}^{\star} = \frac{1 / c_e \sqrt{d_k  c_k} } {\sum_{\forall k_{v}^{t} \in {\mathbf{K}_{q_e}^{t} }} 1 / c_e \sqrt{d_k  c_k}} , \forall k_{v}^{t} \in {\mathbf{K}_{q_e}^{t} } 
 \end{equation}
 
-\section{实验设置与结果分析}\label{section 3-5}
+\section[\hspace{-2pt}实验设置与结果分析]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}实验设置与结果分析}}\label{section 3-5}
 
-\subsection{实验设置}
+\subsection[\hspace{-2pt}实验设置]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}实验设置}}
 
 在本章节中，通过使用Python 3.9.13和TensorFlow 2.8.0实现了仿真实验模型，以评估所提解决方案的性能。
 仿真实验模型基于Ubuntu 20.04服务器，其配备AMD Ryzen 9 5950X 16核处理器（时钟频率为3.4 GHz），两个NVIDIA GeForce RTX 3090图形处理单元，以及64 GB内存。
@@ -621,10 +651,11 @@ V2I通信的通信范围为$u_e =$ 500 m\cite{zhu2021decentralized}。
 目标评论家网络的结构与本地评论家网络相同。
 利用ReLU作为激活函数，并使用Adam优化器来更新网络权重。
 分布式行动者的数量设定为$J$=10。
-系统模型和算法的主要参数详见表\ref{table 3-1}和表\ref{table 3-2}。
+模型和算法的主要参数详见表\ref{table 3-1}和表\ref{table 3-2}。
 
 \begin{table}[h]\small
 \setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
+\captionsetup{font={small, stretch=1.512}}
 \centering
 \bicaption{系统模型参数}{Parameters of system model}
 \setlength{\tabcolsep}{15mm}{
@@ -650,6 +681,7 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 
 \begin{table}[h]\small
 \setstretch{1.245} %设置具有指定弹力的橡皮长度（原行宽的1.2倍）
+\captionsetup{font={small, stretch=1.512}}
 \centering
 \bicaption{MAGT模型参数}{Parameters of MAGT}
 \setlength{\tabcolsep}{18.5mm}{
@@ -696,13 +728,13 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 		且 $P_{\operatorname{local}} +P_{\operatorname{migrated}} = 1$。
 \end{itemize}
 
-\subsection{实验结果与分析}
+\subsection[\hspace{-2pt}实验结果与分析]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}实验结果与分析}}
 
 \textbf{1) 算法收敛性:} 图\ref{fig 3-4}比较了五种算法在不同交通场景下的收敛性能以及CR。如图所示，MAGT取得了最高的CR值（即230左右），且其收敛速度仅次于D4PG（即3000次左右的迭代）。相比之下，D4PG和MADDPG分别经过2000和3500次左右的迭代后收敛，并取得了190和220左右的CR。而ORL和ORM分别实现了约210和189的CR。值得注意的是，ORM、ORL、MADDPG和MAGT在前2000次迭代中可以达到比D4PG高得多的CR。主要原因是在ORM、ORL、MADDPG和MAGT中使用了本章提出的最优资源分配方案，使其性能优于共同决定任务卸载和资源分配的D4PG。另一方面，由于在MAGT中利用分布式行为者加速重放经验采样，所提出的解决方案比MADDPG收敛得更快，同时在不同的交通场景下实现了最高CR。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-4-convergence.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-4-convergence.pdf}
   \bicaption[不同交通场景下的算法收敛性]{不同交通场景下的算法收敛性。（a）场景1（b）场景2（c）场景3（d）场景4}[Algorithm convergence under different traffic scenarios]{Algorithm convergence under different traffic scenarios. (a) Scenario 1 (b) Scenario 2 (c) Scenario 3 (d) Scenario 4}
   \label{fig 3-4}
 \end{figure} 
@@ -711,14 +743,14 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-5-different-traffica-scenarios.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-5-different-traffica-scenarios.pdf}
   \bicaption[不同交通场景下的性能比较]{不同交通场景下的性能比较。（a）平均服务率（b）累积奖励（c）平均实现势（d）平均服务时间（e）平均处理时间（f）本地处理与迁移的比例}[Performance comparison under different traffic scenarios]{Performance comparison under different traffic scenarios. (a) Average service ratio (b) Cumulative reward (c) Average achieved potential (d) Average service time (e) Average processing time (f) Proportion of local processing to migration}
   \label{fig 3-5}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-6-different-computation-capability.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-6-different-computation-capability.pdf}
   \bicaption[不同边缘计算能力下的性能比较]{不同边缘计算能力下的性能比较。（a）平均服务率（b）累积奖励（c）平均实现势（d）平均服务时间（e）平均处理时间（f）本地处理与迁移的比例}[Performance comparison under different computation capabilities of edge nodes]{Performance comparison under different computation capabilities of edge nodes. (a) Average service ratio (b) Cumulative reward (c) Average achieved potential (d) Average service time (e) Average processing time (f) Proportion of local processing to migration}
   \label{fig 3-6}
 \end{figure}
@@ -727,14 +759,14 @@ V2I 通信范围 $u_e$ \cite{zhu2021decentralized}&500 m\\
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig3-7-different-task-arrival-probability.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig3-7-different-task-arrival-probability.pdf}
   \bicaption[不同任务到达概率下的性能比较]{不同任务到达概率下的性能比较。（a）平均服务率（b）累积奖励（c）平均实现势（d）平均服务时间（e）平均处理时间（f）本地处理与迁移的比例}[Performance comparison under different arrival probabilities of tasks]{Performance comparison under different arrival probabilities of tasks. (a) Average service ratio (b) Cumulative reward (c) Average achieved potential (d) Average service time (e) Average processing time (f) Proportion of local processing to migration}
   \label{fig 3-7}
 \end{figure} 
 
 \textbf{4) 任务到达概率的影响：} 图\ref{fig 3-7}比较了不同车辆任务到达概率下的五种算法的性能。在本组实验中，车辆在每个时隙的任务到达概率从$\tau_{v}^{t}=0.3$增加到$\tau_{v}^{t}=0.7$。与预想的一致，当任务到达概率增加时，五种算法的性能都会降低。图\ref{fig 3-7}(a)比较了五种算法的ASR，结果显示，MAGT实现了最高的ASR。图\ref{fig 3-7}(b)和图\ref{fig 3-7}(c)比较五种算法的CR和AAP，其显示MAGT在所有情况下都能取得最高的CR和AAP，这体现了MAGT采用势函数作为边缘节点奖励的优势。图\ref{fig 3-7}(d)和图\ref{fig 3-7}(e)比较了五种算法的AST和APT，可以看出，当任务到达概率从0.3增加到0.4时，ORL、MADDPG和MAGT之间的性能差距很小，其主要原因是，当有足够的资源时，算法的调度效果变得不明显。图\ref{fig 3-7}(f) 比较了五种算法的PLPM。当任务到达概率增加时，MAGT中本地处理的任务比例下降，主要因为迁移到其他边缘节点的任务更有可能在任务截止时间前得到服务。
 
-\section{本章小结}\label{section 3-6}
+\section[\hspace{-2pt}本章小结]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}本章小结}}\label{section 3-6}
 
 本章首先提出了协同通信与计算卸载场景，基于NOMA原则，考虑边缘内和边缘间干扰，建立了V2I传输模型，并构建了基于异构资源和边缘协同的任务卸载模型。
 在此基础上，形式化定义了CRO问题，其目标为最大化任务服务率。

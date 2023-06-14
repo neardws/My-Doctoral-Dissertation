@@ -13,7 +13,15 @@
 \usepackage{subeqnarray}
 \usepackage{cases}
 
+\usepackage{dutchcal}
+\usepackage{xeCJK}
+
 \usepackage{lastpage} % 导入lastpage宏包
+
+\usepackage{titlesec}
+
+% 调整间距
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
 
 % 目录格式设置
 \usepackage{tocloft}
@@ -100,7 +108,7 @@
 
 %========一些推荐功能=========
 % 用中文双引号括起文字
-\newcommand{\qthis}[1]{{“}#1{”}}
+\newcommand{\qthis}[1]{{``}#1{''}}
 %交叉引用图X、表X、方程X（此处为向前兼容，强烈推荐使用\autoref{label}）
 \newcommand{\figref}[1]{图\ref{#1}}
 \newcommand{\tabref}[1]{表\ref{#1}}

@@ -1,4 +1,4 @@
-\chapter[面向车载信息物理融合的质量-开销均衡优化]{面向车载信息物理融合的质量-开销均衡优化}
+\chapter[\hspace{0pt}面向车载信息物理融合的质量-开销均衡优化]{{\CJKfontspec{SimHei}\zihao{3}\hspace{-5pt}面向车载信息物理融合的质量-开销均衡优化}}
 \removelofgap
 \removelotgap
 本章将研究面向车载信息物理融合的质量-开销均衡优化。
@@ -11,7 +11,7 @@
 \ref{section 4-6} 节搭建了实验仿真模型并进行了性能验证。
 \ref{section 4-7} 节对本章的研究工作进行总结。
 
-\section{引言}\label{section 4-1}
+\section[\hspace{-2pt}引言]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}引言}}\label{section 4-1}
 
 新兴感知技术、无线通信和计算模式推动了现代新能源汽车和智能网联汽车的发展。现代汽车中装备了各种车载感知器，以增强车辆的环境感知能力 \cite{zhu2017overview}。另一方面，V2X通信\cite{chen2020a}的发展使车辆、路侧设备和云端之间的合作得以实现。同时，车载边缘计算\cite{dai2021edge}是很有前途的范式，可以实现计算密集型和延迟关键型的智能交通系统应用 \cite{zhao2022foundation}。这些进展都成为了开发车载信息物理融合系统的强大驱动力。具体来说，通过协同感知和上传，车联网中的物理实体，如车辆、行人和路侧设备等，可以在边缘节点上构建为相应的逻辑映射。
 
@@ -21,21 +21,23 @@
 
 本章致力于研究车载信息物理融合系统的质量-开销均衡优化问题，并通过协同感知与上传实现高质量、低开销的视图建模。本章的主要贡献如下：第一，提出了协同感知与V2I上传场景，考虑视图的及时性和一致性，设计了车载信息物理融合质量指标，并考虑边缘视图构建过程中信息冗余度、感知开销和传输开销，设计了车载信息物理融合开销指标。进一步，提出了双目标优化问题，在最大化VCPS质量的同时最小化VCPS开销。第二，提出了基于多目标的多智能体深度强化学习算法。具体地，在车辆和边缘节点中分别部署智能体，车辆动作空间包括感知决策、感知频率、上传优先级和传输功率分配，而边缘节点动作空间是V2I带宽分配策略。同时，设计了决斗评论家网络（Dueling Critic Network, DCN），其根据状态价值（State-Value, SV）和动作优势（Action-Advantage, AA）评估智能体动作。系统奖励是一维向量，其中包含VCPS质量和VCPS利润，并通过差分奖励信用分配得到车辆的个人奖励，进一步通过最小-最大归一化得到边缘节点的归一化奖励。第三，建立了基于现实世界车辆轨迹的仿真实验模型，并将MAMO与三种对比算法进行比较，包括随机分配、分布式深度确定性策略梯度\cite{barth2018distributed}，以及多智能体分布式深度确定性策略梯度。此外，本文设计了两个指标，即单位开销质量（Quality Per Unit Cost, QPUC）和单位质量利润（Proﬁt Per Unit Quality, PPUQ）用于定量衡量算法实现的均衡。仿真结果表明，与其他算法相比，MAMO在最大化QPUC和PPUQ方面更具优势。
 
-\section{协同感知与 V2I 上传场景}\label{section 4-2}
+\section[\hspace{-2pt}协同感知与 V2I 上传场景]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}协同感知与 V2I 上传场景}}\label{section 4-2}
 
 本章节介绍了协同感知与V2I上传场景。如图\ref{fig 4-1}所示，车辆配备各种车载感知器，如超声波雷达、激光雷达、光学相机和毫米波雷达，可以对环境进行感知。通过车辆间协同地感知，可以获得多源信息，包括其他车辆、弱势道路参与者、停车场和路边基础设施的状态。这些信息可用于在边缘节点中建立视图模型，并进一步用于支撑各种ITS应用，如自动驾驶\cite{bai2022hybrid}、智慧路口控制系统\cite{hadjigeorgious2023real}，以及全息城市交通流管理\cite{wang2023city}。逻辑视图需要融合车联网中物理实体的不同模式信息，以更好地反映实时物理车辆环境，从而提高ITS的性能。然而，构建高质量的逻辑视图可能需要更高的感知频率、更多的信息上传量以及更高的能量消耗。
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig4-1-architerture.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-1-architerture.pdf}
   \bicaption[协同感知与 V2I 上传场景]{协同感知与 V2I 上传场景}[Cooperative sensing and V2I uploading scenario]{Cooperative sensing and V2I uploading scenario}
   \label{fig 4-1}
 \end{figure} 
 
 本系统的工作流程如下：首先，车辆感知并排队上传不同物理实体的实时状态。接着，边缘节点将V2I带宽分配给车辆，同时，车辆确定传输功率。物理实体的视图是基于从车辆收到的多源信息进行融合建立的。需要注意的是，在该系统中，多源信息是由车辆以不同的感知频率感应到的，因此上传时的新鲜度会不同。虽然增加感知频率可以提高新鲜度，但会增加排队延迟和能源消耗。此外，多个车辆可能感知到特定物理实体的信息，若由所有车辆上传，则可能会浪费通信资源。因此，为了提高资源利用率，需要有效而经济地分配通信资源。在此基础上，为了最大化面向车载边缘计算的视图的VCPS质量并最小化VCPS开销，必须量化衡量边缘节点构建的视图的质量和开销，并设计高效经济的协同感知和上传的调度机制。
 
-\section{车载信息物理融合质量/开销模型}\label{section 4-3}
-\subsection{基本符号}
+\section[\hspace{-2pt}车载信息物理融合质量/开销模型]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}车载信息物理融合质量/开销模型}}\label{section 4-3}
+
+\subsection[\hspace{-2pt}基本符号]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}基本符号}}
+
 本系统离散时间片的集合用$\mathbf{T}=\left\{1,\ldots,t,\ldots, T \right\}$表示。
 多源信息集合用$\mathbf{D}$表示，其中信息$d \in \mathbf{D}$的特征是三元组$d=\left(\operatorname{type}_d, u_d, \left|d\right| \right)$，其中$\operatorname{type}_d$、$u_d$和$\left|d\right|$分别是信息类型、更新间隔和数据大小。
 $\mathbf{V}$表示车辆的集合，每个车辆$v\in \mathbf{V}$的特征是三元组$v=\left (l_v^t, \mathbf{D}_v, \pi_v \right )$，其中$l_v^t$、$\mathbf{D}_v$和$\pi_v$分别是位置、感知的信息集和传输功率。
@@ -80,7 +82,7 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
 用$\mathbf{I}$表示视图的集合，用$\mathbf{I}_e^{t}$表示时间为$t$时在边缘节点$e$中建模的视图集合。
 因此，边缘节点$e$收到且被视图$i$需要的信息集合可以用$\mathbf{D}_{i, e}^t=\bigcup_{\forall v \in \mathbf{V}}\left(\mathbf{D}_{i^{\prime}} \cap \mathbf{D}_{v, e}^t\right), \forall i \in \mathbf{I}_e^{t}, \forall e \in \mathbf{E}$表示，且 $| \mathbf{D}_{i, e}^t |$是边缘节点$e$收到且被视图$i$需要的信息数量，其计算公式为$| \mathbf{D}_{i, e}^t | =  \sum_{\forall v \in \mathbf{V}} \sum_{\forall d \in \mathbf{D}_v} c_{d, v}^t  y_{d, i^{\prime}}$。
 
-\subsection{协同感知模型}
+\subsection[\hspace{-2pt}协同感知模型]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}协同感知模型}}
 车辆协同感知是基于多类M/G/1优先级队列\cite{moltafet2020age}进行建模。
 假设具有$\operatorname{type}_d$的信息的上传时间$\operatorname{\hat{g}}_{d, v, e}^t$遵循均值$\alpha_{d, v}^t$和方差$\beta_{d, v}^t$的一类一般分布。
 那么，车辆$v$中的上传负载$\rho_{v}^{t}$由$ \rho_{v}^{t}=\sum_{\forall d \subseteq \mathbf{D}_v^t} \lambda_{d, v}^{t} \alpha_{d, v}^t$表示。
@@ -109,7 +111,8 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
         - \alpha_{d, v}^t
 \end{equation}
 
-\subsection{V2I协同上传模型}
+\subsection[\hspace{-2pt}V2I协同上传模型]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}V2I协同上传模型}}
+
 车辆间V2I协同上传是基于信道衰减分布和信噪比阈值来建模的。
 车辆$v$和边缘节点$e$之间的V2I通信在时间$t$的信噪比通过公式\ref{equ 4-10}\cite{sadek2009distributed}计算得到。
 \begin{equation}
@@ -142,9 +145,10 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
 \end{equation}
 \noindent 其中$\operatorname{t}_{d, v}^t = t +\operatorname{q}_{d, v}^t$是车辆$v$开始传输信息$d$的时刻。
 
-\section{质量-开销均衡问题定义}\label{section 4-4}
+\section[\hspace{-2pt}质量-开销均衡问题定义]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}质量-开销均衡问题定义}}\label{section 4-4}
 
-\subsection{VCPS质量}
+\subsection[\hspace{-2pt}VCPS质量]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}VCPS质量}}
+
 首先，由于视图是基于连续上传和时间变化的信息建模的，本章对信息$d$的及时性定义如下：
 \begin{definition}
 信息$d$在车辆$v$中的及时性$\theta_{d, v} \in \mathbb{Q}^{+}$被定义为更新和接收信息$d$之间的时间差。
@@ -177,6 +181,9 @@ $\mathbf{D}_{i^{\prime}}$的大小用$|\mathbf{D}_{i^{\prime}}|$表示。
 \end{definition}
 \noindent 其中$\hat{\Theta_{i}} \in (0, 1)$和$\hat{\Psi_{i}} \in (0, 1)$分别表示归一化的及时性和归一化的一致性，这可以通过最小-最大归一化对及时性和一致性的范围进行重新调整至$(0, 1)$来获得。
 $\hat{\Theta_{i}}$和$\hat{\Psi_{i}}$的加权系数分别用$w_1$和$w_2$表示，可以根据ITS应用的不同要求进行相应的调整，$w_1+w_2=1$。
+$\operatorname{QV}_{i}$的值越高，说明构建的视图质量越高。
+考虑车辆自动驾驶系统下，视图的时效性和一致性都是关键。一方面，汽车需要实时接收到周围车辆和行人的位置、速度和行为信息，以便能够做出准确的驾驶决策。如果视图数据延迟太高或过时，车辆可能无法及时识别出潜在的危险或变化情况，从而导致事故或冲突的发生。另一方面，一致性方面的重要性表现在视图数据的一致性建模。车辆需要确保从边缘节点接收到的视图数据是准确、完整且一致的，以便能够准确地理解周围环境并做出正确的决策。如果视图数据存在不一致或缺失，车辆可能会做出错误的判断，从而导致不安全的驾驶行为或导航错误。
+
 进一步，基于视图质量定义车载信息物理融合质量如下：
 \begin{definition}
 VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边缘节点中建模的每个视图的QV的平均值。
@@ -185,7 +192,7 @@ VCPS质量$\mathscr{Q} \in (0, 1)$被定义为在调度期间$\mathbf{T}$的边�
 	\end{equation}
 \end{definition}
 
-\subsection{VCPS开销}
+\subsection[\hspace{-2pt}VCPS开销]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}VCPS开销}}
 
 首先，由于同一物理实体的状态可能被多个车辆同时感应到，本章对信息$d$的冗余度定义如下：
 \begin{definition}
@@ -246,7 +253,8 @@ VCPS 开销$\mathscr{C} \in (0, 1)$定义为$\mathbf{T}$调度期间边缘节点
 	\end{equation}
 \end{definition}
 
-\subsection{双目标优化问题}
+\subsection[\hspace{-2pt}双目标优化问题]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}双目标优化问题}}
+
 给定解决方案$( \mathbf{C}, \bf\Lambda, \mathbf{P}, \bf\Pi, \mathbf{B} )$，其中$\mathbf{C}$表示确定的感知信息决策，$\bf\Lambda$表示确定的感知频率。$\mathbf{P}$表示确定的上传优先级，$\bf\Pi$表示确定的传输功率，$\mathbf{B}$表示确定的V2I带宽分配，其中$c_{d, v}^t$、$\lambda_{d, v}^{t}$和$p_{d, v}^{t}$分别为时间$t$内车辆$v$的信息$d$的感知信息决策、感知频率和上传优先级，$\pi_v^t$和$b_v^t$分别为时间$t$内车辆$v$的传输功率和V2I带宽。
 \begin{numcases}{}
 	\mathbf{C} = \left \{ c_{d, v}^t \vert \forall d \in \mathbf{D}_{v}, \forall v \in \mathbf{V}, \forall t \in \mathbf{T} \right  \} \notag \\
@@ -287,7 +295,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 	&(\ref{equ 4-1}) \sim (\ref{equ 4-5}), \mathcal{C}4.1 \sim \mathcal{C}4.3
 \end{align}
 
-\section{基于多目标的多智能体强化学习算法设计}\label{section 4-5}
+\section[\hspace{-2pt}基于多目标的多智能体强化学习算法设计]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}基于多目标的多智能体强化学习算法设计}}\label{section 4-5}
 
 本章节提出了基于多目标的多智能体深度强化学习算法，其模型如图\ref{fig 4-2}所示，由$K$分布式行动者、学习器和经验回放缓存组成。
 具体地，学习器由四个神经网络组成，即本地策略网络、本地评论家网络、目标策略网络和目标评论家网络。
@@ -302,7 +310,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=1\columnwidth]{Fig4-2-solution-model.pdf}
+  \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-2-solution-model.pdf}
   \bicaption[基于多目标的多智能体深度强化学习模型]{基于多目标的多智能体深度强化学习模型}[Multi-agent multi-objective deep reinforcement learning model]{Multi-agent multi-objective deep reinforcement learning model}
   \label{fig 4-2}
 \end{figure}
@@ -365,7 +373,7 @@ VCPS 利润$\mathscr{P} \in (0, 1)$被定义为在调度期$\mathbf{T}$期间，
 \label{algorithm 4-2}
 \end{algorithm}
 
-\subsection{多智能体分布式策略执行}
+\subsection[\hspace{-2pt}多智能体分布式策略执行]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}多智能体分布式策略执行}}
 
 在MAMO中，车辆和边缘节点分别通过本地策略网络分布式地决定动作。
 车辆$v$在时间$t$上对系统状态的局部观测表示为：
@@ -438,7 +446,7 @@ r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{
 边缘节点$e$在时间$t$的奖励向量表示为 $\boldsymbol{r}_{e}^{t} = \begin{bmatrix}  r_{e}^{(1), t}  &  r_{e}^{(2), t} \end{bmatrix} ^{T}$。
 交互经验包括当前系统状态$\boldsymbol{o}^{t}$、车辆动作$\boldsymbol{a}_{\mathbf{V}}^{t}$、边缘节点动作$\boldsymbol{a}_{e}^{t}$、车辆奖励$\boldsymbol{r}_{\mathbf{V}}^{t}$、边缘节点奖励$\boldsymbol{r}_{e}^{t}$、权重$\boldsymbol{w}^{t}$，以及下一时刻系统状态$\boldsymbol{o}^{t+1}$都存储到经验回放缓存$\mathcal{B}$。
 
-\subsection{多目标策略评估}
+\subsection[\hspace{-2pt}多目标策略评估]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}多目标策略评估}}
 
 本章节阐述了针对多目标的策略评估，具体地，提出了决斗评论家网络，根据状态的价值和动作的优势来评估智能体的动作。
 在DCN中有两个全连接的网络，即动作优势网络和状态价值网络。
@@ -473,7 +481,7 @@ r_{v}^{(j), t}=r^{(j)}\left(\boldsymbol{a}_{\mathbf{V}}^{t},\boldsymbol{a}_{e}^{
 	\theta_{\mathbf{E}}^{Q} = (\theta_{\mathbf{E}}^{\mathscr{A}}, \theta_{\mathbf{E}}^{\mathscr{V}}), \theta_{\mathbf{E}}^{Q^{\prime}} = (\theta_{\mathbf{E}}^{\mathscr{A}^{\prime}}, \theta_{\mathbf{E}}^{\mathscr{V}^{\prime}})
 \end{align}
 
-\subsection{网络学习和更新}
+\subsection[\hspace{-2pt}网络学习和更新]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}网络学习和更新}}
 
 从经验回放缓存$\mathcal{B}$中抽出$M$小批量，以训练车辆和边缘节点的策略和评论家网络，其中单个样本表示为 $\left(\boldsymbol{o}_{\mathbf{V}}^{m}, {o}_{e}^{m}, \boldsymbol{w}^{m}, \boldsymbol{a}_{\mathbf{V}}^{m}, {a}_{e}^{m}, \boldsymbol{r}_{\mathbf{V}}^{m}, \boldsymbol{r}_{e}^{m}, \boldsymbol{o}_{\mathbf{V}}^{m+1}, {o}_{e}^{m+1}, \boldsymbol{w}^{m+1}\right)$。
 车辆$v$的目标值表示为：
@@ -544,9 +552,9 @@ P_{e}^{m} = \nabla_{{a}_{e}^{m}} Q_{\mathbf{E}}\left({o}_{e}^{m}, {a}_{e}^{m}, \
 	\theta_{\mathbf{E}, k}^{\mu} \leftarrow \theta_{\mathbf{E}}^{\mu^{\prime}}, \theta_{\mathbf{E}, k}^{Q} \leftarrow \theta_{\mathbf{E}}^{Q^{\prime}}, \forall k \in \{1, 2, \ldots, K\}
 \end{align}
 
-\section{实验设置与结果分析}\label{section 4-6}
+\section[\hspace{-2pt}实验设置与结果分析]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}实验设置与结果分析}}\label{section 4-6}
 
-\subsection{实验设置}
+\subsection[\hspace{-2pt}实验设置]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}实验设置}}
 
 本章节使用Python 3.9.13和TensorFlow 2.8.0来搭建仿真实验模型以评估所提MAMO方案的性能，其运行在配备AMD Ryzen 9 5950X 16核处理器@ 3.4 GHz，两个NVIDIA GeForce RTX 3090 GPU和64 GB内存的Ubuntu 20.04服务器上。
 实验仿真参数设置如下：
@@ -587,20 +595,20 @@ MAMO中策略和评论家网络的架构和超参数描述如下：
 QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ越高表明它能更有效地使用感知和通信资源。上述指标全面显示了算法在同时最大化VCPS质量和最小化VCPS 开销的性能。
 本章进一步基于公式\ref{equ 4-16}、\ref{equ 4-20}、\ref{equ 4-21}和\ref{equ 4-23}设计了四个指标，分别是\textbf{平均及时性}（Average Timeliness, AT）、\textbf{平均冗余度}（Average Redundancy, AR）、\textbf{平均感知开销}（Average Sensing Cost, ASC）和\textbf{平均传输开销}（Average Transmission Cost, ATC）。 
 
-\subsection{实验结果与分析}
+\subsection[\hspace{-2pt}实验结果与分析]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}实验结果与分析}}
 
 \textbf{1) 算法收敛性：}图\ref{fig 4-3}比较了四种算法的收敛性。其中，图\ref{fig 4-3}(a)和\ref{fig 4-3}(b)分别展示了四种算法的QPUC和PPUQ表现。X轴表示迭代次数，Y轴表示达到的QPUC和PPUQ。QPUC和PPUQ越高，表明算法在VCPS质量和VCPS开销方面表现越好。MAMO在大约850次迭代后，达到了最高的QPUC（约13.6）和最高的PPUQ（约1.13）。相比之下，RA、D4PG和MAD4PG分别实现了约2.29、7.34和2.58的QPUC，并分别实现了约0.87、0.99和0.81的PPUQ。与RA、D4PG和MAD4PG相比，MAMO在QPUC方面分别实现了约494.1\%、85.5\%和428.8\%的提升，在PPUQ方面分别实现了约30.6\%、14.2\%和40.7\%的改善。值得注意的是，MAMO是唯一能够同时改善QPUC和PPUQ的方案。这显示了MAMO在同时实现QPUC和PPUQ最大化方面的优势。
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1\columnwidth]{Fig4-3-different-algorithms.pdf}
+ \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-3-different-algorithms.pdf}
  \bicaption[算法收敛性比较]{算法收敛性比较，其显示与RA、D4PG和MAD4PG相比，MAMO在收敛后（约850次迭代）达到了最高的QPUC和最高的PPUQ。（a）单位开销质量（b）单位质量利润}[Convergence comparison]{Convergence comparison, which shows MAMO achieves the highest QPUC and the highest PPUQ compared with RA, D4PG, and MAD4PG after convergence (around 850 iterations). (a) Quality per unit cost (b) Profit per unit quality}
  \label{fig 4-3}
 \end{figure}
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1\columnwidth]{Fig4-4-different-networks.pdf}
+ \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-4-different-networks.pdf}
  \bicaption[隐藏层中不同数量神经元下MAMO性能比较]{隐藏层中不同数量神经元下MAMO性能比较。（a）单位开销质量（b）单位质量利润}[Performance comparison of MAMO under different numbers of neurons in the hidden layers]{Performance comparison of MAMO under different numbers of neurons in the hidden layers. (a) Quality per unit cost (b) Profit per unit quality}
  \label{fig 4-4}
 \end{figure}
@@ -610,7 +618,7 @@ QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ�
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1\columnwidth]{Fig4-5-different-scenarios.pdf}
+ \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-5-different-scenarios.pdf}
  \bicaption[不同交通场景下的性能比较]{不同交通场景下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均感知开销（d）平均传输开销}[Performance comparison under different traffic scenarios]{Performance comparison under different traffic scenarios. (a) Quality per unit cost (b) Profit per unit quality (c) Average sensing cost (d) Average transmission cost}
  \label{fig 4-5}
 \end{figure}
@@ -620,14 +628,14 @@ QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ�
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1\columnwidth]{Fig4-6-different-bandwidths.pdf}
+ \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-6-different-bandwidths.pdf}
  \bicaption[不同V2I带宽下的性能比较]{不同V2I带宽下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均及时性（d）平均冗余度（e）平均感知开销（f）平均传输开销}[Performance comparison under different V2I bandwidths]{Performance comparison under different V2I bandwidths. (a) Quality per unit cost (b) Profit per unit quality (c) Average timeliness (d) Average redundancy (e) Average sensing cost (f) Average transmission cost}
  \label{fig 4-6}
 \end{figure}
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1\columnwidth]{Fig4-7-different-numbers.pdf}
+ \captionsetup{font={small, stretch=1.312}}\includegraphics[width=1\columnwidth]{Fig4-7-different-numbers.pdf}
  \bicaption[不同视图需求下的性能比较]{不同视图需求下的性能比较。（a）单位开销质量（b）单位质量利润（c）平均及时性（d）平均冗余度（e）平均感知开销（f）平均传输开销}[Performance comparison under different digit twin requirements]{Performance comparison under different digit twin requirements. (a) Quality per unit cost (b) Profit per unit quality (c) Average timeliness (d) Average redundancy (e) Average sensing cost (f) Average transmission cost}
  \label{fig 4-7}
 \end{figure}
@@ -638,7 +646,7 @@ QPUC越高表明它能在相同的开销下实现更高的VCPS质量，而PPUQ�
 \textbf{5) 视图需求的影响：}
 图\ref{fig 4-7}比较了四种算法在不同视图需求下的性能，其中X轴表示视图所需信息的平均数量从3增加到7。视图所需信息的平均数越大，说明车辆的感知和上传工作负荷越大。图\ref{fig 4-7}(a)比较了四种算法的QPUC。随着平均所需信息数的增加，四种算法的QPUC也相应减少。然而，MAMO在所有情况下保持最高的QPUC。图\ref{fig 4-7}(b)比较了四种算法的PPUQ。正如预期的那样，MAMO在所有情况下都取得了最高的PPUQ。特别地，与RA、D4PG和MAD4PG相比，MAMO的QPUC分别高出458.7\%、130.6\%和426.2\%，PPUQ分别高出31.5\%、18.2\%和40.7\%。图\ref{fig 4-7}(c)比较了四种算法的AT。MAMO在AT方面取得了最佳性能。图\ref{fig 4-7}(d)比较了四种算法的AR，表明MAMO可以在所有情况下实现最低的AR。图\ref{fig 4-7}(e)和\ref{fig 4-7}(f)分别比较了四种算法的ASC和ATC。值得注意的是，当平均信息数增加时，四种算法的ASC和ATC都会增加。原因是视图需要的平均信息量增加，导致车辆感应和传输开销提高。
 
-\section{本章小结}\label{section 4-7}
+\section[\hspace{-2pt}本章小结]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}本章小结}}\label{section 4-7}
 
 本章提出了协同感知与V2I上传场景，其中基于车辆协同感知与V2I协同上传构建逻辑视图。
 具体地，基于多类M/G/1优先级队列构建了协同感知模型，并基于信道衰减分布和SNR阈值构建了V2I协同上传模型。

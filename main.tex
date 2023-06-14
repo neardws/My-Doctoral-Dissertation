@@ -4,7 +4,7 @@
 %% =======================================================
 \documentclass%
 	[type=doctor, bilinguallist=apart, 
-	blindtrail, printmode=auto]{cquthesis}%
+	printmode=auto, openany]{cquthesis}%
 % 可用选项：
 % type=[bachelor|master|doctor],      % 必选，毕业论文类型，以下项目不填时为默认
 % liberalformat,                      % 可选，仅适用本科生，使用文学类论文标题格式，默认未打开
@@ -30,12 +30,21 @@
 %*** 写作时，使用这个命令只渲染你想查看的部分，提升工作效率，定稿时注释掉整行
 %\includeonly{contents/experiment,contents/analysis,}
 
+
 \begin{document}
 
 \input{contents/cover}
-\makecover %%% 封面部分
 
 \frontmatter %%%前置部分(封面后绪论前)
+%\cquauthpage[contents/cover1.pdf]
+%\cquauthpage[contents/cover2.pdf]
+%\cquauthpage[contents/cover3.pdf]
+%\cquauthpage[contents/cover4.pdf]
+
+%% 原创声明和授权说明书，可选：用扫描页替换
+%\cquauthpage[authscan.pdf]
+%\cquauthpage
+
 %% 摘要
 \makeabstract
 
@@ -100,7 +109,8 @@
 %% 参考文献
 % 顺序编码制：cqunumerical		
 % 注意：至少需要引用一篇参考文献，否则下面两行会引起编译错误。
-\bibliographystyle{cqunumerical}
+%\bibliographystyle{cqunumerical}
+\bibliographystyle{gbt7714-numerical}
 \bibliography{ref/refs}
 
 
@@ -110,9 +120,6 @@
 % 个人简历
 \include{contents/appendix}
 
-%% 原创声明和授权说明书，可选：用扫描页替换
-%\cquauthpage[contents/authscan.pdf]
-%\cquauthpage
 
 %% 致谢
 \include{contents/ack}

@@ -229,8 +229,8 @@ bindingoffset=10mm, head=16mm, headsep=11mm, foot=12mm, footnotesep=5mm}
 \renewcommand{\footrulewidth}{0pt}}
 \fancypagestyle{style@normal}{%  修改页眉样式
 \fancyhf{} % 清空页眉页脚
-\fancyhead[CO]{\zihao{5}\songti\leftmark} % O: 奇数页, L: 左页眉 \rightmark:章节号
-\fancyhead[CE]{\zihao{5}\songti\cqu@thesisname} % E: 偶数页
+\fancyhead[L]{\zihao{5}\songti\cqu@thesisname} % O: 奇数页, L: 左页眉 \rightmark:章节号
+\fancyhead[R]{\zihao{5}\songti\leftmark} % E: 偶数页。 // 页眉2023版本
 \fancyfoot{}
 \fancyfoot[C]{\zihao{-5}\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -535,7 +535,7 @@ language=Python}
 \ifcqu@bachelor
 \zihao{3}
 \begin{varwidth}{\textwidth}
-\begin{CJKfilltwosides}{4.5\ccwd}
+\begin{CJKfilltwosides}{10.5\ccwd}
 \cqu@studentCN\cqu@title@separatorCN\\
 \cqu@studentnumCN\cqu@title@separatorCN\\
 \cqu@supervisorCN\cqu@title@separatorCN\\
@@ -613,10 +613,9 @@ language=Python}
 \includegraphics[width=3cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \zihao{-3}\cqu@thesistypenameEN
-\\ \vspace{\stretch{1}}
-\zihao{-2}\textbf{\cqu@workby}
-\\ \vspace{\stretch{1}}
-\zihao{-2}\mbox{\textbf{\cqu@eauthor}}\\
+\\\vspace{\stretch{1}} %\zihao{-2}\textbf{\cqu@workby}%\\ \vspace{\stretch{1}}
+\zihao{-2}\mbox{\textbf{\cqu@eauthor}}
+\\ \vspace{\stretch{3}}
 \textbf{\cqu@supervisorEN}\textbf{\cqu@esupervisor}\\
 \vspace{\stretch{3}}
 \fi
@@ -654,7 +653,7 @@ pdfcreator = {CQUThesis--v\version, a LaTeX template.}
 \pagenumbering{Roman}
 \cqu@cabstract
 \vskip12bp
-\cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
+\cqu@put@kw{{\CJKfontspec{SimHei}\cqu@ckw@title\cqu@title@separatorCN}}{\cqu@ckeywords}
 \if@twosideprint\ifcqu@openany\ifcqu@abstractopenright\cqu@addblankpage\fi\fi\fi
 \chapter[\cqu@eabstract@tocname]{\rmfamily\textbf{\cqu@eabstract@name}}
 \cqu@fixhead
