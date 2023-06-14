@@ -49,16 +49,16 @@ main.pdf
 *.pptx
 *.psd alias
 *.psd
-/修改意见
-/修改意见/*
+修改意见
+修改意见/*
 *.icloud
-/figures origin
-/figures origin/*
+figures_origin
+figures_origin/*
 *.docx
-/查重报告
-/查重报告/*
-/盲审版本
-/盲审版本/*
-/送审版本
-/送审版本/*
+查重报告
+查重报告/*
+盲审版本
+盲审版本/*
+送审版本
+送审版本/*
 
