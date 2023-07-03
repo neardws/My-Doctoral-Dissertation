@@ -723,7 +723,7 @@ itemindent = 0mm,
 \NewDocumentEnvironment{denotation}{O{20mm} O{30mm}}{%
 \chapter*{\cqu@denotation@name}
 \chaptermark{\cqu@denotation@name}\cqu@fixhead
-\zihao{-4}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
+\zihao{5}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
 }{
 \end{cqu@denotation}}%\denotation
 \newlist{cqu@abbreviate}{description}{1}
@@ -740,7 +740,7 @@ itemindent = 0mm,
 \NewDocumentEnvironment{abbreviate}{O{20mm} O{30mm}}{%
 \chapter*{\cqu@abbreviate@name}
 \chaptermark{\cqu@abbreviate@name}\cqu@fixhead
-\zihao{-4}\begin{cqu@abbreviate}[labelindent = #1,labelwidth=#2,]
+\zihao{5}\begin{cqu@abbreviate}[labelindent = #1,labelwidth=#2,]
 }{
 \end{cqu@abbreviate}}%\denotation
 \setcounter{tocdepth}{2}
