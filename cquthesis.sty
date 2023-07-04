@@ -1,6 +1,10 @@
 \ProvidesPackage{cquthesis}[2016/06/09 The place for your beloved packages and customization.]
 
 %=====你可以在这里使用\RequirePackage[包选项]{包名称}导入想用的Package=======
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
 \usepackage[linesnumbered,ruled,vlined,resetcount,algochapter]{algorithm2e}
 \usepackage{dsfont}
 \usepackage{mathrsfs}
@@ -29,10 +33,10 @@
 \renewcommand{\cftchapfont}{\bfseries\zihao{4}}
 % 设置二级标题的字体样式
 \renewcommand{\cftsecfont}{\bfseries\zihao{5}}
-\renewcommand{\cftsecindent}{8bp}
+\renewcommand{\cftsecindent}{12bp}
 % 设置三级标题的字体样式和缩进
 \renewcommand{\cftsubsecfont}{\zihao{5}}
-\renewcommand{\cftsubsecindent}{18bp}
+\renewcommand{\cftsubsecindent}{25bp}
 % 设置章标题的编号宽度
 \setlength{\cftchapnumwidth}{0em} 
 % 设置章标题的编号和标题之间的间距
@@ -72,8 +76,8 @@
 
 \usepackage{tocloft}
 % 设置 listoffigures 和 listoftables 标题字体为三号黑体
-\renewcommand{\cftloftitlefont}{\centering\heiti\fontsize{16}{20}\selectfont\hspace*{\fill}}
-\renewcommand{\cftlottitlefont}{\centering\heiti\fontsize{16}{20}\selectfont\hspace*{\fill}}
+\renewcommand{\cftloftitlefont}{\centering\CJKfontspec{SimHei}\fontsize{16}{20}\selectfont\hspace*{\fill}}
+\renewcommand{\cftlottitlefont}{\centering\CJKfontspec{SimHei}\fontsize{16}{20}\selectfont\hspace*{\fill}}
 
 % 在 listoffigures 和 listoftables 标题前后各空一行
 \renewcommand{\cftbeforeloftitleskip}{\baselineskip} % 标题前空一行

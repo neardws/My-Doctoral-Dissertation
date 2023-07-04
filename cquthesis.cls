@@ -721,7 +721,7 @@ labelsep* = 5mm,
 itemindent = 0mm,
 }%\setlist
 \NewDocumentEnvironment{denotation}{O{20mm} O{30mm}}{%
-\chapter*{\cqu@denotation@name}
+\chapter*{\CJKfontspec{SimHei}\cqu@denotation@name}
 \chaptermark{\cqu@denotation@name}\cqu@fixhead
 \zihao{5}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
 }{
@@ -738,7 +738,7 @@ labelsep* = 5mm,
 itemindent = 0mm,
 }%\setlist
 \NewDocumentEnvironment{abbreviate}{O{20mm} O{30mm}}{%
-\chapter*{\cqu@abbreviate@name}
+\chapter*{\CJKfontspec{SimHei}\cqu@abbreviate@name}
 \chaptermark{\cqu@abbreviate@name}\cqu@fixhead
 \zihao{5}\begin{cqu@abbreviate}[labelindent = #1,labelwidth=#2,]
 }{
@@ -782,7 +782,7 @@ itemindent = 0mm,
 \let\eqlist\listeq
 \tocloftpagestyle{style@normal}
 \renewcommand{\cfttoctitlefont}{%
-\phantomsection\pdfbookmark[0]{\cqu@tocnameinbkmark}{toc}\cqu@fixhead\hfill\bfseries\sffamily\heiti\zihao{3}}
+\phantomsection\pdfbookmark[0]{\cqu@tocnameinbkmark}{toc}\cqu@fixhead\hfill\bfseries\sffamily\CJKfontspec{SimHei}\zihao{3}}
 \renewcommand{\cftloftitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
 \renewcommand{\cftlottitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
 \renewcommand{\cftequtitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
@@ -821,7 +821,7 @@ itemindent = 0mm,
 }%AtBeginDocument
 \renewcommand\@biblabel[1]{\zihao{5}[#1]}
 \renewenvironment{thebibliography}[1]
-{\chapter*{\cqu@bib@name
+{\chapter*{{\CJKfontspec{SimHei}\cqu@bib@name}
 \@mkboth{\cqu@bib@name}{}}%
 \list{\@biblabel{\@arabic\c@enumiv}}%
 {\settowidth\labelwidth{\@biblabel{#1}}%
