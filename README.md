@@ -1,18 +1,24 @@
 # 车载信息物理融合系统建模与优化关键技术研究
 
-重庆大学博士学位论文 支持 LaTeX 🔥
+> Research on Key Techniques for Modeling and Optimization of Vehicular Cyber-Physical Systems
 
-支持《**重庆大学博士、硕士学位论文格式标准（2023年修订）**》格式要求
+## 特性🔥
 
-   * [车载信息物理融合系统建模与优化关键技术研究](#车载信息物理融合系统建模与优化关键技术研究)
-      * [中文摘要](#中文摘要)
-      * [Abstract](#abstract)
-      * [论文目录](#论文目录)
-      * [使用指南](#使用指南)
-      * [引用本学位论文](#引用本学位论文)
-      * [致谢](#致谢)
+* 本项目是本人的重庆大学博士学位论文，理论上硕士和本科也可使用
+* 使用 LaTeX 编写，Mom再也不用担心我的博士论文排版（大雾）
+* 支持《**重庆大学博士、硕士学位论文格式标准（2023年修订）**》格式要求
 
-## 中文摘要
+## 目录🔎
+* [车载信息物理融合系统建模与优化关键技术研究](#车载信息物理融合系统建模与优化关键技术研究)
+
+  * [中文摘要](#中文摘要🀄)
+  * [Abstract](#Abstract🔠)
+  * [论文目录](#论文目录📖)
+  * [使用指南](#使用指南🛠)
+  * [引用本学位论文](#引用本学位论文📄)
+  * [致谢](#致谢🙏)
+
+## 中文摘要🀄
 
 随着感知模式、通讯技术和计算范式的发展，传统汽车正朝着智能化、网联化和协同化方向迅速演进。以智能网联汽车为抓手，车联网驱动的智能交通系统（Intelligent Transportation System, ITS）有望实现更安全、高效和可持续发展的交通运输。车载信息物理融合系统（Vehicular Cyber-Physical System, VCPS）是实现ITS应用的基础和关键。然而，车联网高异构、高动态和分布式等特征以及ITS应用的多元化需求给VCPS的实现带来了巨大挑战。首先，面向车联网高动态物理环境，创新的服务架构和高效的数据感知与质量评估模型是VCPS的架构基础和驱动核心。其次，面向车联网分布式异构节点资源，先进的任务调度与资源分配策略是进一步优化VCPS服务质量的技术支撑。再次，面向智能交通系统多元应用需求，创新的服务质量与系统开销均衡策略是实现高质量、低成本和可扩展VCPS的理论保障。最后，面向动态复杂车联网环境，原型系统的设计和实现是针对VCPS必要的验证手段。因此，从架构融合与系统建模、协同资源优化、质量-开销均衡，以及原型系统实现四个方面，对车载信息物理融合系统进行了理论、技术和系统上的协同创新。主要创新成果包括：
 
@@ -28,7 +34,7 @@
 4️⃣ **面向车载信息物理融合的超视距碰撞预警原型系统设计与实现**。
 首先，提出了超视距（None-Light-of-Sight, NLOS）碰撞预警场景，其中交叉路口的车辆由于视线遮挡而具有潜在碰撞风险。其次，提出了基于车载信息物理融合系统优化的碰撞预警（Vehicular Cyber-Physical System Optimization based Collision Warning, VOCW）算法，建立了V2I 应用层传输时延拟合模型，设计了数据包丢失检测机制，通过丢包检测与时延补偿实现更加实时准确的逻辑视图以提高碰撞预警系统性能。再次，构建了仿真实验模型并进行了性能评估，证明了 VOCW 算法的优越性。最后，搭建了基于车载终端和路侧设备的硬件在环试验平台，并进一步在真实的车联网环境中实现了超视距碰撞预警原型系统，并验证了所提系统的可行性与有效性。
 
-## Abstract
+## Abstract🔠
 
 With the development of sensing patterns, communication technologies, and computing paradigms, traditional vehicles are rapidly evolving towards intelligence, networking, and collaboration. By leveraging intelligent connected vehicles as the starting point, the intelligent transportation system (ITS) driven by vehicle-to-everything (V2X) communications is expected to achieve safer, more efficient, and sustainable transportation. The vehicular cyber-physical system (VCPS) is the foundation and key to implement ITS applications. However, the implementation of VCPS faces significant challenges due to the highly heterogeneous, dynamic, and distributed nature of vehicular networks, along with the diverse requirements of ITS applications. First, an innovative service architecture and efficient data sensing and quality evaluation models tailored to the highly heterogeneous and dynamic physical environment of vehicular networks are the architecture foundation and driving force of VCPS. Second, advanced task scheduling and resource allocation towards distributed heterogeneous resources in vehicular networks is the technical support for further optimizing the quality of VCPS services. Third, a novel equilibrium strategy for system quality and cost towards the diversified application demands of ITS is the theoretical guarantee for achieving high-quality, low-cost, and scalable VCPS. Finally, the design and implementation of a prototype system towards the real-world dynamical vehicular network environment is a necessary verification method for VCPS. Therefore, this thesis focuses on the theoretical, technological and systematic innovations of the VCPS from four aspects: architecture integration and system modeling, collaborative resource optimization, quality-cost tradeoff, and prototype system implementation. The main innovative contributions are as follows:
 
@@ -40,7 +46,7 @@ With the development of sensing patterns, communication technologies, and comput
 
 4️⃣ **Design and implementation of a non-line-of-sight collision warning prototype system**. First, this thesis introduces a none-line-of-sight (NLOS) collision warning scenario, where vehicles at a crossroads have potential collision risks due to line-of-sight obstructions. Second, this thesis proposes an application-layer V2I communication delay fitting model and a packet loss detection mechanism, and proposes a vehicular cyber-physical system optimization based collision warning (VOCW) algorithm that achieves real-time and accurate logical view construction via packet loss detection and delay compensation to further improve system performance. Third, this thesis constructs a simulation model and conducts performance evaluation to prove the superiority of the VOCW algorithm. Finally, this thesis builds a hardware-in-the-loop test platform based on onboard units and roadside units and further implements a prototype system for NLOS collision warning in a real-world vehicle network environment, verifying the feasibility and effectiveness of the proposed system.
 
-## 论文目录
+## 论文目录📖
 
 * 1 绪论
   * 1.1 引言
@@ -81,19 +87,58 @@ With the development of sensing patterns, communication technologies, and comput
   * 5.6 本章小结
 * 6 总结与展望
 
-## 使用指南
+## 使用指南🛠
 
-TBD
+### 特别说明
 
-## 引用本学位论文
+如果有同学希望利用本项目来加快学位论文的撰写过程，那么非常欢迎，但是需要接受本项目的免责声明。
+
+> 本项目已尽最大努力满足《重庆大学博士、硕士学位论文格式标准（2023年修订）》格式要求，但是仅凭我一人之力，肯定无法面面俱到，因此
+> - 凡是利用本项目进行学位论文撰写的，对于学位论文的格式要求是否满足概不保证
+> - 凡是利用本项目作为模版所生成的PDF进行学位申请产生的任何问题（包括但不限于格式问题），本项目概不负责
+> - 本项目对于重庆大学2023年后的学位论文格式概不支持，如果想支持2023年之后的要求（如果有的话），请自己动手修改
+
+如果接受以上免责声明，下面按照学位论文的不同组成部分依次介绍本项目如何使用
+
+### 中英文题名页
+
+本项目生成的PDF中**不包含**中英文题名页，
+
+### 独创性声明和使用授权书
+
+### 中英文摘要和关键词
+
+### 目录
+
+### 插图和表格索引
+
+### 符号和缩略语对照表
+
+### 正文
+
+### 插图和表格
+
+### 参考文献
+
+### 附录
+
+### 致谢
+
+## 引用本学位论文📄
 
 如果本学位论文或者本项目对你有所帮助，请引用本论文如下：
 
 ```bibtex
-TBD
+@phdthesis{xu2023,
+  author = {许新操},
+  title = {车载信息物理融合系统建模与优化关键技术研究},
+  school = {重庆大学},
+  year = {2023},
+  type = {PhD thesis}
+}
 ```
 
-## 致谢
+## 致谢🙏
 
 本项目是基于 https://github.com/nanmu42/CQUThesis ，感谢各位贡献者！
 
