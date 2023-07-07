@@ -9,14 +9,14 @@
 * 支持《**重庆大学博士、硕士学位论文格式标准（2023年修订）**》格式要求
 
 ## 目录🔎
-* [车载信息物理融合系统建模与优化关键技术研究](#车载信息物理融合系统建模与优化关键技术研究)
 
-  * [中文摘要](#中文摘要🀄)
-  * [Abstract](#Abstract🔠)
-  * [论文目录](#论文目录📖)
-  * [使用指南](#使用指南🛠)
-  * [引用本学位论文](#引用本学位论文📄)
-  * [致谢](#致谢🙏)
+* [中文摘要](#中文摘要)
+* [Abstract](#Abstract)
+* [论文目录](#论文目录)
+* [编译运行](#编译运行)
+* [使用指南](#使用指南)
+* [引用本学位论文](#引用本学位论文)
+* [致谢](#致谢)
 
 ## 中文摘要🀄
 
@@ -87,6 +87,20 @@ With the development of sensing patterns, communication technologies, and comput
   * 5.6 本章小结
 * 6 总结与展望
 
+## 编译运行🚆
+
+- 本项目的 LaTeX 主文件为 [/main.tex](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/main.tex)
+- 可使用常见Latex编译软件，例如，macOS 平台中的 Texifier
+- Tex 编译器为 XeLaTex
+- 本人使用的环境
+  - MacBook Pro 14-inch，2021  
+  - macOS 14.0 Beta
+  - Texifier 1.9.21
+- 本项目编译出的 PDF 不包含中英文题名页以及独创性声明和使用授权书
+
+![](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/doc/example.jpg)
+
+
 ## 使用指南🛠
 
 ### 特别说明
@@ -98,41 +112,372 @@ With the development of sensing patterns, communication technologies, and comput
 > - 凡是利用本项目作为模版所生成的PDF进行学位申请产生的任何问题（包括但不限于格式问题），本项目概不负责
 > - 本项目对于重庆大学2023年后的学位论文格式概不支持，如果想支持2023年之后的要求（如果有的话），请自己动手修改
 
-如果接受以上免责声明，下面按照学位论文的不同组成部分依次介绍本项目如何使用
+如果接受以上免责声明，下面按照学位论文的不同组成部分依次介绍
 
 ### 中英文题名页
 
-本项目生成的PDF中**不包含**中英文题名页，
+本项目生成的PDF中**不包含**中英文题名页，中英文题名页的原始文档为 [/doc/cover.doc](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/doc/cover.doc)
+
+**注意**：最终提交电子版本中 中文题名页 和 英文题名页 后都需要加一页空白页
 
 ### 独创性声明和使用授权书
 
+本项目生成的PDF中**不包含**授权书，其文档在 [/doc/独创性声明学位论文版权使用授权书-普通.doc](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/doc/独创性声明学位论文版权使用授权书-普通.doc)
+
+也可设置用扫描页代替：
+```LaTeX
+% 原创声明和授权说明书，可选：用扫描页替换
+\cquauthpage[authscan.pdf] 
+```
+
+当然，本项目提供的授权书是2023年所提交的版本，如果与现在的授权书有差异，请以现在的授权书格式为准。
+
 ### 中英文摘要和关键词
+
+如需修改中文摘要，请更改：
+```LaTeX
+\begin{cabstract}	% 中文摘要
+    % 中文摘要具体内容
+\end{cabstract}
+```
+
+如需修改英文摘要，请更改：
+```LaTeX
+\begin{eabstract}	% 英文摘要
+    % 英文摘要具体内容
+\end{cabstract}
+```
+
+其中，`\circled{1}`可输出相应包含数字的圆圈符号，如①
+
+中文关键词和英文关键词修改如下：
+
+```LaTeX
+% 中文关键词，请使用英文逗号分隔：
+\ckeywords{车联网,信息物理融合系统,车载边缘计算,优化算法,多智能体深度强化学习}
+
+% 英文关键词，请使用英文逗号分隔，关键词内可以空格：
+\ekeywords{Vehicular Networks, Cyber-Physical Systems, Vehicular Edge Computing, Optimization Algorithm, Multi-Agent Deep Reinforcement Learning
+}
+```
 
 ### 目录
 
+目录为根据 LaTeX 中正文中的章节（chapter，section，subsection）自动生成，但是默认的格式不能满足学位论文要求，因此，目录格式进行过额外的调整：
+```LaTeX
+% 目录格式设置
+\usepackage{tocloft}
+% 设置一级标题的字体样式
+\renewcommand{\cftchapfont}{\bfseries\zihao{4}}
+% 设置二级标题的字体样式
+\renewcommand{\cftsecfont}{\bfseries\zihao{5}}
+\renewcommand{\cftsecindent}{12bp}
+% 设置三级标题的字体样式和缩进
+\renewcommand{\cftsubsecfont}{\zihao{5}}
+\renewcommand{\cftsubsecindent}{25bp}
+% 设置章标题的编号宽度
+\setlength{\cftchapnumwidth}{0em} 
+% 设置章标题的编号和标题之间的间距
+\renewcommand{\cftchapaftersnum}{\hspace{1em}} 
+% 设置二级标题的编号宽度
+\setlength{\cftsecnumwidth}{0em} 
+% 设置二级标题的编号和标题之间的间距
+\renewcommand{\cftsecaftersnum}{\hspace{1em}} 
+% 设置三级标题的编号宽度
+\setlength{\cftsubsecnumwidth}{0em} 
+% 设置三级标题的编号和标题之间的间距
+\renewcommand{\cftsubsecaftersnum}{\hspace{1em}} 
+% 设置页码字体
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+```
+
 ### 插图和表格索引
+
+插图和表格索引均为根据正文中的插图和表格自动生成，通过以下语句将其加入：
+
+```LaTeX
+%% 插图索引，可选，如不用可注释掉
+\clearpage
+\phantomsection  
+\addcontentsline{toc}{chapter}{插图索引}    % 将插图索引添加至目录中，其中toc 表示table of content
+\listoffigures    % 显示插图索引
+%% 表格索引，可选，同上
+\clearpage
+\phantomsection  
+\addcontentsline{toc}{chapter}{表格索引}
+\listoftables
+```
+
+其格式的修改语句如下：
+
+```LaTeX
+\usepackage{titletoc} % 引入 titletoc 宏包
+
+\titlecontents{figure}
+  [0pt] % 左边距
+  {\fontsize{10.5}{15}图~\selectfont\parskip0pt\parindent0pt} % 字体设置和行距
+  {\thecontentslabel\enspace} % 编号
+  {}
+  {\titlerule*[0.3pc]{.}\contentspage}
+  
+\titlecontents{table}
+  [0pt] % 左边距
+  {\fontsize{10.5}{15}表~\selectfont\parskip0pt\parindent0pt} % 字体设置和行距
+  {\thecontentslabel\enspace} % 编号
+  {}
+  {\titlerule*[0.3pc]{.}\contentspage}
+  
+% 消除章节之间的间距
+\newcommand{\removelofgap}{\addtocontents{lof}{\vspace{-10pt}}}
+\newcommand{\removelotgap}{\addtocontents{lot}{\vspace{-10pt}}}
+
+\usepackage{tocloft}
+% 设置 listoffigures 和 listoftables 标题字体为三号黑体
+\renewcommand{\cftloftitlefont}{\centering\CJKfontspec{SimHei}\fontsize{16}{20}\selectfont\hspace*{\fill}}
+\renewcommand{\cftlottitlefont}{\centering\CJKfontspec{SimHei}\fontsize{16}{20}\selectfont\hspace*{\fill}}
+
+% 在 listoffigures 和 listoftables 标题前后各空一行
+\renewcommand{\cftbeforeloftitleskip}{\baselineskip} % 标题前空一行
+\renewcommand{\cftafterloftitleskip}{\baselineskip} % 标题后空一行
+\renewcommand{\cftbeforelottitleskip}{\baselineskip} % 标题前空一行
+\renewcommand{\cftafterlottitleskip}{\baselineskip} % 标题后空一行
+
+```
 
 ### 符号和缩略语对照表
 
+- 符号对照表的内容在 [/content/denotation.tex](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/contents/denotation.tex)
+- 缩略语对照表的内容在 [/contents/abbreviate.tex](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/contents/abbreviate.tex)
+
+```LaTeX
+%% 符号对照表，可选
+\clearpage
+\phantomsection 
+\addcontentsline{toc}{chapter}{主要符号对照表}
+\input{contents/denotation}
+%% 缩略语对照表，可选
+\clearpage
+\phantomsection 
+\addcontentsline{toc}{chapter}{缩略语对照表}
+\input{contents/abbreviate}
+```
+
+由于缩略语不一定初次就能整理完毕，而每次添加新缩略语后还需要根据字典顺序进行重新插入，这非常地麻烦。因此，本项目提供了一个Python脚本，其可以方便地对缩略语对照表中的内容进行排序，并生成排序后的tex文件。
+
+该脚本位于 [/contents/abbreviate_sort.py](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/contents/abbreviate_sort.py)，如需运行，请修改main函数中的file_path和output_path。
+
+```Python
+def main():
+    file_path = "abbreviate.tex"    # 缩略语对照表原始文件位置
+    original_contents = read_file(file_path)
+
+    sorted_items = sort_items(extract_items(original_contents))
+    sorted_contents = generate_sorted_content(sorted_items, original_contents)
+
+    output_path = "abbreviate sorted.tex"   # 排序后输出的文件位置
+    write_file(output_path, sorted_contents)
+```
+
 ### 正文
+
+正文部分主要包含以序号为索引的章节，例如绪论等。
+
+```LaTeX
+\include{contents/introduction}   % 对应 第一章 绪论
+\include{contents/architecture}
+\include{contents/resource}
+\include{contents/qos}
+\include{contents/system}
+\include{contents/conclusion}
+%\include{contents/yourFreeChoise}
+```
+
+各章节的tex文件均位于 [/contents/](https://github.com/neardws/My-Doctoral-Dissertation/tree/master/contents)，例如，第一章绪论的文件位于 [contents/introduction.tex](https://github.com/neardws/My-Doctoral-Dissertation/tree/master/contents/introduction.tex)
+
+```LaTex
+\chapter[\hspace{0pt}绪\hskip\ccwd{}论]{{\CJKfontspec{SimHei}\zihao{3}\hspace{-5pt}绪\hskip\ccwd{}论}}
+\section[\hspace{-2pt}引言]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}引言}}\label{section 1-1}
+\section[\hspace{-2pt}研究背景]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}研究背景}}\label{section 1-2}
+\section[\hspace{-2pt}国内外研究现状]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}国内外研究现状}}\label{section 1-3}
+\subsection[\hspace{-2pt}车联网服务架构研究与现状]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}车联网服务架构研究与现状}}
+\subsection[\hspace{-2pt}车载信息物理融合系统建模研究与现状]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}车载信息物理融合系统建模研究与现状}}
+\subsection[\hspace{-2pt}车联网资源分配与任务卸载研究与现状]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}车联网资源分配与任务卸载研究与现状}}
+\subsection[\hspace{-2pt}车载信息物理融合质量/开销优化研究与现状]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}车载信息物理融合质量/开销优化研究与现状}}
+\subsection[\hspace{-2pt}智能交通系统安全相关应用研究与现状]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}智能交通系统安全相关应用研究与现状}}
+\section[\hspace{-2pt}研究目标与研究内容]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}研究目标与研究内容}}\label{section 1-4}
+\subsection[\hspace{-2pt}研究目标]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}研究目标}}
+\subsection[\hspace{-2pt}研究内容]{{\CJKfontspec{SimHei}\zihao{4} \hspace{-8pt}研究内容}}
+\section[\hspace{-2pt}论文的特色与创新之处]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}论文的特色与创新之处}}\label{section 1-6}
+\section[\hspace{-2pt}论文的组织结构]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}论文的组织结构}}\label{section 1-7}
+```
+
+各章节中最多包含 chapter、section、subsection 三个层级，对于不同层级，其格式要求略有不同，但其实都类似，下面以引言为例：
+
+```LaTeX
+\section[\hspace{-2pt}引言]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}引言}}\label{section 1-1}
+
+% 第一步分解
+\section[]()  % [] 表示索引格式，（）表示实际显示格式，当索引格式与实际显示格式有区别时，可采用这种形式
+
+% [] 括号中内容
+\hspace{-2pt}引言  % \hspace{-2pt} 表示水平缩进 -2 pt，即向前移动 2 pt
+
+% () 括号中内容
+{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}引言}
+% \CJKfontspec{SimHei} 表示 使用 SimHei 字体
+% \zihao{-3} 字号为 小三号
+```
 
 ### 插图和表格
 
+- 图片样例
+
+```LaTeX
+\begin{figure}[h]   % h 表示图片显示位置为当前插入位置
+	\centering        % 居中
+	\captionsetup{font={small, stretch=1.312}}    % 设置标题格式
+    \includegraphics[width=1\columnwidth]{Fig1-1-V2X.pdf}    % 设置图片宽度为占满一栏
+	\bicaption[车联网演进方向]{车联网演进方向}[Evolution direction of the Internet of Vehicles]{Evolution direction of the Internet of Vehicles}   % 分别为图片的中英文标题
+	\label{fig 1-1}  % 图片标签
+\end{figure}
+```
+
+- 表格样例
+
+```LaTex
+\begin{table}[h]\small    % 设置表格字体为5号
+\setstretch{1.245}        % 设置具有指定弹力的橡皮长度（原行宽的1.2倍）
+\captionsetup{font={small, stretch=1.512}}
+\centering
+\bicaption{不同场景的交通特征}{Traffic characteristics of each scenario}    % 中英文标题
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}[t]{cccccccc}
+\toprule
+场景&轨迹&ADT (s)&VDT&AVN&VVN&AVS (m/s)&VVS\\
+\midrule
+1&718&198.3&123.8&474.6&11.6&5.22&2.61\\
+2&359&173.7&124.1&207.9&3.93&7.30&3.16\\
+3&206&145.5&114.7&99.9&7.65&8.06&3.70\\
+\bottomrule
+\end{tabular}}
+\label{table 2-1}
+\end{table} 
+```
+
 ### 参考文献
+
+学位论文参考文献需要满足GB/T 7714—2015 《信息与文献 参考文献著录规则》要求，因此直接使用 [GB/T 7714—2015 BibTeX Style](https://github.com/zepinglee/gbt7714-bibtex-style) 即可，在这里也感谢该项目贡献者们！
+
+```LaTex
+% 参考文献
+\bibliographystyle{gbt7714-numerical}  
+\bibliography{ref/refs}
+```
+
+本项目的参考文献是使用的顺序编码制，如果有其他需要，也可以参考 [GB/T 7714—2015 BibTeX Style](https://github.com/zepinglee/gbt7714-bibtex-style) 项目。
+
+以下列出不同类型的参考文献所需要的信息，注意不要有缺失情况，否则会出现例如[s1..sn]的类似输出。
+
+- 期刊
+```bibtex
+@article{agiwal2016next,
+ author = {Agiwal, Mamta and Roy, Abhishek and Saxena, Navrati},
+ journal = {IEEE Communications Surveys \& Tutorials},
+ number = {3},
+ pages = {1617--1655},
+ publisher = {IEEE},
+ title = {{Next generation 5G wireless networks: A comprehensive survey}},
+ volume = {18},
+ year = {2016}
+}
+```
+- 会议
+```bibtex
+@inproceedings{dai2021asynchronous,
+ address = {Virtual Conference},
+ author = {Dai, Penglin and Hu, Kaiwen and Wu, Xiao and others},
+ pages={1-10},
+ booktitle = {Proceedings of IEEE International Conference on Computer Communications (INFOCOM)},
+ publisher = {IEEE},
+ title = {{Asynchronous deep reinforcement learning for data-driven task offloading in MEC-empowered vehicular networks}},
+ year = {2021}
+}
+```
+- 书籍
+```bibtex
+@book{cheng2021feng,
+ address = {北京},
+ author = {{陈山枝, 胡金玲, 赵丽, 等}},
+ publisher = {人民邮电出版社},
+ title = {{蜂窝车联网（C-V2X）}},
+ year = {2021}
+}
+```
 
 ### 附录
 
+附录文件位于 [\contents\appendix.tex](https://github.com/neardws/My-Doctoral-Dissertation/blob/master/contents/appendix.tex)，其中最后一部分必须为学位论文数据集
+
+```LaTeX
+\newpage
+\section[\hspace{-2pt}学位论文数据集]{{\CJKfontspec{SimHei}\zihao{-3} \hspace{-8pt}学位论文数据集}}
+
+\begin{table}[h]
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|cllcclclcl|}
+\hline
+\multicolumn{4}{|c|}{\heiti{关键词}}             & \multicolumn{2}{c|}{\heiti{密级}}   & \multicolumn{4}{c|}{\heiti{中图分类号}}                                    \\ \hline
+\multicolumn{4}{|c|}{\begin{tabular}[c]{@{}c@{}}车载信息物理融合系统;\\异构车联网; 车载边缘计算;\\资源优化; 多智能体深度强化学习\end{tabular}} & \multicolumn{2}{c|}{公开} & \multicolumn{4}{c|}{TP} \\ \hline
+\multicolumn{3}{|c|}{\heiti{学位授予单位名称}} & \multicolumn{3}{c|}{\heiti{学位授予单位代码}}    & \multicolumn{2}{c|}{\heiti{学位类别}}  & \multicolumn{2}{c|}{\heiti{学位级别}}        \\ \hline
+\multicolumn{3}{|c|}{\secretize{重庆大学}}     & \multicolumn{3}{c|}{\secretize{10611}}       & \multicolumn{2}{c|}{学术学位}  & \multicolumn{2}{c|}{博士}          \\ \hline
+\multicolumn{4}{|c|}{\heiti{论文题名}}            & \multicolumn{2}{c|}{\heiti{并列题名}} & \multicolumn{4}{c|}{\heiti{论文语种}}                                     \\ \hline
+\multicolumn{4}{|c|}{\begin{tabular}[c]{@{}c@{}}车载信息物理融合系统建模与优化关键技术研究\end{tabular}}               & \multicolumn{2}{c|}{无}   & \multicolumn{4}{c|}{中文} \\ \hline
+\multicolumn{3}{|c|}{\heiti{作者姓名}}     & \multicolumn{3}{c|}{\secretize{许新操}}         & \multicolumn{2}{c|}{\heiti{学号}}    & \multicolumn{2}{c|}{\secretize{20191401452}} \\ \hline
+\multicolumn{6}{|c|}{\heiti{培养单位名称}}                                      & \multicolumn{4}{c|}{\heiti{培养单位代码}}                                   \\ \hline
+\multicolumn{6}{|c|}{\secretize{重庆大学}}                                        & \multicolumn{4}{c|}{\secretize{10611}}                                    \\ \hline
+\multicolumn{3}{|c|}{\heiti{学科专业}}     & \multicolumn{3}{c|}{\heiti{研究方向}}        & \multicolumn{2}{c|}{\heiti{学制}}    & \multicolumn{2}{c|}{\heiti{学位授予年}}       \\ \hline
+\multicolumn{3}{|c|}{计算机科学与技术} & \multicolumn{3}{c|}{车联网}         & \multicolumn{2}{c|}{4年}     & \multicolumn{2}{c|}{\secretize{2023年}}        \\ \hline
+\multicolumn{3}{|c|}{\heiti{论文提交日期}}   & \multicolumn{3}{c|}{\secretize{2023年6月}}     & \multicolumn{2}{c|}{\heiti{论文总页数}} & \multicolumn{2}{c|}{\pageref{LastPage}}         \\ \hline
+\multicolumn{3}{|c|}{\heiti{导师姓名}}     & \multicolumn{3}{c|}{\secretize{刘凯}}          & \multicolumn{2}{c|}{\heiti{职称}}    & \multicolumn{2}{c|}{教授}          \\ \hline
+\multicolumn{6}{|c|}{\heiti{答辩委员会主席}}                                     & \multicolumn{4}{c|}{\secretize{雒江涛}}                                      \\ \hline
+\multicolumn{10}{|c|}{\heiti{\begin{tabular}[c]{@{}c@{}} 电子版论文提交格式\\ 文本（\checkmark） 图像（） 视频（）音频（）多媒体（）其他（）\end{tabular}}}                              \\ \hline
+\end{tabular}%
+}
+\end{table}
+```
+
 ### 致谢
+
+致谢中主要需要注意落款的格式：
+
+```LaTeX
+\vfill
+\begin{flushright}
+{\CJKfontspec{STXingkai} \Large 许新操} \hspace*{3.5em}
+\\  \hspace*{\fill} \\
+{二〇二三年五月\hspace*{1em}于重庆}
+\end{flushright}
+```
 
 ## 引用本学位论文📄
 
-如果本学位论文或者本项目对你有所帮助，请引用本论文如下：
+如果本学位论文或者本项目对你有所帮助，请引用本学位论文如下：
 
 ```bibtex
-@phdthesis{xu2023,
+@phdthesis{xu2023research,
   author = {许新操},
   title = {车载信息物理融合系统建模与优化关键技术研究},
   school = {重庆大学},
+  year = {2023},
+  type = {PhD thesis}
+}
+
+@phdthesis{xu2023research,
+  author = {Xincao Xu},
+  title = {Research on Key Techniques for Modeling and Optimization of Vehicular Cyber-Physical Systems},
+  school = {Chongqing University},
   year = {2023},
   type = {PhD thesis}
 }
@@ -143,5 +488,7 @@ With the development of sensing patterns, communication technologies, and comput
 本项目是基于 https://github.com/nanmu42/CQUThesis ，感谢各位贡献者！
 
 也感谢在本人进行学位论文撰写、校对过程中提供无私帮助的人们！
+
+本学位论文虽然经过了预答辩、盲审、答辩等诸多流程，但是可能无法避免仍存在一些本人暂未发现的问题。我之所以将我的学位论文在GitHub上公开，一来是想帮助各位更快地完成学位论文撰写，尽量少花费精力在论文格式上，二来也希望各位在使用本项目时，如果发现了本论文中有问题，也欢迎各位提交 issue！
 
 世界因你们更美好！
